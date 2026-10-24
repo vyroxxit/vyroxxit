@@ -34,6 +34,9 @@ nav a:hover{color:var(--ink)}
 .hero h1{font-size:clamp(34px,6vw,62px);line-height:1.2;margin:0 0 16px;font-weight:700}
 .hero p{color:var(--muted);max-width:32em;margin:0 0 26px}
 .cta{display:flex;gap:12px;flex-wrap:wrap}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;direction:ltr;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;line-height:2;color:var(--muted)}
+.panel .ok{color:var(--accent)}
+.panel .warn{color:var(--hot)}
 .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border-block:1px solid var(--line)}
 .facts div{padding:18px 8px}
 .facts small{display:block;color:var(--muted);font-size:13px}
@@ -56,27 +59,36 @@ textarea{min-height:130px;resize:vertical}
 .send{display:flex;gap:12px;flex-wrap:wrap}
 footer{padding:30px 0 44px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 @media (max-width:820px){.hero,.formbox{grid-template-columns:1fr}nav{display:none}}
-@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}.spin{transform-origin:200px 200px;animation:spin 140s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}}
-.emblem{width:100%;max-width:420px;height:auto;justify-self:center;display:block}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+.emblem{width:100%;max-width:420px;height:auto;justify-self:center;display:block;direction:ltr}
 .emblem text{font-family:"IBM Plex Sans Arabic","Segoe UI",Arial,sans-serif}
+
+.tools{display:flex;gap:8px;align-items:center}
+.seg{display:flex;border:1.5px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button,.theme{font:inherit;font-size:14px;border:0;background:transparent;color:var(--muted);padding:5px 11px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.theme{border:1.5px solid var(--line);border-radius:8px;font-size:16px;line-height:1.5}
+[dir="ltr"] .card ul{padding:0 0 0 18px}
+@media (max-width:560px){.hcta{display:none}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <a class="logo" href="#top">VYROXX <b>IT</b></a>
-    <nav><a href="#services">الخدمات</a><a href="#request">أرسل مشكلتك</a><a href="#contact">تواصل</a></nav>
-    <a class="btn" href="#request">أرسل مشكلتك</a>
+    <nav><a href="#services" data-i="nav1">الخدمات</a><a href="#request" data-i="nav2">أرسل مشكلتك</a><a href="#contact" data-i="nav3">تواصل</a></nav>
+    <div class="tools"><div class="seg" role="group" aria-label="Language"><button type="button" data-lang="ar">ع</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="fr">FR</button></div><button class="theme" id="theme" type="button" aria-label="Theme"></button></div>
+    <a class="btn hcta" href="#request" data-i="nav2">أرسل مشكلتك</a>
   </header>
 
   <main id="top">
     <div class="hero">
       <div>
-        <h1>تقنيتك، مسؤوليتنا</h1>
-        <p>حلول تقنية احترافية، دعم فني، أمن سيبراني، ألعاب ولينكس. اشرح لنا مشكلتك وسنتولى حلّها، حضوريًا أو عن بعد، على مدار الساعة.</p>
+        <h1 data-i="h1">تقنيتك، مسؤوليتنا</h1>
+        <p data-i="hp">حلول تقنية احترافية، دعم فني، أمن سيبراني، ألعاب ولينكس. اشرح لنا مشكلتك وسنتولى حلّها، حضوريًا أو عن بعد، على مدار الساعة.</p>
         <div class="cta">
-          <a class="btn" href="#request">أرسل مشكلتك الآن</a>
-          <a class="btn alt" href="#services">تصفّح الخدمات</a>
+          <a class="btn" href="#request" data-i="cta1">أرسل مشكلتك الآن</a>
+          <a class="btn alt" href="#services" data-i="cta2">تصفّح الخدمات</a>
         </div>
       </div>
       <svg class="emblem" viewBox="0 0 400 410" role="img" aria-label="شعار VYROXX IT SERVICES: درع مجنّح يعلوه تاج">
@@ -90,11 +102,11 @@ footer{padding:30px 0 44px;border-top:1px solid var(--line);color:var(--muted);f
         <circle cx="200" cy="200" r="195" fill="url(#glow)"/>
         <circle cx="200" cy="200" r="172" fill="none" stroke="var(--line)" stroke-width="1.5"/>
         <circle cx="200" cy="200" r="128" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="2 8" stroke-linecap="round"/>
-        <g class="spin">
+        <g class="spin"><animateTransform attributeName="transform" type="rotate" from="0 200 200" to="360 200 200" dur="90s" repeatCount="indefinite"/>
           <text font-size="19" fill="var(--accent)" letter-spacing="3"><textPath href="#ringPath" textLength="925" lengthAdjust="spacing">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ</textPath></text>
         </g>
         <g fill="var(--accent)" fill-opacity=".16" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round">
-          <path d="M255 190 C300 150 350 140 388 150 C362 165 347 175 337 190 C357 190 367 195 374 205 C347 212 332 220 324 232 C340 236 348 242 352 252 C322 255 297 250 262 240 Z"/>
+          <path id="wing" d="M255 190 C300 150 350 140 388 150 C362 165 347 175 337 190 C357 190 367 195 374 205 C347 212 332 220 324 232 C340 236 348 242 352 252 C322 255 297 250 262 240 Z"/>
           <path transform="translate(400 0) scale(-1 1)" d="M255 190 C300 150 350 140 388 150 C362 165 347 175 337 190 C357 190 367 195 374 205 C347 212 332 220 324 232 C340 236 348 242 352 252 C322 255 297 250 262 240 Z"/>
         </g>
         <path d="M200 135 L255 155 V215 C255 250 230 275 200 292 C170 275 145 250 145 215 V155 Z" fill="var(--surface)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
@@ -111,38 +123,38 @@ footer{padding:30px 0 44px;border-top:1px solid var(--line);color:var(--muted);f
     </div>
 
     <div class="facts" id="contact">
-      <div><small>الهاتف / WhatsApp</small><a href="tel:+212646126501" dir="ltr">0646126501</a></div>
-      <div><small>البريد الإلكتروني</small><a href="mailto:vyroxxvx@gmail.com">vyroxxvx@gmail.com</a></div>
-      <div><small>المدينة</small><span>فاس، المغرب</span></div>
-      <div><small>ساعات العمل</small><span>24/7 طوال أيام الأسبوع</span></div>
+      <div><small data-i="f1">الهاتف / WhatsApp</small><a href="tel:+212646126501" dir="ltr">+212646126501</a></div>
+      <div><small data-i="f2">البريد الإلكتروني</small><a href="mailto:vyroxxvx@gmail.com">vyroxxvx@gmail.com</a></div>
+      <div><small data-i="f3">المدينة</small><span data-i="city">فاس، المغرب</span></div>
+      <div><small data-i="f4">ساعات العمل</small><span data-i="hours">24/7 طوال أيام الأسبوع</span></div>
     </div>
 
     <section id="services">
-      <h2>خدماتنا</h2>
-      <p class="sub">كل ما تحتاجه من دعم تقني وحماية رقمية في مكان واحد.</p>
+      <h2 data-i="s_h">خدماتنا</h2>
+      <p class="sub" data-i="s_sub">كل ما تحتاجه من دعم تقني وحماية رقمية في مكان واحد.</p>
       <div class="cards" id="cards"></div>
-      <p class="note">نساعدك في استرجاع حساباتك الخاصة فقط إذا فقدت الوصول إليها، ونفعّل البرامج بتراخيص أصلية فقط.</p>
+      <p class="note" data-i="note">نساعدك في استرجاع حساباتك الخاصة فقط إذا فقدت الوصول إليها، ونفعّل البرامج بتراخيص أصلية فقط.</p>
     </section>
 
     <section id="request">
       <div class="formbox">
         <div>
-          <h2>أرسل مشكلتك</h2>
-          <p class="sub">صف المشكلة بالتفصيل، واختر طريقة الإرسال. سنردّ عليك بأسرع وقت ممكن.</p>
+          <h2 data-i="r_h">أرسل مشكلتك</h2>
+          <p class="sub" data-i="r_sub">صف المشكلة بالتفصيل، واختر طريقة الإرسال. سنردّ عليك بأسرع وقت ممكن.</p>
         </div>
         <div>
-          <label for="name">الاسم</label>
+          <label for="name" data-i="l1">الاسم</label>
           <input id="name" autocomplete="name">
-          <label for="contactInfo">رقم الهاتف أو البريد للرد عليك</label>
+          <label for="contactInfo" data-i="l2">رقم الهاتف أو البريد للرد عليك</label>
           <input id="contactInfo" autocomplete="off">
-          <label for="service">نوع الخدمة</label>
+          <label for="service" data-i="l3">نوع الخدمة</label>
           <select id="service"></select>
-          <label for="msg">وصف المشكلة</label>
+          <label for="msg" data-i="l4">وصف المشكلة</label>
           <textarea id="msg" placeholder="مثال: الحاسوب بطيء جدًا ويظهر خطأ عند تشغيل اللعبة…"></textarea>
           <p class="err" id="err" role="alert"></p>
           <div class="send">
-            <button class="btn" type="button" id="wa">إرسال عبر WhatsApp</button>
-            <button class="btn alt" type="button" id="mail">إرسال عبر البريد</button>
+            <button class="btn" type="button" id="wa" data-i="wa">إرسال عبر WhatsApp</button>
+            <button class="btn alt" type="button" id="mail" data-i="mail">إرسال عبر البريد</button>
           </div>
         </div>
       </div>
@@ -151,48 +163,111 @@ footer{padding:30px 0 44px;border-top:1px solid var(--line);color:var(--muted);f
 
   <footer>
     <span dir="ltr">VYROXX IT SERVICES · Your Technology, Our Responsibility</span>
-    <span>فاس، المغرب</span>
+    <span data-i="city">فاس، المغرب</span>
   </footer>
 </div>
 
 <script>
-var S=[
-["🖥️","خدمات الحاسوب",["تثبيت وإصلاح Windows","تثبيت البرامج والتعريفات","حل مشاكل النظام وتسريع الحاسوب","دعم فني لأنظمة Windows"]],
-["📱","خدمات الهواتف",["إصلاح مشاكل النظام (Software)","تحديث النظام","إزالة الفيروسات والمشاكل البرمجية"]],
-["🎮","خدمات الألعاب",["تثبيت الألعاب على الحاسوب والأجهزة المحمولة مهما كان حجمها","حل مشاكل التشغيل والأخطاء (Errors)","تحسين الأداء وزيادة الـ FPS قدر الإمكان","تثبيت التحديثات والإضافات (DLCs)","ضبط إعدادات الألعاب لأفضل أداء","حل مشاكل Steam وEpic Games Launcher وEA app وغيرها","ربط الألعاب بالمنصات الرسمية عند الحاجة"]],
-["🌐","الشبكات",["إعداد الراوتر","تأمين الشبكات المنزلية والمكتبية","حل مشاكل الإنترنت","استشارات الشبكات المنزلية"]],
-["🔐","الأمن السيبراني",["تأمين الحسابات","حماية الأجهزة من الفيروسات","استشارات أمنية","المساعدة في استرجاع حساباتك الخاصة إذا فقدت الوصول إليها","التوعية بالممارسات الأمنية"]],
-["🌑","الإنترنت العميق والمظلم",["التحقق من ظهور بياناتك أو بريدك في تسريبات معروفة","تقييم المخاطر الناتجة عن التسريب","إرشادات لتأمين الحسابات بعد التسريب","المساعدة في تغيير كلمات المرور","استشارات حماية الهوية الرقمية والخصوصية"]],
-["🐧","خدمات لينكس",["تثبيت وتكوين توزيعات لينكس","المساعدة في Kali Linux وUbuntu وغيرها","حل مشاكل لينكس","تثبيت الأدوات والبرامج","شرح أساسيات الاستخدام","إعداد بيئة عمل للمطورين والمهتمين بالأمن السيبراني"]],
-["💻","المساعدة عن بعد",["إصلاح المشاكل عبر AnyDesk أو TeamViewer","دعم فني سريع دون الحاجة للحضور"]],
-["🗂️","استعادة البيانات",["استرجاع الملفات المحذوفة","نسخ احتياطي ونقل البيانات"]],
-["☁️","الخدمات السحابية",["إعداد البريد الإلكتروني","إعداد مزامنة الملفات","حل مشاكل الحسابات والخدمات السحابية"]],
-["🔑","التفعيل",["تفعيل Windows بتراخيص أصلية","تفعيل Office بتراخيص أصلية","تفعيل البرامج بتراخيص أصلية"]]
-];
-var cards=document.getElementById("cards"),sel=document.getElementById("service");
-S.forEach(function(s){
-  var c=document.createElement("div");c.className="card";
-  c.innerHTML="<h3><span>"+s[0]+"</span>"+s[1]+"</h3><ul>"+s[2].map(function(i){return "<li>"+i+"</li>"}).join("")+"</ul>";
-  cards.appendChild(c);
-  var o=document.createElement("option");o.textContent=s[1];sel.appendChild(o);
-});
+var IC=["🖥️","📱","🎮","🌐","🔐","🌑","🐧","💻","🗂️","☁️","🔑"];
+var SV={
+ar:[["خدمات الحاسوب",["تثبيت وإصلاح Windows","تثبيت البرامج والتعريفات","حل مشاكل النظام وتسريع الحاسوب","دعم فني لأنظمة Windows"]],
+["خدمات الهواتف",["إصلاح مشاكل النظام (Software)","تحديث النظام","إزالة الفيروسات والمشاكل البرمجية"]],
+["خدمات الألعاب",["تثبيت الألعاب على الحاسوب والأجهزة المحمولة مهما كان حجمها","حل مشاكل التشغيل والأخطاء (Errors)","تحسين الأداء وزيادة الـ FPS قدر الإمكان","تثبيت التحديثات والإضافات (DLCs)","ضبط إعدادات الألعاب لأفضل أداء","حل مشاكل Steam وEpic Games Launcher وEA app وغيرها","ربط الألعاب بالمنصات الرسمية عند الحاجة"]],
+["الشبكات",["إعداد الراوتر","تأمين الشبكات المنزلية والمكتبية","حل مشاكل الإنترنت","استشارات الشبكات المنزلية"]],
+["الأمن السيبراني",["تأمين الحسابات","حماية الأجهزة من الفيروسات","استشارات أمنية","المساعدة في استرجاع حساباتك الخاصة إذا فقدت الوصول إليها","التوعية بالممارسات الأمنية"]],
+["الإنترنت العميق والمظلم",["التحقق من ظهور بياناتك أو بريدك في تسريبات معروفة","تقييم المخاطر الناتجة عن التسريب","إرشادات لتأمين الحسابات بعد التسريب","المساعدة في تغيير كلمات المرور","استشارات حماية الهوية الرقمية والخصوصية"]],
+["خدمات لينكس",["تثبيت وتكوين توزيعات لينكس","المساعدة في Kali Linux وUbuntu وغيرها","حل مشاكل لينكس","تثبيت الأدوات والبرامج","شرح أساسيات الاستخدام","إعداد بيئة عمل للمطورين والمهتمين بالأمن السيبراني"]],
+["المساعدة عن بعد",["إصلاح المشاكل عبر AnyDesk أو TeamViewer","دعم فني سريع دون الحاجة للحضور"]],
+["استعادة البيانات",["استرجاع الملفات المحذوفة","نسخ احتياطي ونقل البيانات"]],
+["الخدمات السحابية",["إعداد البريد الإلكتروني","إعداد مزامنة الملفات","حل مشاكل الحسابات والخدمات السحابية"]],
+["التفعيل",["تفعيل Windows بتراخيص أصلية","تفعيل Office بتراخيص أصلية","تفعيل البرامج بتراخيص أصلية"]]],
+en:[["Computer Services",["Windows installation and repair","Software and driver installation","System troubleshooting and PC speed-up","Technical support for Windows"]],
+["Mobile Services",["Software troubleshooting and repair","System updates","Virus and malware removal"]],
+["Gaming Services",["Install games on PC and mobile, whatever their size","Fix launch problems and errors","Optimize performance and boost FPS where possible","Install updates and DLCs","Configure game settings for best performance","Fix Steam, Epic Games Launcher, EA app and other platform issues","Link games to official platforms when needed"]],
+["Networking",["Router setup","Home and office network security","Internet troubleshooting","Home network consulting"]],
+["Cybersecurity",["Account security","Device protection against viruses and malware","Security consulting","Help recovering your own accounts if you lost access","Security awareness and best practices"]],
+["Deep & Dark Web",["Check whether your data or email appeared in known leaks","Assess the risks of a data leak","Guidance to secure accounts after a leak","Help changing passwords","Digital identity and privacy consulting"]],
+["Linux Services",["Install and configure Linux distributions","Help with Kali Linux, Ubuntu and others","Linux troubleshooting","Tools and software installation","Linux basics and guidance","Set up environments for developers and cybersecurity learners"]],
+["Remote Support",["Fix problems online with AnyDesk or TeamViewer","Fast support, no visit needed"]],
+["Data Recovery",["Recover deleted files","Data backup and migration"]],
+["Cloud Services",["Email account setup","File sync setup","Cloud account and service troubleshooting"]],
+["Software Activation",["Windows activation with genuine licenses","Office activation with genuine licenses","Software activation with genuine licenses"]]],
+fr:[["Services informatiques",["Installation et réparation de Windows","Installation de logiciels et de pilotes","Dépannage système et accélération du PC","Assistance technique Windows"]],
+["Services mobiles",["Dépannage logiciel","Mises à jour du système","Suppression des virus et logiciels malveillants"]],
+["Jeux vidéo",["Installation de jeux sur PC et mobile, quelle que soit leur taille","Résolution des problèmes de lancement et des erreurs","Optimisation des performances et hausse des FPS","Installation des mises à jour et DLC","Réglage des paramètres pour de meilleures performances","Problèmes Steam, Epic Games Launcher, EA app, etc.","Liaison des jeux aux plateformes officielles si nécessaire"]],
+["Réseaux",["Configuration du routeur","Sécurisation des réseaux domestiques et professionnels","Dépannage Internet","Conseils sur les réseaux domestiques"]],
+["Cybersécurité",["Sécurisation des comptes","Protection des appareils contre les virus","Conseils en sécurité","Aide à récupérer vos propres comptes en cas de perte d’accès","Sensibilisation aux bonnes pratiques"]],
+["Deep Web et Dark Web",["Vérifier si vos données ou votre e-mail figurent dans des fuites connues","Évaluer les risques d’une fuite de données","Conseils pour sécuriser vos comptes après une fuite","Aide au changement des mots de passe","Conseils sur l’identité numérique et la vie privée"]],
+["Services Linux",["Installation et configuration de distributions Linux","Aide sur Kali Linux, Ubuntu et autres","Dépannage Linux","Installation d’outils et de logiciels","Bases de Linux et accompagnement","Environnement pour développeurs et passionnés de cybersécurité"]],
+["Assistance à distance",["Dépannage en ligne avec AnyDesk ou TeamViewer","Assistance rapide sans déplacement"]],
+["Récupération de données",["Récupération de fichiers supprimés","Sauvegarde et transfert de données"]],
+["Services cloud",["Configuration de la messagerie","Configuration de la synchronisation des fichiers","Dépannage des comptes et services cloud"]],
+["Activation de logiciels",["Activation de Windows avec licences authentiques","Activation d’Office avec licences authentiques","Activation de logiciels avec licences authentiques"]]]
+};
+var T={
+ar:{t:"Vyroxx IT Services | خدمات تقنية وأمن سيبراني",nav1:"الخدمات",nav2:"أرسل مشكلتك",nav3:"تواصل",h1:"تقنيتك، مسؤوليتنا",hp:"حلول تقنية احترافية، دعم فني، أمن سيبراني، ألعاب ولينكس. اشرح لنا مشكلتك وسنتولى حلّها، حضوريًا أو عن بعد، على مدار الساعة.",cta1:"أرسل مشكلتك الآن",cta2:"تصفّح الخدمات",f1:"الهاتف / WhatsApp",f2:"البريد الإلكتروني",f3:"المدينة",city:"فاس، المغرب",f4:"ساعات العمل",hours:"24/7 طوال أيام الأسبوع",s_h:"خدماتنا",s_sub:"كل ما تحتاجه من دعم تقني وحماية رقمية في مكان واحد.",note:"نساعدك في استرجاع حساباتك الخاصة فقط إذا فقدت الوصول إليها، ونفعّل البرامج بتراخيص أصلية فقط.",r_h:"أرسل مشكلتك",r_sub:"صف المشكلة بالتفصيل، واختر طريقة الإرسال. سنردّ عليك بأسرع وقت ممكن.",l1:"الاسم",l2:"رقم الهاتف أو البريد للرد عليك",l3:"نوع الخدمة",l4:"وصف المشكلة",ph:"مثال: الحاسوب بطيء جدًا ويظهر خطأ عند تشغيل اللعبة…",wa:"إرسال عبر WhatsApp",mail:"إرسال عبر البريد",err:"اكتب وصف المشكلة أولًا.",hi:"مرحبًا Vyroxx، لدي مشكلة:",nm:"الاسم",ct:"للتواصل",sv:"الخدمة",pb:"المشكلة",subj:"طلب دعم: "},
+en:{t:"Vyroxx IT Services | IT Support & Cybersecurity",nav1:"Services",nav2:"Send your problem",nav3:"Contact",h1:"Your Technology, Our Responsibility",hp:"Professional IT solutions, technical support, cybersecurity, gaming and Linux. Describe your problem and we’ll solve it, on site or remotely, around the clock.",cta1:"Send your problem now",cta2:"Browse services",f1:"Phone / WhatsApp",f2:"Email",f3:"City",city:"Fez, Morocco",f4:"Working hours",hours:"24/7, every day of the week",s_h:"Our services",s_sub:"Everything you need in technical support and digital protection, in one place.",note:"We only help you recover your own accounts if you lost access, and we only activate software with genuine licenses.",r_h:"Send your problem",r_sub:"Describe the problem in detail and choose how to send it. We’ll reply as soon as possible.",l1:"Name",l2:"Phone or email so we can reply",l3:"Service type",l4:"Problem description",ph:"Example: my PC is very slow and a game shows an error…",wa:"Send via WhatsApp",mail:"Send by email",err:"Please describe your problem first.",hi:"Hello Vyroxx, I have a problem:",nm:"Name",ct:"Contact",sv:"Service",pb:"Problem",subj:"Support request: "},
+fr:{t:"Vyroxx IT Services | Assistance informatique et cybersécurité",nav1:"Services",nav2:"Envoyer un problème",nav3:"Contact",h1:"Votre technologie, notre responsabilité",hp:"Solutions informatiques professionnelles, assistance technique, cybersécurité, jeux vidéo et Linux. Décrivez-nous votre problème et nous le réglons, sur place ou à distance, 24 h/24.",cta1:"Envoyer mon problème",cta2:"Voir les services",f1:"Téléphone / WhatsApp",f2:"E-mail",f3:"Ville",city:"Fès, Maroc",f4:"Horaires",hours:"24 h/24, 7 j/7",s_h:"Nos services",s_sub:"Tout ce qu’il vous faut en assistance technique et protection numérique, au même endroit.",note:"Nous aidons uniquement à récupérer vos propres comptes en cas de perte d’accès, et nous n’activons les logiciels qu’avec des licences authentiques.",r_h:"Envoyer mon problème",r_sub:"Décrivez le problème en détail et choisissez le mode d’envoi. Nous vous répondrons dès que possible.",l1:"Nom",l2:"Téléphone ou e-mail pour vous répondre",l3:"Type de service",l4:"Description du problème",ph:"Exemple : mon PC est très lent et un jeu affiche une erreur…",wa:"Envoyer via WhatsApp",mail:"Envoyer par e-mail",err:"Décrivez d’abord votre problème.",hi:"Bonjour Vyroxx, j’ai un problème :",nm:"Nom",ct:"Contact",sv:"Service",pb:"Problème",subj:"Demande d’assistance : "}
+};
+var root=document.documentElement,cards=document.getElementById("cards"),sel=document.getElementById("service"),lang="ar";
+function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function setLang(l){
+  lang=l;var t=T[l];
+  root.lang=l;root.dir=l==="ar"?"rtl":"ltr";
+  document.title=t.t;
+  document.querySelectorAll("[data-i]").forEach(function(e){e.textContent=t[e.getAttribute("data-i")]});
+  document.getElementById("msg").placeholder=t.ph;
+  var idx=Math.max(sel.selectedIndex,0);
+  cards.innerHTML="";sel.innerHTML="";
+  SV[l].forEach(function(s,k){
+    var c=document.createElement("div");c.className="card";
+    c.innerHTML="<h3><span>"+IC[k]+"</span>"+s[0]+"</h3><ul>"+s[1].map(function(i){return "<li>"+i+"</li>"}).join("")+"</ul>";
+    cards.appendChild(c);
+    var o=document.createElement("option");o.textContent=s[0];sel.appendChild(o);
+  });
+  sel.selectedIndex=idx;
+  document.querySelectorAll("[data-lang]").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-lang")===l))});
+  document.getElementById("err").textContent="";
+  store("vx-lang",l);
+}
+var themeBtn=document.getElementById("theme");
+function setTheme(m){
+  root.setAttribute("data-theme",m);
+  themeBtn.textContent=m==="dark"?"☀️":"🌙";
+  themeBtn.title=m==="dark"?"Light":"Dark";
+  store("vx-theme",m);
+}
+themeBtn.onclick=function(){setTheme(root.getAttribute("data-theme")==="dark"?"light":"dark")};
+document.querySelectorAll("[data-lang]").forEach(function(b){b.onclick=function(){setLang(b.getAttribute("data-lang"))}});
 function build(){
-  var n=document.getElementById("name").value.trim(),
+  var t=T[lang],n=document.getElementById("name").value.trim(),
       c=document.getElementById("contactInfo").value.trim(),
       m=document.getElementById("msg").value.trim(),
       e=document.getElementById("err");
-  if(!m){e.textContent="اكتب وصف المشكلة أولًا.";return null}
+  if(!m){e.textContent=t.err;return null}
   e.textContent="";
-  return "الاسم: "+(n||"-")+"\nللتواصل: "+(c||"-")+"\nالخدمة: "+sel.value+"\n\nالمشكلة:\n"+m;
+  return t.nm+": "+(n||"-")+"\n"+t.ct+": "+(c||"-")+"\n"+t.sv+": "+sel.value+"\n\n"+t.pb+":\n"+m;
 }
 document.getElementById("wa").onclick=function(){
   var t=build();if(!t)return;
-  window.open("https://wa.me/212646126501?text="+encodeURIComponent("مرحبًا Vyroxx، لدي مشكلة:\n\n"+t),"_blank","noopener");
+  window.open("https://wa.me/212646126501?text="+encodeURIComponent(T[lang].hi+"\n\n"+t),"_blank","noopener");
 };
 document.getElementById("mail").onclick=function(){
   var t=build();if(!t)return;
-  window.open("mailto:vyroxxvx@gmail.com?subject="+encodeURIComponent("طلب دعم: "+sel.value)+"&body="+encodeURIComponent(t),"_blank");
+  var to="vyroxxvx@gmail.com",su=encodeURIComponent(T[lang].subj+sel.value),bd=encodeURIComponent(t);
+  if(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)){
+    location.href="mailto:"+to+"?subject="+su+"&body="+bd;
+  }else{
+    var w=window.open("https://mail.google.com/mail/?view=cm&fs=1&to="+to+"&su="+su+"&body="+bd,"_blank");
+    if(!w)location.href="mailto:"+to+"?subject="+su+"&body="+bd;
+  }
 };
+var sysDark=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches;
+setTheme(load("vx-theme")||(sysDark?"dark":"light"));
+if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches){var sv=document.querySelector(".emblem");if(sv&&sv.pauseAnimations)sv.pauseAnimations()}
+var nl=(navigator.language||"ar").slice(0,2),sl=load("vx-lang");
+setLang(sl&&T[sl]?sl:(T[nl]?nl:"ar"));
 </script>
 </body>
 </html>
