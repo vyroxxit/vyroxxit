@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vyroxx IT Services | خدمات تقنية وأمن سيبراني</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1F4F3;--surface:#FFFFFF;--ink:#12263A;--muted:#52667A;--line:#D3DDDD;--accent:#0F8B8D;--on-accent:#FFFFFF;--hot:#D9482B;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#0C1519;--surface:#142228;--ink:#E6EFEF;--muted:#9BB1B5;--line:#24383E;--accent:#3CC4C4;--on-accent:#0C1519;--hot:#FF7A59;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#0C1519;--surface:#142228;--ink:#E6EFEF;--muted:#9BB1B5;--line:#24383E;--accent:#3CC4C4;--on-accent:#0C1519;--hot:#FF7A59;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;line-height:1.8;font-size:17px}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+header{display:flex;justify-content:space-between;align-items:center;padding:20px 0;gap:12px}
+.logo{font-weight:700;font-size:20px;text-decoration:none;direction:ltr;white-space:nowrap}
+.logo b{color:var(--accent)}
+nav{display:flex;gap:22px;font-size:15px}
+nav a{text-decoration:none;color:var(--muted)}
+nav a:hover{color:var(--ink)}
+.btn{display:inline-block;border:0;cursor:pointer;font:inherit;font-weight:500;background:var(--accent);color:var(--on-accent);padding:12px 26px;border-radius:8px;text-decoration:none}
+.btn:hover{filter:brightness(1.08)}
+.btn.alt{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.hero{padding:48px 0 60px;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(34px,6vw,62px);line-height:1.2;margin:0 0 16px;font-weight:700}
+.hero p{color:var(--muted);max-width:32em;margin:0 0 26px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border-block:1px solid var(--line)}
+.facts div{padding:18px 8px}
+.facts small{display:block;color:var(--muted);font-size:13px}
+.facts a,.facts span{font-weight:500;text-decoration:none}
+section{padding:68px 0}
+h2{font-size:30px;margin:0 0 8px}
+.sub{color:var(--muted);margin:0 0 32px;max-width:36em}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px}
+.card h3{margin:0 0 12px;font-size:20px;display:flex;gap:10px;align-items:center}
+.card h3 span{font-size:26px}
+.card ul{margin:0;padding:0 18px 0 0;color:var(--muted);font-size:15.5px;line-height:1.9}
+.card li::marker{color:var(--accent)}
+.note{margin-top:22px;color:var(--muted);font-size:15px;border-inline-start:3px solid var(--accent);padding-inline-start:14px}
+.formbox{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:32px;display:grid;grid-template-columns:1fr 1.4fr;gap:36px}
+label{display:block;font-weight:500;font-size:15px;margin-bottom:6px}
+input,select,textarea{width:100%;font:inherit;padding:11px 14px;border-radius:8px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);margin-bottom:16px}
+textarea{min-height:130px;resize:vertical}
+.err{color:var(--hot);font-size:14px;min-height:22px;margin:0 0 10px}
+.send{display:flex;gap:12px;flex-wrap:wrap}
+footer{padding:30px 0 44px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+@media (max-width:820px){.hero,.formbox{grid-template-columns:1fr}nav{display:none}}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}.spin{transform-origin:200px 200px;animation:spin 140s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}}
+.emblem{width:100%;max-width:420px;height:auto;justify-self:center;display:block}
+.emblem text{font-family:"IBM Plex Sans Arabic","Segoe UI",Arial,sans-serif}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="#top">VYROXX <b>IT</b></a>
+    <nav><a href="#services">الخدمات</a><a href="#request">أرسل مشكلتك</a><a href="#contact">تواصل</a></nav>
+    <a class="btn" href="#request">أرسل مشكلتك</a>
+  </header>
+
+  <main id="top">
+    <div class="hero">
+      <div>
+        <h1>تقنيتك، مسؤوليتنا</h1>
+        <p>حلول تقنية احترافية، دعم فني، أمن سيبراني، ألعاب ولينكس. اشرح لنا مشكلتك وسنتولى حلّها، حضوريًا أو عن بعد، على مدار الساعة.</p>
+        <div class="cta">
+          <a class="btn" href="#request">أرسل مشكلتك الآن</a>
+          <a class="btn alt" href="#services">تصفّح الخدمات</a>
+        </div>
+      </div>
+      <svg class="emblem" viewBox="0 0 400 410" role="img" aria-label="شعار VYROXX IT SERVICES: درع مجنّح يعلوه تاج">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:var(--accent);stop-opacity:.35"/>
+            <stop offset="100%" style="stop-color:var(--accent);stop-opacity:0"/>
+          </radialGradient>
+          <path id="ringPath" d="M200,50 A150,150 0 1 1 199.9,50"/>
+        </defs>
+        <circle cx="200" cy="200" r="195" fill="url(#glow)"/>
+        <circle cx="200" cy="200" r="172" fill="none" stroke="var(--line)" stroke-width="1.5"/>
+        <circle cx="200" cy="200" r="128" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="2 8" stroke-linecap="round"/>
+        <g class="spin">
+          <text font-size="19" fill="var(--accent)" letter-spacing="3"><textPath href="#ringPath" textLength="925" lengthAdjust="spacing">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ ᚷ ᚹ ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ ᛉ ᛊ ᛏ ᛒ ᛖ ᛗ ᛚ ᛜ ᛞ ᛟ</textPath></text>
+        </g>
+        <g fill="var(--accent)" fill-opacity=".16" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round">
+          <path d="M255 190 C300 150 350 140 388 150 C362 165 347 175 337 190 C357 190 367 195 374 205 C347 212 332 220 324 232 C340 236 348 242 352 252 C322 255 297 250 262 240 Z"/>
+          <path transform="translate(400 0) scale(-1 1)" d="M255 190 C300 150 350 140 388 150 C362 165 347 175 337 190 C357 190 367 195 374 205 C347 212 332 220 324 232 C340 236 348 242 352 252 C322 255 297 250 262 240 Z"/>
+        </g>
+        <path d="M200 135 L255 155 V215 C255 250 230 275 200 292 C170 275 145 250 145 215 V155 Z" fill="var(--surface)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M200 147 L243 163 V213 C243 241 224 261 200 276 C176 261 157 241 157 213 V163 Z" fill="none" stroke="var(--line)" stroke-width="1.5"/>
+        <path d="M172 182 L200 240 L228 182" fill="none" stroke="var(--accent)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="200" cy="166" r="5" fill="var(--hot)"/>
+        <path d="M168 128 L178 104 L200 120 L222 104 L232 128 Z" fill="var(--accent)" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>
+        <g fill="var(--accent)"><circle cx="60" cy="90" r="2.5"/><circle cx="345" cy="72" r="2"/><circle cx="88" cy="300" r="2"/><circle cx="322" cy="305" r="2.5"/></g>
+        <text x="200" y="338" text-anchor="middle" font-size="42" font-weight="700" letter-spacing="7" fill="var(--ink)">VYROXX</text>
+        <text x="200" y="368" text-anchor="middle" font-size="17" font-weight="500" letter-spacing="9" fill="var(--accent)">IT SERVICES</text>
+        <path d="M110 388 H185 M215 388 H290" stroke="var(--line)" stroke-width="1.5"/>
+        <path d="M200 382 L206 388 L200 394 L194 388 Z" fill="var(--hot)"/>
+      </svg>
+    </div>
+
+    <div class="facts" id="contact">
+      <div><small>الهاتف / WhatsApp</small><a href="tel:+212646126501" dir="ltr">0646126501</a></div>
+      <div><small>البريد الإلكتروني</small><a href="mailto:vyroxxvx@gmail.com">vyroxxvx@gmail.com</a></div>
+      <div><small>المدينة</small><span>فاس، المغرب</span></div>
+      <div><small>ساعات العمل</small><span>24/7 طوال أيام الأسبوع</span></div>
+    </div>
+
+    <section id="services">
+      <h2>خدماتنا</h2>
+      <p class="sub">كل ما تحتاجه من دعم تقني وحماية رقمية في مكان واحد.</p>
+      <div class="cards" id="cards"></div>
+      <p class="note">نساعدك في استرجاع حساباتك الخاصة فقط إذا فقدت الوصول إليها، ونفعّل البرامج بتراخيص أصلية فقط.</p>
+    </section>
+
+    <section id="request">
+      <div class="formbox">
+        <div>
+          <h2>أرسل مشكلتك</h2>
+          <p class="sub">صف المشكلة بالتفصيل، واختر طريقة الإرسال. سنردّ عليك بأسرع وقت ممكن.</p>
+        </div>
+        <div>
+          <label for="name">الاسم</label>
+          <input id="name" autocomplete="name">
+          <label for="contactInfo">رقم الهاتف أو البريد للرد عليك</label>
+          <input id="contactInfo" autocomplete="off">
+          <label for="service">نوع الخدمة</label>
+          <select id="service"></select>
+          <label for="msg">وصف المشكلة</label>
+          <textarea id="msg" placeholder="مثال: الحاسوب بطيء جدًا ويظهر خطأ عند تشغيل اللعبة…"></textarea>
+          <p class="err" id="err" role="alert"></p>
+          <div class="send">
+            <button class="btn" type="button" id="wa">إرسال عبر WhatsApp</button>
+            <button class="btn alt" type="button" id="mail">إرسال عبر البريد</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span dir="ltr">VYROXX IT SERVICES · Your Technology, Our Responsibility</span>
+    <span>فاس، المغرب</span>
+  </footer>
+</div>
+
+<script>
+var S=[
+["🖥️","خدمات الحاسوب",["تثبيت وإصلاح Windows","تثبيت البرامج والتعريفات","حل مشاكل النظام وتسريع الحاسوب","دعم فني لأنظمة Windows"]],
+["📱","خدمات الهواتف",["إصلاح مشاكل النظام (Software)","تحديث النظام","إزالة الفيروسات والمشاكل البرمجية"]],
+["🎮","خدمات الألعاب",["تثبيت الألعاب على الحاسوب والأجهزة المحمولة مهما كان حجمها","حل مشاكل التشغيل والأخطاء (Errors)","تحسين الأداء وزيادة الـ FPS قدر الإمكان","تثبيت التحديثات والإضافات (DLCs)","ضبط إعدادات الألعاب لأفضل أداء","حل مشاكل Steam وEpic Games Launcher وEA app وغيرها","ربط الألعاب بالمنصات الرسمية عند الحاجة"]],
+["🌐","الشبكات",["إعداد الراوتر","تأمين الشبكات المنزلية والمكتبية","حل مشاكل الإنترنت","استشارات الشبكات المنزلية"]],
+["🔐","الأمن السيبراني",["تأمين الحسابات","حماية الأجهزة من الفيروسات","استشارات أمنية","المساعدة في استرجاع حساباتك الخاصة إذا فقدت الوصول إليها","التوعية بالممارسات الأمنية"]],
+["🌑","الإنترنت العميق والمظلم",["التحقق من ظهور بياناتك أو بريدك في تسريبات معروفة","تقييم المخاطر الناتجة عن التسريب","إرشادات لتأمين الحسابات بعد التسريب","المساعدة في تغيير كلمات المرور","استشارات حماية الهوية الرقمية والخصوصية"]],
+["🐧","خدمات لينكس",["تثبيت وتكوين توزيعات لينكس","المساعدة في Kali Linux وUbuntu وغيرها","حل مشاكل لينكس","تثبيت الأدوات والبرامج","شرح أساسيات الاستخدام","إعداد بيئة عمل للمطورين والمهتمين بالأمن السيبراني"]],
+["💻","المساعدة عن بعد",["إصلاح المشاكل عبر AnyDesk أو TeamViewer","دعم فني سريع دون الحاجة للحضور"]],
+["🗂️","استعادة البيانات",["استرجاع الملفات المحذوفة","نسخ احتياطي ونقل البيانات"]],
+["☁️","الخدمات السحابية",["إعداد البريد الإلكتروني","إعداد مزامنة الملفات","حل مشاكل الحسابات والخدمات السحابية"]],
+["🔑","التفعيل",["تفعيل Windows بتراخيص أصلية","تفعيل Office بتراخيص أصلية","تفعيل البرامج بتراخيص أصلية"]]
+];
+var cards=document.getElementById("cards"),sel=document.getElementById("service");
+S.forEach(function(s){
+  var c=document.createElement("div");c.className="card";
+  c.innerHTML="<h3><span>"+s[0]+"</span>"+s[1]+"</h3><ul>"+s[2].map(function(i){return "<li>"+i+"</li>"}).join("")+"</ul>";
+  cards.appendChild(c);
+  var o=document.createElement("option");o.textContent=s[1];sel.appendChild(o);
+});
+function build(){
+  var n=document.getElementById("name").value.trim(),
+      c=document.getElementById("contactInfo").value.trim(),
+      m=document.getElementById("msg").value.trim(),
+      e=document.getElementById("err");
+  if(!m){e.textContent="اكتب وصف المشكلة أولًا.";return null}
+  e.textContent="";
+  return "الاسم: "+(n||"-")+"\nللتواصل: "+(c||"-")+"\nالخدمة: "+sel.value+"\n\nالمشكلة:\n"+m;
+}
+document.getElementById("wa").onclick=function(){
+  var t=build();if(!t)return;
+  window.open("https://wa.me/212646126501?text="+encodeURIComponent("مرحبًا Vyroxx، لدي مشكلة:\n\n"+t),"_blank","noopener");
+};
+document.getElementById("mail").onclick=function(){
+  var t=build();if(!t)return;
+  window.open("mailto:vyroxxvx@gmail.com?subject="+encodeURIComponent("طلب دعم: "+sel.value)+"&body="+encodeURIComponent(t),"_blank");
+};
+</script>
+</body>
+</html>
