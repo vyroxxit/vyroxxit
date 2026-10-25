@@ -41,7 +41,7 @@ header{display:flex;justify-content:space-between;align-items:center;padding:20p
 .logo{font-weight:700;font-size:20px;text-decoration:none;direction:ltr;white-space:nowrap}
 .logo b{color:var(--accent)}
 nav{display:flex;gap:22px;font-size:15px}
-nav a{text-decoration:none;color:var(--muted)}
+nav a{text-decoration:none;color:var(--muted);white-space:nowrap}
 nav a:hover{color:var(--ink)}
 .btn{display:inline-block;border:0;cursor:pointer;font:inherit;font-weight:500;background:var(--accent);color:var(--on-accent);padding:12px 26px;border-radius:8px;text-decoration:none}
 .btn:hover{filter:brightness(1.08)}
@@ -87,13 +87,52 @@ footer{padding:30px 0 44px;border-top:1px solid var(--line);color:var(--muted);f
 [dir="ltr"] .card ul{padding:0 0 0 18px}
 .acc{font-size:14px;text-decoration:none;color:var(--ink);border:1.5px solid var(--line);border-radius:8px;padding:5px 11px;white-space:nowrap}
 @media (max-width:560px){.hcta{display:none}}
+.about{max-width:46em;font-size:18px;line-height:2;margin:0 0 44px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:18px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px}
+.step .num{display:inline-flex;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--on-accent);align-items:center;justify-content:center;font-weight:700}
+.step h3{margin:12px 0 6px;font-size:20px}
+.step p{margin:0;color:var(--muted)}
+.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.social{position:fixed;inset-inline-start:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:4px;padding:8px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 6px 24px rgba(18,38,58,.12);z-index:50}
+.social a,.flinks a{display:flex;width:44px;height:44px;align-items:center;justify-content:center;border-radius:12px;color:var(--muted);transition:background .15s,color .15s}
+.social a:hover,.social a:focus-visible,.flinks a:hover,.flinks a:focus-visible{background:var(--c);color:#fff}
+.flinks{display:flex;gap:6px;align-items:center}
+.flinks a{width:38px;height:38px;border:1px solid var(--line)}
+.flinks .i{width:20px;height:20px}
+.prices{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.price{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.price .pi{font-size:26px}
+.price b{display:block;font-weight:500;line-height:1.5}
+.price small{color:var(--muted);font-size:13px}
+.price strong{margin-inline-start:auto;font-size:22px;color:var(--accent);white-space:nowrap}
+.price em{font-style:normal;font-size:13px;color:var(--muted);font-weight:500}
+.faq{max-width:52em;display:grid;gap:10px}
+.faq details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px 20px}
+.faq summary{cursor:pointer;font-weight:500;padding:14px 0;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:22px;color:var(--accent);line-height:1}
+.faq details[open] summary::after{content:"\2212"}
+.faq p{margin:0 0 16px;color:var(--muted)}
+.loyal{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:var(--surface);border:1.5px solid var(--accent);border-radius:16px;padding:26px 30px}
+.loyal h2{font-size:24px;margin:0 0 6px}
+.loyal p{margin:0;color:var(--muted);max-width:40em}
+section.tight{padding-top:0}
+@media (max-width:1240px){.social{top:auto;bottom:calc(12px + env(safe-area-inset-bottom,0px));inset-inline:0;margin-inline:auto;width:max-content;transform:none;flex-direction:row;padding:6px;border-radius:16px}footer{padding-bottom:96px}}
+.hcta{white-space:nowrap;padding:10px 20px;line-height:1.5;flex:none}
+header>*{flex:none}
+nav{margin-inline:auto}
+@media (max-width:1060px){nav{display:none}header{justify-content:space-between}.tools{margin-inline-start:auto}}
+@media (max-width:560px){header{flex-wrap:wrap;row-gap:8px}.logo{font-size:18px}.tools{gap:6px;margin-inline-start:0}.acc{padding:5px 8px;font-size:13px}.seg button,.theme{padding:5px 8px}}
+.price>div{min-width:0}
+.price b{font-size:16px}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <a class="logo" href="#top">VYROXX <b>IT</b></a>
-    <nav><a href="#services" data-i="nav1">الخدمات</a><a href="#request" data-i="nav2">أرسل مشكلتك</a><a href="#contact" data-i="nav3">تواصل</a></nav>
+    <nav><a href="#services" data-i="nav1">الخدمات</a><a href="#prices-s" data-i="nav6">الأسعار</a><a href="#about" data-i="nav5">من نحن</a><a href="#contact" data-i="nav3">تواصل</a></nav>
     <div class="tools"><a class="acc" href="account.html" data-i="nav4">حسابي</a><div class="seg" role="group" aria-label="Language"><button type="button" data-lang="ar">ع</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="fr">FR</button></div><button class="theme" id="theme" type="button" aria-label="Theme"></button></div>
     <a class="btn hcta" href="#request" data-i="nav2">أرسل مشكلتك</a>
   </header>
@@ -153,6 +192,44 @@ footer{padding:30px 0 44px;border-top:1px solid var(--line);color:var(--muted);f
       <p class="note" data-i="note">نساعدك في استرجاع حساباتك الخاصة فقط إذا فقدت الوصول إليها، ونفعّل البرامج بتراخيص أصلية فقط.</p>
     </section>
 
+    <section id="prices-s">
+      <h2 data-i="p_h">الأسعار التقريبية</h2>
+      <p class="sub" data-i="p_sub">أسعار البداية لكل خدمة من خدماتنا.</p>
+      <div class="prices" id="prices"></div>
+      <p class="note" data-i="p_note">الأسعار تقريبية وتبدأ من الحد الأدنى، ويُحدَّد السعر النهائي بعد تشخيص المشكلة. وهي لا تشمل ثمن قطع الغيار أو التراخيص الأصلية.</p>
+    </section>
+
+    <section id="about">
+      <h2 data-i="a_h">من نحن</h2>
+      <p class="about" data-i="a_p">نحن فريق VYROXX IT SERVICES المتخصص في الحلول التقنية المتقدمة والأمن السيبراني بخبرة عملية واسعة في صيانة الأنظمة وحماية البيانات. نؤمن بأن تقنيتك هي مسؤوليتنا الكاملة، ولذلك نضمن لك أعلى معايير الأمان، السرية التامة، والاحترافية في التعامل مع أجهزتك وحساباتك الشخصية كأنها أجهزة تخصنا تماماً.</p>
+      <h2 data-i="w_h">كيف نعمل</h2>
+      <div class="steps">
+        <div class="step"><span class="num">1</span><h3 data-i="w1t">أرسل مشكلتك</h3><p data-i="w1d">من الموقع أو عبر واتساب مع تفاصيل الجهاز أو الطلب.</p></div>
+        <div class="step"><span class="num">2</span><h3 data-i="w2t">نردّ ونشخّص</h3><p data-i="w2d">نقوم بتحليل المشكلة بدقة ونحدد لك الحل المناسب والمدة الزمنية.</p></div>
+        <div class="step"><span class="num">3</span><h3 data-i="w3t">نحلّها</h3><p data-i="w3d">سواء حضورياً (في فاس) أو عن بعد بأحدث أدوات الدعم الفني.</p></div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2 data-i="fq_h">أسئلة شائعة</h2>
+      <div class="faq">
+        <details><summary data-i="q1">هل تعملون عن بعد؟</summary><p data-i="qa1">نعم، نوفر خدمة الدعم الفني والإصلاح عن بعد (عبر أدوات مثل AnyDesk أو TeamViewer) لمشاكل البرمجيات وتثبيت البرامج أينما كنت داخل المغرب أو خارجه.</p></details>
+        <details><summary data-i="q2">كم تستغرق الصيانة عادة؟</summary><p data-i="qa2">يعتمد ذلك على نوع المشكلة؛ أغلب مشاكل البرمجيات وحل الأخطاء تُنجز في نفس اليوم، بينما الأجهزة التي تتطلب تدخلاً حضورياً (في فاس) تستغرق غالباً بين 24 إلى 48 ساعة كحد أقصى.</p></details>
+        <details><summary data-i="q3">هل بياناتي آمنة أثناء الإصلاح؟</summary><p data-i="qa3">بالتأكيد. نلتزم التزاماً تاماً بسرية وخصوصية ملفاتك الشخصية وأجهزتك، ولا يتم الاطلاع على أي بيانات خاصة إلا بالقدر اللازم لإصلاح المشكلة.</p></details>
+        <details><summary data-i="q4">هل يوجد ضمان على الخدمة؟</summary><p data-i="qa4">نعم، نقدم فترة متابعة ودعم مجاني بعد إتمام الخدمة لضمان أن كل شيء يعمل بكفاءة واستقرار تام.</p></details>
+      </div>
+    </section>
+
+    <section class="tight">
+      <div class="loyal">
+        <div>
+          <h2 data-i="lo_h">🎁 كل 5 طلبات مكتملة = خدمة مجانية</h2>
+          <p data-i="lo_p">سجّل الدخول بحساب Google من صفحة «حسابي»، وتابع حالة طلباتك واجمع نقاط الولاء تلقائيًا.</p>
+        </div>
+        <a class="btn" href="account.html" data-i="lo_b">افتح حسابي</a>
+      </div>
+    </section>
+
     <section id="request">
       <div class="formbox">
         <div>
@@ -181,6 +258,7 @@ footer{padding:30px 0 44px;border-top:1px solid var(--line);color:var(--muted);f
   <footer>
     <span dir="ltr">VYROXX IT SERVICES · Your Technology, Our Responsibility</span>
     <span data-i="city">فاس، المغرب</span>
+    <span class="flinks" aria-label="Social"><a href="https://wa.me/212646126501" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp" style="--c:#1F9D55"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></a><a href="https://www.instagram.com/vyroxx_it/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram" style="--c:#C13584"><svg class="i" aria-hidden="true"><use href="#i-ig"/></svg></a><a href="https://www.facebook.com/profile.php?id=61576004765268" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook" style="--c:#1877F2"><svg class="i" aria-hidden="true"><use href="#i-fb"/></svg></a><a class="gm" href="mailto:vyroxxvx@gmail.com" aria-label="Gmail" title="Gmail" style="--c:#D9482B"><svg class="i" aria-hidden="true"><use href="#i-ml"/></svg></a></span>
   </footer>
 </div>
 
@@ -221,10 +299,11 @@ fr:[["Services informatiques",["Installation et réparation de Windows","Install
 ["Services cloud",["Configuration de la messagerie","Configuration de la synchronisation des fichiers","Dépannage des comptes et services cloud"]],
 ["Activation de logiciels",["Activation de Windows avec licences authentiques","Activation d’Office avec licences authentiques","Activation de logiciels avec licences authentiques"]]]
 };
+var PR=[100,80,70,150,200,250,150,80,120,100,60];
 var T={
-ar:{t:"Vyroxx IT Services | خدمات تقنية وأمن سيبراني",nav1:"الخدمات",nav2:"أرسل مشكلتك",nav3:"تواصل",nav4:"حسابي",h1:"تقنيتك، مسؤوليتنا",hp:"حلول تقنية احترافية، دعم فني، أمن سيبراني، ألعاب ولينكس. اشرح لنا مشكلتك وسنتولى حلّها، حضوريًا أو عن بعد، على مدار الساعة.",cta1:"أرسل مشكلتك الآن",cta2:"تصفّح الخدمات",f1:"الهاتف / WhatsApp",f2:"البريد الإلكتروني",f3:"المدينة",city:"فاس، المغرب",f4:"ساعات العمل",hours:"24/7 طوال أيام الأسبوع",s_h:"خدماتنا",s_sub:"كل ما تحتاجه من دعم تقني وحماية رقمية في مكان واحد.",note:"نساعدك في استرجاع حساباتك الخاصة فقط إذا فقدت الوصول إليها، ونفعّل البرامج بتراخيص أصلية فقط.",r_h:"أرسل مشكلتك",r_sub:"صف المشكلة بالتفصيل، واختر طريقة الإرسال. سنردّ عليك بأسرع وقت ممكن.",l1:"الاسم",l2:"رقم الهاتف أو البريد للرد عليك",l3:"نوع الخدمة",l4:"وصف المشكلة",ph:"مثال: الحاسوب بطيء جدًا ويظهر خطأ عند تشغيل اللعبة…",wa:"إرسال عبر WhatsApp",mail:"إرسال عبر البريد",err:"اكتب وصف المشكلة أولًا.",hi:"مرحبًا Vyroxx، لدي مشكلة:",nm:"الاسم",ct:"للتواصل",sv:"الخدمة",pb:"المشكلة",subj:"طلب دعم: "},
-en:{t:"Vyroxx IT Services | IT Support & Cybersecurity",nav1:"Services",nav2:"Send your problem",nav3:"Contact",nav4:"My account",h1:"Your Technology, Our Responsibility",hp:"Professional IT solutions, technical support, cybersecurity, gaming and Linux. Describe your problem and we’ll solve it, on site or remotely, around the clock.",cta1:"Send your problem now",cta2:"Browse services",f1:"Phone / WhatsApp",f2:"Email",f3:"City",city:"Fez, Morocco",f4:"Working hours",hours:"24/7, every day of the week",s_h:"Our services",s_sub:"Everything you need in technical support and digital protection, in one place.",note:"We only help you recover your own accounts if you lost access, and we only activate software with genuine licenses.",r_h:"Send your problem",r_sub:"Describe the problem in detail and choose how to send it. We’ll reply as soon as possible.",l1:"Name",l2:"Phone or email so we can reply",l3:"Service type",l4:"Problem description",ph:"Example: my PC is very slow and a game shows an error…",wa:"Send via WhatsApp",mail:"Send by email",err:"Please describe your problem first.",hi:"Hello Vyroxx, I have a problem:",nm:"Name",ct:"Contact",sv:"Service",pb:"Problem",subj:"Support request: "},
-fr:{t:"Vyroxx IT Services | Assistance informatique et cybersécurité",nav1:"Services",nav2:"Envoyer un problème",nav3:"Contact",nav4:"Mon compte",h1:"Votre technologie, notre responsabilité",hp:"Solutions informatiques professionnelles, assistance technique, cybersécurité, jeux vidéo et Linux. Décrivez-nous votre problème et nous le réglons, sur place ou à distance, 24 h/24.",cta1:"Envoyer mon problème",cta2:"Voir les services",f1:"Téléphone / WhatsApp",f2:"E-mail",f3:"Ville",city:"Fès, Maroc",f4:"Horaires",hours:"24 h/24, 7 j/7",s_h:"Nos services",s_sub:"Tout ce qu’il vous faut en assistance technique et protection numérique, au même endroit.",note:"Nous aidons uniquement à récupérer vos propres comptes en cas de perte d’accès, et nous n’activons les logiciels qu’avec des licences authentiques.",r_h:"Envoyer mon problème",r_sub:"Décrivez le problème en détail et choisissez le mode d’envoi. Nous vous répondrons dès que possible.",l1:"Nom",l2:"Téléphone ou e-mail pour vous répondre",l3:"Type de service",l4:"Description du problème",ph:"Exemple : mon PC est très lent et un jeu affiche une erreur…",wa:"Envoyer via WhatsApp",mail:"Envoyer par e-mail",err:"Décrivez d’abord votre problème.",hi:"Bonjour Vyroxx, j’ai un problème :",nm:"Nom",ct:"Contact",sv:"Service",pb:"Problème",subj:"Demande d’assistance : "}
+ar:{t:"Vyroxx IT Services | خدمات تقنية وأمن سيبراني",nav1:"الخدمات",nav2:"أرسل مشكلتك",nav3:"تواصل",nav4:"حسابي",nav5:"من نحن",nav6:"الأسعار",p_h:"الأسعار التقريبية",p_sub:"أسعار البداية لكل خدمة من خدماتنا.",p_from:"ابتداءً من",p_cur:"د.م",p_note:"الأسعار تقريبية وتبدأ من الحد الأدنى، ويُحدَّد السعر النهائي بعد تشخيص المشكلة. وهي لا تشمل ثمن قطع الغيار أو التراخيص الأصلية.",fq_h:"أسئلة شائعة",q1:"هل تعملون عن بعد؟",qa1:"نعم، نوفر خدمة الدعم الفني والإصلاح عن بعد (عبر أدوات مثل AnyDesk أو TeamViewer) لمشاكل البرمجيات وتثبيت البرامج أينما كنت داخل المغرب أو خارجه.",q2:"كم تستغرق الصيانة عادة؟",qa2:"يعتمد ذلك على نوع المشكلة؛ أغلب مشاكل البرمجيات وحل الأخطاء تُنجز في نفس اليوم، بينما الأجهزة التي تتطلب تدخلاً حضورياً (في فاس) تستغرق غالباً بين 24 إلى 48 ساعة كحد أقصى.",q3:"هل بياناتي آمنة أثناء الإصلاح؟",qa3:"بالتأكيد. نلتزم التزاماً تاماً بسرية وخصوصية ملفاتك الشخصية وأجهزتك، ولا يتم الاطلاع على أي بيانات خاصة إلا بالقدر اللازم لإصلاح المشكلة.",q4:"هل يوجد ضمان على الخدمة؟",qa4:"نعم، نقدم فترة متابعة ودعم مجاني بعد إتمام الخدمة لضمان أن كل شيء يعمل بكفاءة واستقرار تام.",lo_h:"🎁 كل 5 طلبات مكتملة = خدمة مجانية",lo_p:"سجّل الدخول بحساب Google من صفحة «حسابي»، وتابع حالة طلباتك واجمع نقاط الولاء تلقائيًا.",lo_b:"افتح حسابي",a_h:"من نحن",a_p:"نحن فريق VYROXX IT SERVICES المتخصص في الحلول التقنية المتقدمة والأمن السيبراني بخبرة عملية واسعة في صيانة الأنظمة وحماية البيانات. نؤمن بأن تقنيتك هي مسؤوليتنا الكاملة، ولذلك نضمن لك أعلى معايير الأمان، السرية التامة، والاحترافية في التعامل مع أجهزتك وحساباتك الشخصية كأنها أجهزة تخصنا تماماً.",w_h:"كيف نعمل",w1t:"أرسل مشكلتك",w1d:"من الموقع أو عبر واتساب مع تفاصيل الجهاز أو الطلب.",w2t:"نردّ ونشخّص",w2d:"نقوم بتحليل المشكلة بدقة ونحدد لك الحل المناسب والمدة الزمنية.",w3t:"نحلّها",w3d:"سواء حضورياً (في فاس) أو عن بعد بأحدث أدوات الدعم الفني.",h1:"تقنيتك، مسؤوليتنا",hp:"حلول تقنية احترافية، دعم فني، أمن سيبراني، ألعاب ولينكس. اشرح لنا مشكلتك وسنتولى حلّها، حضوريًا أو عن بعد، على مدار الساعة.",cta1:"أرسل مشكلتك الآن",cta2:"تصفّح الخدمات",f1:"الهاتف / WhatsApp",f2:"البريد الإلكتروني",f3:"المدينة",city:"فاس، المغرب",f4:"ساعات العمل",hours:"24/7 طوال أيام الأسبوع",s_h:"خدماتنا",s_sub:"كل ما تحتاجه من دعم تقني وحماية رقمية في مكان واحد.",note:"نساعدك في استرجاع حساباتك الخاصة فقط إذا فقدت الوصول إليها، ونفعّل البرامج بتراخيص أصلية فقط.",r_h:"أرسل مشكلتك",r_sub:"صف المشكلة بالتفصيل، واختر طريقة الإرسال. سنردّ عليك بأسرع وقت ممكن.",l1:"الاسم",l2:"رقم الهاتف أو البريد للرد عليك",l3:"نوع الخدمة",l4:"وصف المشكلة",ph:"مثال: الحاسوب بطيء جدًا ويظهر خطأ عند تشغيل اللعبة…",wa:"إرسال عبر WhatsApp",mail:"إرسال عبر البريد",err:"اكتب وصف المشكلة أولًا.",hi:"مرحبًا Vyroxx، لدي مشكلة:",nm:"الاسم",ct:"للتواصل",sv:"الخدمة",pb:"المشكلة",subj:"طلب دعم: "},
+en:{t:"Vyroxx IT Services | IT Support & Cybersecurity",nav1:"Services",nav2:"Send your problem",nav3:"Contact",nav4:"My account",nav5:"About us",nav6:"Pricing",p_h:"Approximate prices",p_sub:"Starting prices for each of our services.",p_from:"From",p_cur:"MAD",p_note:"Prices are approximate and start from the minimum; the final price is set after diagnosing the problem. They do not include spare parts or genuine licenses.",fq_h:"Frequently asked questions",q1:"Do you work remotely?",qa1:"Yes. We offer remote technical support and repair (using tools such as AnyDesk or TeamViewer) for software problems and program installation, wherever you are in Morocco or abroad.",q2:"How long does maintenance usually take?",qa2:"It depends on the problem. Most software issues and errors are fixed the same day, while devices that need on-site work (in Fès) usually take between 24 and 48 hours at most.",q3:"Is my data safe during repair?",qa3:"Absolutely. We are fully committed to the confidentiality and privacy of your personal files and devices, and no private data is accessed except as needed to fix the problem.",q4:"Is there a warranty on the service?",qa4:"Yes. We provide a free follow-up and support period after the service is completed, to make sure everything works efficiently and stably.",lo_h:"🎁 Every 5 completed requests = a free service",lo_p:"Sign in with Google from “My account”, track your requests and collect loyalty points automatically.",lo_b:"Open my account",a_h:"About us",a_p:"We are the VYROXX IT SERVICES team, specialized in advanced technical solutions and cybersecurity, with broad hands-on experience in system maintenance and data protection. We believe your technology is entirely our responsibility, so we guarantee the highest standards of security, complete confidentiality and professionalism when handling your devices and personal accounts, as if they were our own.",w_h:"How we work",w1t:"Send your problem",w1d:"From the website or via WhatsApp, with details about your device or request.",w2t:"We reply and diagnose",w2d:"We analyze the problem carefully and set the right solution and timeframe.",w3t:"We fix it",w3d:"Either on site (in Fès) or remotely with the latest support tools.",h1:"Your Technology, Our Responsibility",hp:"Professional IT solutions, technical support, cybersecurity, gaming and Linux. Describe your problem and we’ll solve it, on site or remotely, around the clock.",cta1:"Send your problem now",cta2:"Browse services",f1:"Phone / WhatsApp",f2:"Email",f3:"City",city:"Fez, Morocco",f4:"Working hours",hours:"24/7, every day of the week",s_h:"Our services",s_sub:"Everything you need in technical support and digital protection, in one place.",note:"We only help you recover your own accounts if you lost access, and we only activate software with genuine licenses.",r_h:"Send your problem",r_sub:"Describe the problem in detail and choose how to send it. We’ll reply as soon as possible.",l1:"Name",l2:"Phone or email so we can reply",l3:"Service type",l4:"Problem description",ph:"Example: my PC is very slow and a game shows an error…",wa:"Send via WhatsApp",mail:"Send by email",err:"Please describe your problem first.",hi:"Hello Vyroxx, I have a problem:",nm:"Name",ct:"Contact",sv:"Service",pb:"Problem",subj:"Support request: "},
+fr:{t:"Vyroxx IT Services | Assistance informatique et cybersécurité",nav1:"Services",nav2:"Envoyer un problème",nav3:"Contact",nav4:"Mon compte",nav5:"À propos",nav6:"Tarifs",p_h:"Tarifs indicatifs",p_sub:"Prix de départ pour chacun de nos services.",p_from:"À partir de",p_cur:"MAD",p_note:"Les tarifs sont indicatifs et partent du minimum ; le prix final est fixé après diagnostic du problème. Ils n’incluent pas les pièces détachées ni les licences authentiques.",fq_h:"Questions fréquentes",q1:"Travaillez-vous à distance ?",qa1:"Oui. Nous proposons l’assistance et le dépannage à distance (avec des outils comme AnyDesk ou TeamViewer) pour les problèmes logiciels et l’installation de programmes, où que vous soyez au Maroc ou à l’étranger.",q2:"Combien de temps dure généralement la maintenance ?",qa2:"Cela dépend du problème. La plupart des problèmes logiciels sont réglés le jour même, tandis que les appareils nécessitant une intervention sur place (à Fès) demandent généralement 24 à 48 heures au maximum.",q3:"Mes données sont-elles en sécurité pendant la réparation ?",qa3:"Absolument. Nous nous engageons pleinement à respecter la confidentialité et la vie privée de vos fichiers et de vos appareils, et aucune donnée privée n’est consultée au-delà de ce qui est nécessaire pour résoudre le problème.",q4:"Le service est-il garanti ?",qa4:"Oui. Nous offrons une période de suivi et d’assistance gratuite après la prestation, pour garantir que tout fonctionne de manière efficace et stable.",lo_h:"🎁 Toutes les 5 demandes terminées = un service gratuit",lo_p:"Connectez-vous avec Google depuis « Mon compte », suivez vos demandes et cumulez automatiquement vos points de fidélité.",lo_b:"Ouvrir mon compte",a_h:"À propos",a_p:"Nous sommes l’équipe VYROXX IT SERVICES, spécialisée dans les solutions techniques avancées et la cybersécurité, avec une vaste expérience pratique en maintenance des systèmes et protection des données. Nous croyons que votre technologie est entièrement notre responsabilité ; nous garantissons donc les plus hauts standards de sécurité, une confidentialité totale et un professionnalisme absolu dans le traitement de vos appareils et de vos comptes personnels, comme s’ils étaient les nôtres.",w_h:"Comment nous travaillons",w1t:"Envoyez votre problème",w1d:"Depuis le site ou via WhatsApp, avec les détails de votre appareil ou de votre demande.",w2t:"Nous répondons et diagnostiquons",w2d:"Nous analysons précisément le problème et définissons la solution adaptée et le délai.",w3t:"Nous le résolvons",w3d:"Sur place (à Fès) ou à distance avec les derniers outils d’assistance.",h1:"Votre technologie, notre responsabilité",hp:"Solutions informatiques professionnelles, assistance technique, cybersécurité, jeux vidéo et Linux. Décrivez-nous votre problème et nous le réglons, sur place ou à distance, 24 h/24.",cta1:"Envoyer mon problème",cta2:"Voir les services",f1:"Téléphone / WhatsApp",f2:"E-mail",f3:"Ville",city:"Fès, Maroc",f4:"Horaires",hours:"24 h/24, 7 j/7",s_h:"Nos services",s_sub:"Tout ce qu’il vous faut en assistance technique et protection numérique, au même endroit.",note:"Nous aidons uniquement à récupérer vos propres comptes en cas de perte d’accès, et nous n’activons les logiciels qu’avec des licences authentiques.",r_h:"Envoyer mon problème",r_sub:"Décrivez le problème en détail et choisissez le mode d’envoi. Nous vous répondrons dès que possible.",l1:"Nom",l2:"Téléphone ou e-mail pour vous répondre",l3:"Type de service",l4:"Description du problème",ph:"Exemple : mon PC est très lent et un jeu affiche une erreur…",wa:"Envoyer via WhatsApp",mail:"Envoyer par e-mail",err:"Décrivez d’abord votre problème.",hi:"Bonjour Vyroxx, j’ai un problème :",nm:"Nom",ct:"Contact",sv:"Service",pb:"Problème",subj:"Demande d’assistance : "}
 };
 var root=document.documentElement,cards=document.getElementById("cards"),sel=document.getElementById("service"),lang="ar";
 function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
@@ -244,6 +323,8 @@ function setLang(l){
     var o=document.createElement("option");o.textContent=s[0];sel.appendChild(o);
   });
   sel.selectedIndex=idx;
+  var pr=document.getElementById("prices");pr.innerHTML="";
+  SV[l].forEach(function(s,k){var d=document.createElement("div");d.className="price";d.innerHTML='<span class="pi">'+IC[k]+'</span><div><b>'+s[0]+'</b><small>'+t.p_from+'</small></div><strong>'+PR[k]+' <em>'+t.p_cur+'</em></strong>';pr.appendChild(d)});
   document.querySelectorAll("[data-lang]").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-lang")===l))});
   document.getElementById("err").textContent="";
   store("vx-lang",l);
@@ -283,8 +364,16 @@ document.getElementById("mail").onclick=function(){
 var sysDark=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches;
 setTheme(load("vx-theme")||(sysDark?"dark":"light"));
 if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches){var sv=document.querySelector(".emblem");if(sv&&sv.pauseAnimations)sv.pauseAnimations()}
+document.querySelectorAll(".gm").forEach(function(a){a.onclick=function(e){if(!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)){e.preventDefault();window.open("https://mail.google.com/mail/?view=cm&fs=1&to=vyroxxvx@gmail.com","_blank","noopener")}}});
 var nl=(navigator.language||"ar").slice(0,2),sl=load("vx-lang");
 setLang(sl&&T[sl]?sl:(T[nl]?nl:"ar"));
 </script>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-wa" viewBox="0 0 24 24"><path d="M3 21l1.7-5A9 9 0 1 1 8 19.3z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8c-.9-.4-1.7-1.2-2.1-2.1l.8-1-1-2z"/></symbol>
+<symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".6"/></symbol>
+<symbol id="i-fb" viewBox="0 0 24 24"><path d="M15 3h-2.5A3.5 3.5 0 0 0 9 6.5V9H6.5v3H9v9h3v-9h2.5l.5-3H12V6.5c0-.3.2-.5.5-.5H15z"/></symbol>
+<symbol id="i-ml" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+</defs></svg>
+<nav class="social" aria-label="Contact"><a href="https://wa.me/212646126501" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp" style="--c:#1F9D55"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></a><a href="https://www.instagram.com/vyroxx_it/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram" style="--c:#C13584"><svg class="i" aria-hidden="true"><use href="#i-ig"/></svg></a><a href="https://www.facebook.com/profile.php?id=61576004765268" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook" style="--c:#1877F2"><svg class="i" aria-hidden="true"><use href="#i-fb"/></svg></a><a class="gm" href="mailto:vyroxxvx@gmail.com" aria-label="Gmail" title="Gmail" style="--c:#D9482B"><svg class="i" aria-hidden="true"><use href="#i-ml"/></svg></a></nav>
 </body>
 </html>
