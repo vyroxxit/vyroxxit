@@ -116,7 +116,7 @@ const cfg={
   projectId:"vyroxx-it",
   appId:"1:546399615544:web:5da34c579291fdc0c6c4cd"
 };
-const ADMIN="vyroxxvx@gmail.com";   // بريد المدير
+const ADMIN="vyroxxvx@gmail.com";const ADMIN_NAME="VYROXX IT";   // بريد المدير
 const EVERY=5;                       // كل كم طلب مكتمل يُمنح طلب مجاني
 /* ================================= */
 
@@ -128,9 +128,9 @@ en:["Computer Services","Mobile Services","Gaming Services","Networking","Cybers
 fr:["Services informatiques","Services mobiles","Jeux vidéo","Réseaux","Cybersécurité","Deep Web et Dark Web","Services Linux","Assistance à distance","Récupération de données","Services cloud","Activation de logiciels"]};
 const LOC={ar:"ar-MA",en:"en-GB",fr:"fr-FR"};
 const T={
-ar:{t:"حسابي | Vyroxx IT Services",home:"الرئيسية",login:"تسجيل الدخول بحساب Google",logout:"تسجيل الخروج",warn:"لم تُضف إعدادات Firebase بعد. افتح الملف وعوّض القيم التي تبدأ بـ PASTE داخل cfg قرب نهاية الملف.",g_h:"حسابي",g_p1:"سجّل الدخول لتحفظ معلوماتك، وتتابع حالة طلباتك، وتجمع نقاطًا تمنحك خدمة مجانية بعد كل 5 طلبات مكتملة.",g_p2:"نستخدم حساب Google فقط، فلا نحفظ كلمة مرور لك أبدًا.",hi:"مرحبًا،",loy_h:"🎁 نقاط الولاء",me_h:"معلوماتي",l_name:"الاسم",l_phone:"رقم الهاتف / WhatsApp",new_h:"طلب جديد",l_srv:"نوع الخدمة",l_msg:"وصف المشكلة",send:"إرسال الطلب",mine_h:"طلباتي السابقة",adm_h:"لوحة الإدارة",loading:"جارٍ التحميل…",none:"لا توجد طلبات بعد.",trk:"رقم التتبّع:",done_n:"طلبات مكتملة:",left_a:"بقي ",left_b:" طلبات مكتملة لتحصل على خدمة مجانية.",earn_a:"🎉 حصلت سابقًا على ",earn_b:" خدمة مجانية، أخبرنا بذلك عند طلبك التالي.",e_empty:"اكتب وصف المشكلة أولًا.",sending:"جارٍ الإرسال…",sent:"✔ وصل طلبك. رقم التتبّع: ",fail:"تعذّر الإرسال، حاول مرة أخرى. ",e_login:"تعذّر تسجيل الدخول: ",e_upd:"تعذّر التحديث: ",newc:"جديد",none_adm:"لا توجد طلبات.",st:{new:"جديد",progress:"قيد المعالجة",done:"تم الحل"}},
-en:{t:"My account | Vyroxx IT Services",home:"Home",login:"Sign in with Google",logout:"Sign out",warn:"Firebase settings are not added yet. Open the file and replace the values starting with PASTE inside cfg, near the end of the file.",g_h:"My account",g_p1:"Sign in to save your details, follow your requests, and earn points that give you a free service after every 5 completed requests.",g_p2:"We only use your Google account, so we never store a password for you.",hi:"Welcome,",loy_h:"🎁 Loyalty points",me_h:"My details",l_name:"Name",l_phone:"Phone / WhatsApp",new_h:"New request",l_srv:"Service type",l_msg:"Problem description",send:"Send request",mine_h:"My previous requests",adm_h:"Admin panel",loading:"Loading…",none:"No requests yet.",trk:"Tracking number:",done_n:"Completed requests:",left_a:"",left_b:" more completed requests to earn a free service.",earn_a:"🎉 You have earned ",earn_b:" free service(s). Tell us on your next request.",e_empty:"Please describe your problem first.",sending:"Sending…",sent:"✔ Your request was received. Tracking number: ",fail:"Could not send, please try again. ",e_login:"Sign-in failed: ",e_upd:"Update failed: ",newc:"new",none_adm:"No requests.",st:{new:"New",progress:"In progress",done:"Solved"}},
-fr:{t:"Mon compte | Vyroxx IT Services",home:"Accueil",login:"Se connecter avec Google",logout:"Se déconnecter",warn:"Les paramètres Firebase ne sont pas encore ajoutés. Ouvrez le fichier et remplacez les valeurs commençant par PASTE dans cfg, vers la fin du fichier.",g_h:"Mon compte",g_p1:"Connectez-vous pour enregistrer vos informations, suivre vos demandes et gagner des points qui donnent un service gratuit après 5 demandes terminées.",g_p2:"Nous utilisons uniquement votre compte Google, nous ne stockons donc jamais de mot de passe.",hi:"Bienvenue,",loy_h:"🎁 Points de fidélité",me_h:"Mes informations",l_name:"Nom",l_phone:"Téléphone / WhatsApp",new_h:"Nouvelle demande",l_srv:"Type de service",l_msg:"Description du problème",send:"Envoyer la demande",mine_h:"Mes demandes précédentes",adm_h:"Panneau d’administration",loading:"Chargement…",none:"Aucune demande pour le moment.",trk:"Numéro de suivi :",done_n:"Demandes terminées :",left_a:"Encore ",left_b:" demandes terminées pour obtenir un service gratuit.",earn_a:"🎉 Vous avez gagné ",earn_b:" service(s) gratuit(s). Dites-le-nous à votre prochaine demande.",e_empty:"Décrivez d’abord votre problème.",sending:"Envoi…",sent:"✔ Demande reçue. Numéro de suivi : ",fail:"Envoi impossible, réessayez. ",e_login:"Échec de la connexion : ",e_upd:"Échec de la mise à jour : ",newc:"nouvelle(s)",none_adm:"Aucune demande.",st:{new:"Nouvelle",progress:"En cours",done:"Résolue"}}
+ar:{t:"حسابي | Vyroxx IT Services",home:"الرئيسية",login:"تسجيل الدخول بحساب Google",logout:"تسجيل الخروج",warn:"لم تُضف إعدادات Firebase بعد. افتح الملف وعوّض القيم التي تبدأ بـ PASTE داخل cfg قرب نهاية الملف.",g_h:"حسابي",g_p1:"سجّل الدخول لتحفظ معلوماتك، وتتابع حالة طلباتك، وتجمع نقاطًا تمنحك خدمة مجانية بعد كل 5 طلبات مكتملة.",g_p2:"نستخدم حساب Google فقط، فلا نحفظ كلمة مرور لك أبدًا.",hi:"مرحبًا،",loy_h:"🎁 نقاط الولاء",me_h:"معلوماتي",l_name:"الاسم",l_phone:"رقم الهاتف / WhatsApp",new_h:"طلب جديد",l_srv:"نوع الخدمة",l_msg:"وصف المشكلة",send:"إرسال الطلب",mine_h:"طلباتي السابقة",adm_h:"لوحة الإدارة",loading:"جارٍ التحميل…",none:"لا توجد طلبات بعد.",trk:"رقم التتبّع:",done_n:"طلبات مكتملة:",left_a:"بقي ",left_b:" طلبات مكتملة لتحصل على خدمة مجانية.",earn_a:"🎉 حصلت سابقًا على ",earn_b:" خدمة مجانية، أخبرنا بذلك عند طلبك التالي.",e_empty:"اكتب وصف المشكلة أولًا.",sending:"جارٍ الإرسال…",sent:"✔ وصل طلبك. رقم التتبّع: ",fail:"تعذّر الإرسال، حاول مرة أخرى. ",e_login:"تعذّر تسجيل الدخول: ",e_upd:"تعذّر التحديث: ",newc:"قيد المعالجة",none_adm:"لا توجد طلبات.",st:{new:"جديد",progress:"قيد المعالجة",done:"تم الحل"}},
+en:{t:"My account | Vyroxx IT Services",home:"Home",login:"Sign in with Google",logout:"Sign out",warn:"Firebase settings are not added yet. Open the file and replace the values starting with PASTE inside cfg, near the end of the file.",g_h:"My account",g_p1:"Sign in to save your details, follow your requests, and earn points that give you a free service after every 5 completed requests.",g_p2:"We only use your Google account, so we never store a password for you.",hi:"Welcome,",loy_h:"🎁 Loyalty points",me_h:"My details",l_name:"Name",l_phone:"Phone / WhatsApp",new_h:"New request",l_srv:"Service type",l_msg:"Problem description",send:"Send request",mine_h:"My previous requests",adm_h:"Admin panel",loading:"Loading…",none:"No requests yet.",trk:"Tracking number:",done_n:"Completed requests:",left_a:"",left_b:" more completed requests to earn a free service.",earn_a:"🎉 You have earned ",earn_b:" free service(s). Tell us on your next request.",e_empty:"Please describe your problem first.",sending:"Sending…",sent:"✔ Your request was received. Tracking number: ",fail:"Could not send, please try again. ",e_login:"Sign-in failed: ",e_upd:"Update failed: ",newc:"in progress",none_adm:"No requests.",st:{new:"New",progress:"In progress",done:"Solved"}},
+fr:{t:"Mon compte | Vyroxx IT Services",home:"Accueil",login:"Se connecter avec Google",logout:"Se déconnecter",warn:"Les paramètres Firebase ne sont pas encore ajoutés. Ouvrez le fichier et remplacez les valeurs commençant par PASTE dans cfg, vers la fin du fichier.",g_h:"Mon compte",g_p1:"Connectez-vous pour enregistrer vos informations, suivre vos demandes et gagner des points qui donnent un service gratuit après 5 demandes terminées.",g_p2:"Nous utilisons uniquement votre compte Google, nous ne stockons donc jamais de mot de passe.",hi:"Bienvenue,",loy_h:"🎁 Points de fidélité",me_h:"Mes informations",l_name:"Nom",l_phone:"Téléphone / WhatsApp",new_h:"Nouvelle demande",l_srv:"Type de service",l_msg:"Description du problème",send:"Envoyer la demande",mine_h:"Mes demandes précédentes",adm_h:"Panneau d’administration",loading:"Chargement…",none:"Aucune demande pour le moment.",trk:"Numéro de suivi :",done_n:"Demandes terminées :",left_a:"Encore ",left_b:" demandes terminées pour obtenir un service gratuit.",earn_a:"🎉 Vous avez gagné ",earn_b:" service(s) gratuit(s). Dites-le-nous à votre prochaine demande.",e_empty:"Décrivez d’abord votre problème.",sending:"Envoi…",sent:"✔ Demande reçue. Numéro de suivi : ",fail:"Envoi impossible, réessayez. ",e_login:"Échec de la connexion : ",e_upd:"Échec de la mise à jour : ",newc:"en cours",none_adm:"Aucune demande.",st:{new:"Nouvelle",progress:"En cours",done:"Résolue"}}
 };
 
 const root=document.documentElement,tb=$("theme");
@@ -157,12 +157,12 @@ function renderMine(){
 }
 function renderAdmin(){
   if(!adm)return;const t=tt();
-  $("newCount").textContent=adm.filter(r=>r.status==="new").length+" "+t.newc;
+  $("newCount").textContent=adm.filter(r=>r.status!=="done").length+" "+t.newc;
   $("adminList").innerHTML=adm.map(r=>
     '<div class="req"><b>'+esc(svName(r.service))+'</b> · <span dir="ltr">'+esc(r.code)+'</span> · <small>'+esc(when(r))+'</small><br>'
     +'<small>'+esc(r.name)+' · <span dir="ltr">'+esc(r.phone)+'</span> · <span dir="ltr">'+esc(r.email)+'</span></small>'
     +'<p>'+esc(r.message)+'</p>'
-    +'<select data-id="'+esc(r.id)+'">'+Object.keys(t.st).map(k=>'<option value="'+k+'"'+(k===r.status?" selected":"")+'>'+t.st[k]+'</option>').join("")+'</select></div>').join("")
+    +'<select data-id="'+esc(r.id)+'">'+["progress","done"].map(k=>'<option value="'+k+'"'+(k===(r.status==="done"?"done":"progress")?" selected":"")+'>'+t.st[k]+'</option>').join("")+'</select></div>').join("")
     ||'<p class="muted">'+t.none_adm+'</p>';
 }
 function setLang(l){
@@ -199,7 +199,7 @@ if(cfg.apiKey.startsWith("PASTE")){
     $("auth").textContent=u?tt().logout:tt().login;
     $("guest").hidden=!!u;$("app").hidden=!u;
     if(!u)return;
-    $("hello").textContent=u.displayName||u.email;
+    $("hello").textContent=(u.email===ADMIN&&u.emailVerified)?ADMIN_NAME:(u.displayName||u.email);
     try{
       const s=await getDoc(doc(db,"users",u.uid));
       if(s.exists()){$("name").value=s.data().name||"";$("phone").value=s.data().phone||""}
@@ -225,7 +225,7 @@ if(cfg.apiKey.startsWith("PASTE")){
     try{
       const code="VX-"+Math.random().toString(36).slice(2,8).toUpperCase();
       await addDoc(collection(db,"requests"),{uid:user.uid,email:user.email,name:$("name").value.trim(),phone:$("phone").value.trim(),
-        service:$("service").value,message:m,status:"new",code:code,createdAt:serverTimestamp()});
+        service:$("service").value,message:m,status:"progress",code:code,createdAt:serverTimestamp()});
       await setDoc(doc(db,"users",user.uid),{name:$("name").value.trim(),phone:$("phone").value.trim(),email:user.email},{merge:true});
       $("message").value="";out.textContent=t.sent+code;
       await loadMine();
