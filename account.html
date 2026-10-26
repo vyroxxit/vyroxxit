@@ -368,6 +368,7 @@ if(cfg.apiKey.startsWith("PASTE")){
       await addDoc(collection(db,"requests"),{uid:user.uid,email:user.email,name:$("name").value.trim(),phone:$("phone").value.trim(),
         service:$("service").value,message:m,status:"progress",code:code,guest:false,paid:false,createdAt:serverTimestamp(),...flags});
       await setDoc(doc(db,"users",user.uid),{name:$("name").value.trim(),phone:$("phone").value.trim(),email:user.email},{merge:true});
+      try{await setDoc(doc(db,"tracking",code),{service:$("service").value,status:"progress",paid:false,createdAt:serverTimestamp()})}catch(e){}
       $("message").value="";out.textContent=t.sent+code;
       await loadMine();
     }catch(e){out.textContent=t.fail+"("+(e.code||"error")+")"}
@@ -388,12 +389,13 @@ if(cfg.apiKey.startsWith("PASTE")){
   $("uSearch").oninput=renderAdmin;
   $("stNewPerms").onchange=renderNewPerms;
 
+  const syncTrack=async(id,o)=>{const r=(adm||[]).find(x=>x.id===id);if(!r||!r.code)return;try{await setDoc(doc(db,"tracking",r.code),{service:r.service,status:r.status||"progress",paid:r.paid===true,createdAt:r.createdAt||serverTimestamp(),...o})}catch(e){}};
   const patch=(id,o)=>{const r=(adm||[]).find(x=>x.id===id);if(r)Object.assign(r,o);renderAdmin()};
   $("adminBox").onchange=async e=>{
     const s=e.target,id=s.dataset.st||s.dataset.pay;if(!id)return;
     try{
-      if(s.dataset.st&&can("editRequests")){await updateDoc(doc(db,"requests",id),{status:s.value});patch(id,{status:s.value})}
-      else if(s.dataset.pay&&can("editPayment")){const p=s.value==="1";await updateDoc(doc(db,"requests",id),{paid:p,paidBy:user.email,paidAt:serverTimestamp()});patch(id,{paid:p})}
+      if(s.dataset.st&&can("editRequests")){await updateDoc(doc(db,"requests",id),{status:s.value});await syncTrack(id,{status:s.value});patch(id,{status:s.value})}
+      else if(s.dataset.pay&&can("editPayment")){const p=s.value==="1";await updateDoc(doc(db,"requests",id),{paid:p,paidBy:user.email,paidAt:serverTimestamp()});await syncTrack(id,{paid:p});patch(id,{paid:p})}
     }catch(err){alert(tt().e_upd+(err.code||""));renderAdmin()}
   };
   $("adminBox").addEventListener("toggle",e=>{const d=e.target;if(d.dataset&&d.dataset.k){d.open?openK.add(d.dataset.k):openK.delete(d.dataset.k)}},true);
