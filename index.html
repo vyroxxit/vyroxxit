@@ -518,7 +518,7 @@ setLang(sl&&T[sl]?sl:(T[nl]?nl:"ar"));
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {getAuth,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {getFirestore,doc,getDoc,collection,addDoc,getDocs,query,where,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {getFirestore,doc,getDoc,setDoc,collection,addDoc,getDocs,query,where,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 /* حظر المستخدمين: إن كان الحساب المسجَّل محظورًا تُغطّى الصفحة برسالة المنع */
 const ADMIN="vyroxxvx@gmail.com";
 const M={ar:["تم حظر حسابك","تم منعك من استخدام هذا الموقع. إن كنت تعتقد أن هذا خطأ فتواصل معنا.","تسجيل الخروج"],
@@ -530,9 +530,9 @@ try{
   const EVERY=5;
   onAuthStateChanged(auth,u=>{window.vxUser=u||null;if(window.vxOnAuth)window.vxOnAuth()});
   window.vxTrack=async c=>{
-    const q=await getDocs(query(collection(db,"requests"),where("code","==",c)));
-    if(q.empty)return null;
-    const d=q.docs[0].data();
+    const s=await getDoc(doc(db,"tracking",c));
+    if(!s.exists())return null;
+    const d=s.data();
     return {service:d.service,status:d.status,paid:d.paid===true,time:(d.createdAt&&d.createdAt.toDate)?d.createdAt.toDate().getTime():null};
   };
   window.vxSave=async d=>{
@@ -546,6 +546,7 @@ try{
     }else{
       await addDoc(collection(db,"requests"),Object.assign(base,{uid:null,email:d.email,guest:true}));
     }
+    try{await setDoc(doc(db,"tracking",code),{service:d.service,status:"progress",paid:false,createdAt:serverTimestamp()})}catch(e){}
     return code;
   };
   onAuthStateChanged(auth,async u=>{
