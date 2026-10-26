@@ -50,6 +50,15 @@ textarea{min-height:110px;resize:vertical}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
 @media (max-width:560px){.wrap{padding:0 14px 60px}.logo{font-size:17px}.tools{gap:6px}.seg button,.theme{padding:5px 8px}}
 .seg{height:40px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}
+.tabbtn{font:inherit;font-size:15px;border:1.5px solid var(--line);background:transparent;color:var(--ink);padding:6px 14px;border-radius:8px;cursor:pointer}
+.tabbtn[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.btn.sm{padding:4px 14px;font-size:14px;margin-top:8px}
+.perms{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:6px 14px;margin:10px 0}
+.chk{display:flex;align-items:center;gap:8px;font-weight:400;margin:0}
+.chk input{width:auto;margin:0}
+.sub{font-size:17px;margin:4px 0 8px}
+.role{border-color:var(--muted);color:var(--muted)}
 .theme{height:40px;min-width:44px;padding:0 10px;font-size:20px;line-height:1;display:inline-flex;align-items:center;justify-content:center}
 </style>
 </head>
@@ -65,6 +74,8 @@ textarea{min-height:110px;resize:vertical}
   </div>
 
   <div class="warn" id="warn" data-i="warn" hidden></div>
+
+  <div class="warn" id="banned" hidden><b data-i="banned_t">تم حظر حسابك</b><p style="margin:6px 0 0" data-i="banned_p"></p></div>
 
   <main id="guest" class="card">
     <h1 data-i="g_h">حسابي</h1>
@@ -98,8 +109,24 @@ textarea{min-height:110px;resize:vertical}
     <div class="card"><h2 data-i="mine_h">طلباتي السابقة</h2><div id="mine"><p class="muted">جارٍ التحميل…</p></div></div>
 
     <div class="card" id="adminBox" hidden>
-      <h2><span data-i="adm_h">لوحة الإدارة</span> <span class="badge new" id="newCount"></span></h2>
-      <div id="adminList"></div>
+      <h2><span data-i="adm_h">لوحة الإدارة</span> <span class="badge new" id="newCount"></span> <span class="badge role" id="roleBadge"></span></h2>
+      <div class="tabs" id="tabs"></div>
+      <div id="tab_req"><div id="adminList"></div></div>
+      <div id="tab_users" hidden>
+        <input id="uSearch" type="search" autocomplete="off">
+        <div id="usersList"></div>
+      </div>
+      <div id="tab_staff" hidden>
+        <h3 class="sub" data-i="st_add_h">إضافة موظف</h3>
+        <label for="stEmail" data-i="st_email">بريد Gmail للموظف</label>
+        <input id="stEmail" dir="ltr" type="email" placeholder="name@gmail.com" autocomplete="off">
+        <div class="muted" data-i="st_hint">اختر صلاحيات الموظف:</div>
+        <div class="perms" id="stNewPerms"></div>
+        <p class="msg" id="stMsg" role="status"></p>
+        <button class="btn" id="stAdd" type="button" data-i="st_add">إضافة الموظف</button>
+        <h3 class="sub" style="margin-top:22px" data-i="st_list">الموظفون الحاليون</h3>
+        <div id="staffList"></div>
+      </div>
     </div>
   </main>
 </div>
@@ -107,7 +134,7 @@ textarea{min-height:110px;resize:vertical}
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {getAuth,GoogleAuthProvider,signInWithPopup,signInWithRedirect,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {getFirestore,collection,addDoc,doc,setDoc,getDoc,getDocs,query,where,updateDoc,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {getFirestore,collection,addDoc,doc,setDoc,getDoc,getDocs,query,where,updateDoc,deleteDoc,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 /* ====== عدّل هذا القسم فقط ====== */
 const cfg={
@@ -128,13 +155,13 @@ en:["Computer Services","Mobile Services","Gaming Services","Networking","Cybers
 fr:["Services informatiques","Services mobiles","Jeux vidéo","Réseaux","Cybersécurité","Deep Web et Dark Web","Services Linux","Assistance à distance","Récupération de données","Services cloud","Activation de logiciels"]};
 const LOC={ar:"ar-MA",en:"en-GB",fr:"fr-FR"};
 const T={
-ar:{t:"حسابي | Vyroxx IT Services",home:"الرئيسية",login:"تسجيل الدخول بحساب Google",logout:"تسجيل الخروج",warn:"لم تُضف إعدادات Firebase بعد. افتح الملف وعوّض القيم التي تبدأ بـ PASTE داخل cfg قرب نهاية الملف.",g_h:"حسابي",g_p1:"سجّل الدخول لتحفظ معلوماتك، وتتابع حالة طلباتك، وتجمع نقاطًا تمنحك خدمة مجانية بعد كل 5 طلبات مكتملة.",g_p2:"نستخدم حساب Google فقط، فلا نحفظ كلمة مرور لك أبدًا.",hi:"مرحبًا،",loy_h:"🎁 نقاط الولاء",me_h:"معلوماتي",l_name:"الاسم",l_phone:"رقم الهاتف / WhatsApp",new_h:"طلب جديد",l_srv:"نوع الخدمة",l_msg:"وصف المشكلة",send:"إرسال الطلب",mine_h:"طلباتي السابقة",adm_h:"لوحة الإدارة",loading:"جارٍ التحميل…",none:"لا توجد طلبات بعد.",trk:"رقم التتبّع:",done_n:"طلبات مكتملة:",left_a:"بقي ",left_b:" طلبات مكتملة لتحصل على خدمة مجانية.",earn_a:"🎉 حصلت سابقًا على ",earn_b:" خدمة مجانية، أخبرنا بذلك عند طلبك التالي.",e_empty:"اكتب وصف المشكلة أولًا.",sending:"جارٍ الإرسال…",sent:"✔ وصل طلبك. رقم التتبّع: ",fail:"تعذّر الإرسال، حاول مرة أخرى. ",e_login:"تعذّر تسجيل الدخول: ",e_upd:"تعذّر التحديث: ",newc:"قيد المعالجة",none_adm:"لا توجد طلبات.",st:{new:"جديد",progress:"قيد المعالجة",done:"تم الحل"}},
-en:{t:"My account | Vyroxx IT Services",home:"Home",login:"Sign in with Google",logout:"Sign out",warn:"Firebase settings are not added yet. Open the file and replace the values starting with PASTE inside cfg, near the end of the file.",g_h:"My account",g_p1:"Sign in to save your details, follow your requests, and earn points that give you a free service after every 5 completed requests.",g_p2:"We only use your Google account, so we never store a password for you.",hi:"Welcome,",loy_h:"🎁 Loyalty points",me_h:"My details",l_name:"Name",l_phone:"Phone / WhatsApp",new_h:"New request",l_srv:"Service type",l_msg:"Problem description",send:"Send request",mine_h:"My previous requests",adm_h:"Admin panel",loading:"Loading…",none:"No requests yet.",trk:"Tracking number:",done_n:"Completed requests:",left_a:"",left_b:" more completed requests to earn a free service.",earn_a:"🎉 You have earned ",earn_b:" free service(s). Tell us on your next request.",e_empty:"Please describe your problem first.",sending:"Sending…",sent:"✔ Your request was received. Tracking number: ",fail:"Could not send, please try again. ",e_login:"Sign-in failed: ",e_upd:"Update failed: ",newc:"in progress",none_adm:"No requests.",st:{new:"New",progress:"In progress",done:"Solved"}},
-fr:{t:"Mon compte | Vyroxx IT Services",home:"Accueil",login:"Se connecter avec Google",logout:"Se déconnecter",warn:"Les paramètres Firebase ne sont pas encore ajoutés. Ouvrez le fichier et remplacez les valeurs commençant par PASTE dans cfg, vers la fin du fichier.",g_h:"Mon compte",g_p1:"Connectez-vous pour enregistrer vos informations, suivre vos demandes et gagner des points qui donnent un service gratuit après 5 demandes terminées.",g_p2:"Nous utilisons uniquement votre compte Google, nous ne stockons donc jamais de mot de passe.",hi:"Bienvenue,",loy_h:"🎁 Points de fidélité",me_h:"Mes informations",l_name:"Nom",l_phone:"Téléphone / WhatsApp",new_h:"Nouvelle demande",l_srv:"Type de service",l_msg:"Description du problème",send:"Envoyer la demande",mine_h:"Mes demandes précédentes",adm_h:"Panneau d’administration",loading:"Chargement…",none:"Aucune demande pour le moment.",trk:"Numéro de suivi :",done_n:"Demandes terminées :",left_a:"Encore ",left_b:" demandes terminées pour obtenir un service gratuit.",earn_a:"🎉 Vous avez gagné ",earn_b:" service(s) gratuit(s). Dites-le-nous à votre prochaine demande.",e_empty:"Décrivez d’abord votre problème.",sending:"Envoi…",sent:"✔ Demande reçue. Numéro de suivi : ",fail:"Envoi impossible, réessayez. ",e_login:"Échec de la connexion : ",e_upd:"Échec de la mise à jour : ",newc:"en cours",none_adm:"Aucune demande.",st:{new:"Nouvelle",progress:"En cours",done:"Résolue"}}
+ar:{t:"حسابي | Vyroxx IT Services",home:"الرئيسية",login:"تسجيل الدخول بحساب Google",logout:"تسجيل الخروج",warn:"لم تُضف إعدادات Firebase بعد. افتح الملف وعوّض القيم التي تبدأ بـ PASTE داخل cfg قرب نهاية الملف.",g_h:"حسابي",g_p1:"سجّل الدخول لتحفظ معلوماتك، وتتابع حالة طلباتك، وتجمع نقاطًا تمنحك خدمة مجانية بعد كل 5 طلبات مكتملة.",g_p2:"نستخدم حساب Google فقط، فلا نحفظ كلمة مرور لك أبدًا.",hi:"مرحبًا،",loy_h:"🎁 نقاط الولاء",me_h:"معلوماتي",l_name:"الاسم",l_phone:"رقم الهاتف / WhatsApp",new_h:"طلب جديد",l_srv:"نوع الخدمة",l_msg:"وصف المشكلة",send:"إرسال الطلب",mine_h:"طلباتي السابقة",adm_h:"لوحة الإدارة",loading:"جارٍ التحميل…",none:"لا توجد طلبات بعد.",trk:"رقم التتبّع:",done_n:"طلبات مكتملة:",left_a:"بقي ",left_b:" طلبات مكتملة لتحصل على خدمة مجانية.",earn_a:"🎉 حصلت سابقًا على ",earn_b:" خدمة مجانية، أخبرنا بذلك عند طلبك التالي.",e_empty:"اكتب وصف المشكلة أولًا.",sending:"جارٍ الإرسال…",sent:"✔ وصل طلبك. رقم التتبّع: ",fail:"تعذّر الإرسال، حاول مرة أخرى. ",e_login:"تعذّر تسجيل الدخول: ",e_upd:"تعذّر التحديث: ",newc:"قيد المعالجة",none_adm:"لا توجد طلبات.",tab_req:"الطلبات",tab_users:"العملاء",tab_staff:"الموظفون",role_owner:"المدير الرئيسي",role_staff:"موظف",u_search:"ابحث بالاسم أو البريد…",u_none:"لا يوجد عملاء.",last:"آخر دخول:",banned_t:"تم حظر حسابك",banned_p:"تم منعك من استخدام هذا الموقع. إن كنت تعتقد أن هذا خطأ فتواصل معنا.",ban:"حظر",unban:"رفع الحظر",is_banned:"محظور",ban_q:"هل تريد حظر هذا المستخدم ومنعه من الموقع؟",unban_q:"هل تريد رفع الحظر عن هذا المستخدم؟",st_add_h:"إضافة موظف",st_email:"بريد Gmail للموظف",st_hint:"اختر صلاحيات الموظف:",st_add:"إضافة الموظف",st_list:"الموظفون الحاليون",st_none:"لا يوجد موظفون بعد.",st_remove:"إزالة الموظف",st_rm_q:"هل تريد إزالة هذا الموظف نهائيًا؟",st_bad:"أدخل بريد Gmail صحيحًا.",st_self:"هذا بريد المدير الرئيسي وله كل الصلاحيات أصلًا.",st_noperm:"اختر صلاحية واحدة على الأقل.",st_done:"✔ تمت إضافة الموظف. ستظهر له لوحة الإدارة عند دخوله بحسابه.",p_all:"كل الصلاحيات",p_viewRequests:"عرض الطلبات وتتبعها",p_editRequests:"تغيير حالة الطلبات",p_viewUsers:"عرض العملاء",p_banUsers:"حظر العملاء ورفع الحظر",st:{new:"جديد",progress:"قيد المعالجة",done:"تم الحل"}},
+en:{t:"My account | Vyroxx IT Services",home:"Home",login:"Sign in with Google",logout:"Sign out",warn:"Firebase settings are not added yet. Open the file and replace the values starting with PASTE inside cfg, near the end of the file.",g_h:"My account",g_p1:"Sign in to save your details, follow your requests, and earn points that give you a free service after every 5 completed requests.",g_p2:"We only use your Google account, so we never store a password for you.",hi:"Welcome,",loy_h:"🎁 Loyalty points",me_h:"My details",l_name:"Name",l_phone:"Phone / WhatsApp",new_h:"New request",l_srv:"Service type",l_msg:"Problem description",send:"Send request",mine_h:"My previous requests",adm_h:"Admin panel",loading:"Loading…",none:"No requests yet.",trk:"Tracking number:",done_n:"Completed requests:",left_a:"",left_b:" more completed requests to earn a free service.",earn_a:"🎉 You have earned ",earn_b:" free service(s). Tell us on your next request.",e_empty:"Please describe your problem first.",sending:"Sending…",sent:"✔ Your request was received. Tracking number: ",fail:"Could not send, please try again. ",e_login:"Sign-in failed: ",e_upd:"Update failed: ",newc:"in progress",none_adm:"No requests.",tab_req:"Requests",tab_users:"Customers",tab_staff:"Staff",role_owner:"Owner",role_staff:"Staff",u_search:"Search by name or email…",u_none:"No customers.",last:"Last sign-in:",banned_t:"Your account has been banned",banned_p:"You are not allowed to use this site. If you think this is a mistake, please contact us.",ban:"Ban",unban:"Unban",is_banned:"Banned",ban_q:"Ban this user from the site?",unban_q:"Remove the ban from this user?",st_add_h:"Add a staff member",st_email:"Staff member’s Gmail",st_hint:"Choose their permissions:",st_add:"Add staff member",st_list:"Current staff",st_none:"No staff yet.",st_remove:"Remove staff",st_rm_q:"Remove this staff member permanently?",st_bad:"Enter a valid Gmail address.",st_self:"This is the owner’s email and it already has every permission.",st_noperm:"Choose at least one permission.",st_done:"✔ Staff member added. They will see the admin panel when they sign in.",p_all:"All permissions",p_viewRequests:"View and track requests",p_editRequests:"Change request status",p_viewUsers:"View customers",p_banUsers:"Ban and unban customers",st:{new:"New",progress:"In progress",done:"Solved"}},
+fr:{t:"Mon compte | Vyroxx IT Services",home:"Accueil",login:"Se connecter avec Google",logout:"Se déconnecter",warn:"Les paramètres Firebase ne sont pas encore ajoutés. Ouvrez le fichier et remplacez les valeurs commençant par PASTE dans cfg, vers la fin du fichier.",g_h:"Mon compte",g_p1:"Connectez-vous pour enregistrer vos informations, suivre vos demandes et gagner des points qui donnent un service gratuit après 5 demandes terminées.",g_p2:"Nous utilisons uniquement votre compte Google, nous ne stockons donc jamais de mot de passe.",hi:"Bienvenue,",loy_h:"🎁 Points de fidélité",me_h:"Mes informations",l_name:"Nom",l_phone:"Téléphone / WhatsApp",new_h:"Nouvelle demande",l_srv:"Type de service",l_msg:"Description du problème",send:"Envoyer la demande",mine_h:"Mes demandes précédentes",adm_h:"Panneau d’administration",loading:"Chargement…",none:"Aucune demande pour le moment.",trk:"Numéro de suivi :",done_n:"Demandes terminées :",left_a:"Encore ",left_b:" demandes terminées pour obtenir un service gratuit.",earn_a:"🎉 Vous avez gagné ",earn_b:" service(s) gratuit(s). Dites-le-nous à votre prochaine demande.",e_empty:"Décrivez d’abord votre problème.",sending:"Envoi…",sent:"✔ Demande reçue. Numéro de suivi : ",fail:"Envoi impossible, réessayez. ",e_login:"Échec de la connexion : ",e_upd:"Échec de la mise à jour : ",newc:"en cours",none_adm:"Aucune demande.",tab_req:"Demandes",tab_users:"Clients",tab_staff:"Équipe",role_owner:"Propriétaire",role_staff:"Employé",u_search:"Rechercher par nom ou e-mail…",u_none:"Aucun client.",last:"Dernière connexion :",banned_t:"Votre compte a été banni",banned_p:"Vous n’êtes pas autorisé à utiliser ce site. Si vous pensez que c’est une erreur, contactez-nous.",ban:"Bannir",unban:"Débannir",is_banned:"Banni",ban_q:"Bannir cet utilisateur du site ?",unban_q:"Lever le bannissement de cet utilisateur ?",st_add_h:"Ajouter un employé",st_email:"Gmail de l’employé",st_hint:"Choisissez ses permissions :",st_add:"Ajouter l’employé",st_list:"Employés actuels",st_none:"Aucun employé pour le moment.",st_remove:"Retirer",st_rm_q:"Retirer définitivement cet employé ?",st_bad:"Saisissez une adresse Gmail valide.",st_self:"C’est l’e-mail du propriétaire, qui a déjà toutes les permissions.",st_noperm:"Choisissez au moins une permission.",st_done:"✔ Employé ajouté. Il verra le panneau d’administration en se connectant.",p_all:"Toutes les permissions",p_viewRequests:"Voir et suivre les demandes",p_editRequests:"Modifier le statut des demandes",p_viewUsers:"Voir les clients",p_banUsers:"Bannir et débannir les clients",st:{new:"Nouvelle",progress:"En cours",done:"Résolue"}}
 };
 
 const root=document.documentElement,tb=$("theme");
-let lang="ar",user=null,mine=null,adm=null;
+let lang="ar",user=null,mine=null,adm=null,usr=null,stf=null,perms={},isOwner=false,tab="req";
 const tt=()=>T[lang];
 const svName=a=>{const i=AR.indexOf(a);return i<0?a:SVN[lang][i]};
 const when=r=>r.createdAt&&r.createdAt.toDate?r.createdAt.toDate().toLocaleDateString(LOC[lang]):"";
@@ -155,15 +182,68 @@ function renderMine(){
     +'<br><small>'+t.trk+' <span dir="ltr">'+esc(r.code)+'</span> · '+esc(when(r))+'</small><p>'+esc(r.message)+'</p></div>').join("")
     :'<p class="muted">'+t.none+'</p>';
 }
+const PK=["all","viewRequests","editRequests","viewUsers","banUsers"];
+const can=p=>isOwner||perms.all===true||perms[p]===true;
+const seen=r=>r&&r.seconds?r.toDate().toLocaleDateString(LOC[lang]):"";
+function permsHtml(p,attr){
+  const t=tt();
+  return PK.map(k=>{const all=p.all===true&&k!=="all";
+    return '<label class="chk"><input type="checkbox" '+attr+' data-perm="'+k+'"'+((all||p[k]===true)?" checked":"")+(all?" disabled":"")+'> '+esc(t["p_"+k])+'</label>'}).join("");
+}
+function renderNewPerms(){
+  const cur={};
+  document.querySelectorAll("#stNewPerms input").forEach(x=>{if(!x.disabled)cur[x.dataset.perm]=x.checked});
+  $("stNewPerms").innerHTML=permsHtml(cur,'data-new="1"');
+}
+function renderTabs(){
+  const t=tt(),list=[];
+  if(can("viewRequests"))list.push(["req",t.tab_req]);
+  if(can("viewUsers")||can("banUsers"))list.push(["users",t.tab_users]);
+  if(isOwner)list.push(["staff",t.tab_staff]);
+  if(!list.some(x=>x[0]===tab))tab=list.length?list[0][0]:"";
+  $("tabs").innerHTML=list.map(x=>'<button type="button" class="tabbtn" data-tab="'+x[0]+'" aria-pressed="'+(x[0]===tab)+'">'+esc(x[1])+'</button>').join("");
+  ["req","users","staff"].forEach(k=>{$("tab_"+k).hidden=k!==tab});
+}
 function renderAdmin(){
-  if(!adm)return;const t=tt();
-  $("newCount").textContent=adm.filter(r=>r.status!=="done").length+" "+t.newc;
-  $("adminList").innerHTML=adm.map(r=>
-    '<div class="req"><b>'+esc(svName(r.service))+'</b> · <span dir="ltr">'+esc(r.code)+'</span> · <small>'+esc(when(r))+'</small><br>'
-    +'<small>'+esc(r.name)+' · <span dir="ltr">'+esc(r.phone)+'</span> · <span dir="ltr">'+esc(r.email)+'</span></small>'
-    +'<p>'+esc(r.message)+'</p>'
-    +'<select data-id="'+esc(r.id)+'">'+["progress","done"].map(k=>'<option value="'+k+'"'+(k===(r.status==="done"?"done":"progress")?" selected":"")+'>'+t.st[k]+'</option>').join("")+'</select></div>').join("")
-    ||'<p class="muted">'+t.none_adm+'</p>';
+  if(!user||$("adminBox").hidden)return;
+  const t=tt();
+  renderTabs();
+  $("roleBadge").textContent=isOwner?t.role_owner:t.role_staff;
+  $("uSearch").placeholder=t.u_search;
+  const bm={};(usr||[]).forEach(u=>{bm[u.id]=u.banned===true});
+  const banBtn=(uid,email)=>(can("banUsers")&&uid&&uid!==user.uid&&email!==ADMIN)
+    ?'<br><button type="button" class="btn alt sm" data-ban="'+esc(uid)+'" data-to="'+(bm[uid]?"0":"1")+'">'+esc(bm[uid]?t.unban:t.ban)+'</button>':"";
+  if(can("viewRequests")){
+    if(!adm)$("adminList").innerHTML='<p class="muted">'+t.loading+'</p>';
+    else{
+      $("newCount").textContent=adm.filter(r=>r.status!=="done").length+" "+t.newc;
+      $("adminList").innerHTML=adm.map(r=>
+        '<div class="req"><b>'+esc(svName(r.service))+'</b> · <span dir="ltr">'+esc(r.code)+'</span> · <small>'+esc(when(r))+'</small>'
+        +(bm[r.uid]?' <span class="badge new">'+esc(t.is_banned)+'</span>':'')+'<br>'
+        +'<small>'+esc(r.name)+' · <span dir="ltr">'+esc(r.phone)+'</span> · <span dir="ltr">'+esc(r.email)+'</span></small>'
+        +'<p>'+esc(r.message)+'</p>'
+        +(can("editRequests")
+          ?'<select data-id="'+esc(r.id)+'">'+["progress","done"].map(k=>'<option value="'+k+'"'+(k===(r.status==="done"?"done":"progress")?" selected":"")+'>'+t.st[k]+'</option>').join("")+'</select>'
+          :'<span class="badge '+esc(r.status)+'">'+esc(t.st[r.status]||r.status)+'</span>')
+        +banBtn(r.uid,r.email)+'</div>').join("")||'<p class="muted">'+t.none_adm+'</p>';
+    }
+  }
+  if(can("viewUsers")||can("banUsers")){
+    if(!usr)$("usersList").innerHTML='<p class="muted">'+t.loading+'</p>';
+    else{
+      const q=$("uSearch").value.trim().toLowerCase();
+      $("usersList").innerHTML=usr.filter(u=>!q||((u.name||"")+" "+(u.email||"")).toLowerCase().includes(q)).map(u=>
+        '<div class="req"><b>'+esc(u.name||"—")+'</b>'+(u.banned?' <span class="badge new">'+esc(t.is_banned)+'</span>':'')
+        +'<br><small><span dir="ltr">'+esc(u.email)+'</span>'+(u.phone?' · <span dir="ltr">'+esc(u.phone)+'</span>':'')+(seen(u.lastLogin)?' · '+t.last+' '+esc(seen(u.lastLogin)):'')+'</small>'
+        +banBtn(u.id,u.email)+'</div>').join("")||'<p class="muted">'+t.u_none+'</p>';
+    }
+  }
+  if(isOwner){
+    if(!stf)$("staffList").innerHTML='<p class="muted">'+t.loading+'</p>';
+    else $("staffList").innerHTML=stf.map(m=>
+      '<div class="req"><b dir="ltr">'+esc(m.email||m.id)+'</b><div class="perms">'+permsHtml(m,'data-email="'+esc(m.id)+'"')+'</div>'
+      +'<button type="button" class="btn alt sm" data-rm="'+esc(m.id)+'">'+esc(t.st_remove)+'</button></div>').join("")||'<p class="muted">'+t.st_none+'</p>';
+  }
 }
 function setLang(l){
   lang=l;const t=T[l];
@@ -174,7 +254,7 @@ function setLang(l){
   sel.selectedIndex=i;
   document.querySelectorAll("[data-lang]").forEach(b=>b.setAttribute("aria-pressed",String(b.getAttribute("data-lang")===l)));
   $("auth").textContent=user?t.logout:t.login;
-  renderMine();renderAdmin();
+  renderMine();renderNewPerms();renderAdmin();
   try{localStorage.setItem("vx-lang",l)}catch(e){}
 }
 document.querySelectorAll("[data-lang]").forEach(b=>{b.onclick=()=>setLang(b.getAttribute("data-lang"))});
@@ -195,21 +275,27 @@ if(cfg.apiKey.startsWith("PASTE")){
   };
 
   onAuthStateChanged(auth,async u=>{
-    user=u;mine=null;adm=null;
+    user=u;mine=null;adm=null;usr=null;stf=null;perms={};isOwner=false;
     $("auth").textContent=u?tt().logout:tt().login;
+    $("banned").hidden=true;$("adminBox").hidden=true;
     $("guest").hidden=!!u;$("app").hidden=!u;
     if(!u)return;
-    $("hello").textContent=(u.email===ADMIN&&u.emailVerified)?ADMIN_NAME:(u.displayName||u.email);
-    try{
-      const s=await getDoc(doc(db,"users",u.uid));
-      if(s.exists()){$("name").value=s.data().name||"";$("phone").value=s.data().phone||""}
-      else $("name").value=u.displayName||"";
-    }catch(e){}
+    isOwner=u.email===ADMIN&&u.emailVerified;
+    let exists=false,ud={};
+    try{const s=await getDoc(doc(db,"users",u.uid));exists=s.exists();ud=s.data()||{}}catch(e){}
+    if(!isOwner&&ud.banned===true){$("app").hidden=true;$("banned").hidden=false;return}
+    $("hello").textContent=isOwner?ADMIN_NAME:(u.displayName||u.email);
+    if(exists){$("name").value=ud.name||"";$("phone").value=ud.phone||""}
+    else $("name").value=u.displayName||"";
+    try{await setDoc(doc(db,"users",u.uid),exists?{email:u.email,lastLogin:serverTimestamp()}:{name:u.displayName||"",email:u.email,lastLogin:serverTimestamp()},{merge:true})}catch(e){}
+    if(!isOwner&&u.emailVerified){
+      try{const s=await getDoc(doc(db,"staff",(u.email||"").toLowerCase()));if(s.exists())perms=s.data()}catch(e){}
+    }
     renderMine();
     await loadMine();
-    const admin=u.email===ADMIN&&u.emailVerified;
-    $("adminBox").hidden=!admin;
-    if(admin)loadAdmin();
+    const hasAdmin=isOwner||PK.some(k=>perms[k]===true);
+    $("adminBox").hidden=!hasAdmin;
+    if(hasAdmin){renderNewPerms();loadAdmin()}
   });
 
   async function loadMine(){
@@ -234,14 +320,66 @@ if(cfg.apiKey.startsWith("PASTE")){
   };
 
   async function loadAdmin(){
-    const qs=await getDocs(collection(db,"requests"));
-    adm=qs.docs.map(d=>({id:d.id,...d.data()})).sort(byDate);
-    renderAdmin();
+    const jobs=[];
+    if(can("viewRequests"))jobs.push(getDocs(collection(db,"requests")).then(q=>{adm=q.docs.map(d=>({id:d.id,...d.data()})).sort(byDate)}).catch(()=>{adm=[]}));
+    if(can("viewUsers")||can("banUsers"))jobs.push(getDocs(collection(db,"users")).then(q=>{usr=q.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>((b.lastLogin&&b.lastLogin.seconds)||0)-((a.lastLogin&&a.lastLogin.seconds)||0))}).catch(()=>{usr=[]}));
+    if(isOwner)jobs.push(loadStaff(true));
+    await Promise.all(jobs);renderAdmin();
   }
+  async function loadStaff(quiet){
+    try{const q=await getDocs(collection(db,"staff"));stf=q.docs.map(d=>({id:d.id,...d.data()}))}catch(e){stf=[]}
+    if(!quiet)renderAdmin();
+  }
+  $("uSearch").oninput=renderAdmin;
+  $("stNewPerms").onchange=renderNewPerms;
+
   $("adminList").onchange=async e=>{
-    const s=e.target;if(!s.dataset.id)return;
+    const s=e.target;if(!s.dataset.id||!can("editRequests"))return;
     try{await updateDoc(doc(db,"requests",s.dataset.id),{status:s.value});loadAdmin()}
     catch(err){alert(tt().e_upd+err.code)}
+  };
+
+  $("staffList").onchange=async e=>{
+    const i=e.target;if(!isOwner||!i.dataset.email)return;
+    try{await updateDoc(doc(db,"staff",i.dataset.email),{[i.dataset.perm]:i.checked});await loadStaff()}
+    catch(err){alert(tt().e_upd+(err.code||""));await loadStaff()}
+  };
+
+  $("stAdd").onclick=async()=>{
+    const t=tt(),out=$("stMsg"),email=$("stEmail").value.trim().toLowerCase();
+    if(!isOwner)return;
+    if(!/^[^\s@\/]+@[^\s@\/]+\.[^\s@\/]+$/.test(email)){out.textContent=t.st_bad;return}
+    if(email===ADMIN){out.textContent=t.st_self;return}
+    const data={email:email,addedBy:user.email,addedAt:serverTimestamp()};
+    let any=false;
+    document.querySelectorAll("#stNewPerms input").forEach(x=>{if(!x.disabled){data[x.dataset.perm]=x.checked;if(x.checked)any=true}});
+    if(!any){out.textContent=t.st_noperm;return}
+    try{
+      await setDoc(doc(db,"staff",email),data);
+      $("stEmail").value="";out.textContent=t.st_done;
+      document.querySelectorAll("#stNewPerms input").forEach(x=>{x.checked=false});renderNewPerms();
+      await loadStaff();
+    }catch(err){out.textContent=t.e_upd+(err.code||"")}
+  };
+
+  $("adminBox").onclick=async e=>{
+    const b=e.target.closest("button");if(!b)return;
+    const t=tt();
+    if(b.dataset.tab){tab=b.dataset.tab;renderAdmin();return}
+    if(b.dataset.ban){
+      const ban=b.dataset.to==="1";
+      if(!can("banUsers")||!confirm(ban?t.ban_q:t.unban_q))return;
+      try{
+        await setDoc(doc(db,"users",b.dataset.ban),{banned:ban,bannedAt:serverTimestamp(),bannedBy:user.email},{merge:true});
+        await loadAdmin();
+      }catch(err){alert(t.e_upd+(err.code||""))}
+      return;
+    }
+    if(b.dataset.rm){
+      if(!isOwner||!confirm(t.st_rm_q))return;
+      try{await deleteDoc(doc(db,"staff",b.dataset.rm));await loadStaff()}
+      catch(err){alert(t.e_upd+(err.code||""))}
+    }
   };
 }
 
