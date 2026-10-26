@@ -139,6 +139,9 @@ nav{margin-inline:auto}
 @media (max-width:760px){.plist{grid-auto-flow:row;grid-template-columns:1fr;grid-template-rows:none;padding:2px 20px}.plist .prow:nth-child(6){border-bottom:1px solid var(--line)}}
 .prow strong{display:flex;flex-direction:column;align-items:flex-end;line-height:1.25;min-width:72px}
 .prow strong small{font-size:13px;font-weight:500;color:var(--muted)}
+.okmsg{color:var(--accent);min-height:22px;margin:0 0 10px;font-weight:500}
+#offerNote{margin:0 0 16px;font-size:14.5px}
+input[readonly]{opacity:.75}
 </style>
 </head>
 <body>
@@ -252,15 +255,20 @@ nav{margin-inline:auto}
         <div>
           <label for="name" data-i="l1">الاسم</label>
           <input id="name" autocomplete="name">
-          <label for="contactInfo" data-i="l2">رقم الهاتف أو البريد للرد عليك</label>
-          <input id="contactInfo" autocomplete="off">
+          <label for="contactInfo" data-i="l2">رقم الهاتف / WhatsApp</label>
+          <input id="contactInfo" type="tel" dir="ltr" autocomplete="tel" inputmode="tel" placeholder="+212...">
+          <label for="guestEmail" data-i="l_em">البريد الإلكتروني (لمتابعة طلبك)</label>
+          <input id="guestEmail" type="email" dir="ltr" autocomplete="email" inputmode="email" placeholder="name@example.com">
           <label for="service" data-i="l3">نوع الخدمة</label>
           <select id="service"></select>
           <label for="msg" data-i="l4">وصف المشكلة</label>
           <textarea id="msg" placeholder="مثال: الحاسوب بطيء جدًا ويظهر خطأ عند تشغيل اللعبة…"></textarea>
+          <p class="note" id="offerNote"></p>
           <p class="err" id="err" role="alert"></p>
+          <p class="okmsg" id="okMsg" role="status"></p>
           <div class="send">
-            <button class="btn" type="button" id="wa" data-i="wa">إرسال عبر WhatsApp</button>
+            <button class="btn" type="button" id="save" data-i="sv_btn">إرسال الطلب</button>
+            <button class="btn alt" type="button" id="wa" data-i="wa">إرسال عبر WhatsApp</button>
             <button class="btn alt" type="button" id="mail" data-i="mail">إرسال عبر البريد</button>
           </div>
         </div>
@@ -361,6 +369,40 @@ function setLang(l){
   document.getElementById("err").textContent="";
   store("vx-lang",l);
 }
+Object.assign(T.ar,{l2:"رقم الهاتف / WhatsApp",l_em:"البريد الإلكتروني (لمتابعة طلبك)",sv_btn:"إرسال الطلب",sv_bad:"اكتب بريدًا إلكترونيًا صحيحًا.",sv_ing:"جارٍ الإرسال…",sv_ok:"✔ وصل طلبك. رقم التتبّع: ",sv_fail:"تعذّر الإرسال، حاول مرة أخرى. ",
+ off_g:"أنت تطلب دون تسجيل: الطلب عادي بدون عروض. المسجّلون يحصلون على الطلب الأول بسعر رمزي وخدمة مجانية بعد كل 5 طلبات مكتملة.",
+ off_u:"أنت مسجّل الدخول: طلبك الأول بسعر رمزي وكل 5 طلبات مكتملة = خدمة مجانية.",
+ lo_p:"سجّل الدخول بحساب Google من صفحة «حسابي» لتحصل على الطلب الأول بسعر رمزي، وتابع حالة طلباتك واجمع نقاط الولاء تلقائيًا. الطلب دون تسجيل متاح دائمًا لكن بدون هذه العروض."});
+Object.assign(T.en,{l2:"Phone / WhatsApp number",l_em:"Email (to follow your request)",sv_btn:"Submit request",sv_bad:"Enter a valid email address.",sv_ing:"Sending…",sv_ok:"✔ Your request was received. Tracking number: ",sv_fail:"Could not send, please try again. ",
+ off_g:"You are ordering without an account: a standard order with no offers. Registered customers get their first order at a symbolic price and a free service after every 5 completed orders.",
+ off_u:"You are signed in: your first order is at a symbolic price and every 5 completed orders = a free service.",
+ lo_p:"Sign in with Google from “My account” to get your first order at a symbolic price, follow your requests and earn loyalty points automatically. Ordering without an account is always possible, but without these offers."});
+Object.assign(T.fr,{l2:"Numéro de téléphone / WhatsApp",l_em:"E-mail (pour suivre votre demande)",sv_btn:"Envoyer la demande",sv_bad:"Saisissez une adresse e-mail valide.",sv_ing:"Envoi…",sv_ok:"✔ Demande reçue. Numéro de suivi : ",sv_fail:"Envoi impossible, réessayez. ",
+ off_g:"Vous commandez sans compte : commande standard, sans offres. Les clients inscrits ont leur première commande à prix symbolique et un service gratuit toutes les 5 commandes terminées.",
+ off_u:"Vous êtes connecté : première commande à prix symbolique et 5 commandes terminées = un service gratuit.",
+ lo_p:"Connectez-vous avec Google depuis « Mon compte » pour obtenir votre première commande à prix symbolique, suivre vos demandes et cumuler des points. Commander sans compte reste possible, mais sans ces offres."});
+function refreshOffer(){
+  var t=T[lang],u=window.vxUser,em=document.getElementById("guestEmail"),n=document.getElementById("offerNote");
+  if(u){em.value=u.email||"";em.readOnly=true;n.textContent=t.off_u}
+  else{if(em.readOnly){em.readOnly=false;em.value=""}n.textContent=t.off_g}
+}
+window.vxOnAuth=refreshOffer;
+var _setLang=setLang;setLang=function(l){_setLang(l);refreshOffer()};
+document.getElementById("save").onclick=async function(){
+  var t=T[lang],e=document.getElementById("err"),ok=document.getElementById("okMsg"),b=this;
+  ok.textContent="";
+  var m=document.getElementById("msg").value.trim();
+  if(!m){e.textContent=t.err;return}
+  var em=document.getElementById("guestEmail").value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){e.textContent=t.sv_bad;return}
+  if(!window.vxSave){e.textContent=t.sv_fail;return}
+  e.textContent="";b.disabled=true;ok.textContent=t.sv_ing;
+  try{
+    var code=await window.vxSave({name:document.getElementById("name").value.trim(),phone:document.getElementById("contactInfo").value.trim(),email:em,service:SV.ar[Math.max(sel.selectedIndex,0)][0],message:m});
+    ok.textContent=t.sv_ok+code;document.getElementById("msg").value="";
+  }catch(x){ok.textContent="";e.textContent=t.sv_fail+"("+(x.code||"error")+")"}
+  b.disabled=false;
+};
 var themeBtn=document.getElementById("theme");
 function setTheme(m){
   root.setAttribute("data-theme",m);
@@ -377,7 +419,7 @@ function build(){
       e=document.getElementById("err");
   if(!m){e.textContent=t.err;return null}
   e.textContent="";
-  return t.nm+": "+(n||"-")+"\n"+t.ct+": "+(c||"-")+"\n"+t.sv+": "+sel.value+"\n\n"+t.pb+":\n"+m;
+  return t.nm+": "+(n||"-")+"\n"+t.ct+": "+(c||"-")+"\n"+(document.getElementById("guestEmail").value.trim()?"Email: "+document.getElementById("guestEmail").value.trim()+"\n":"")+t.sv+": "+sel.value+"\n\n"+t.pb+":\n"+m;
 }
 document.getElementById("wa").onclick=function(){
   var t=build();if(!t)return;
@@ -419,7 +461,7 @@ setLang(sl&&T[sl]?sl:(T[nl]?nl:"ar"));
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {getAuth,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {getFirestore,doc,getDoc} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {getFirestore,doc,getDoc,collection,addDoc,getDocs,query,where,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 /* حظر المستخدمين: إن كان الحساب المسجَّل محظورًا تُغطّى الصفحة برسالة المنع */
 const ADMIN="vyroxxvx@gmail.com";
 const M={ar:["تم حظر حسابك","تم منعك من استخدام هذا الموقع. إن كنت تعتقد أن هذا خطأ فتواصل معنا.","تسجيل الخروج"],
@@ -428,6 +470,21 @@ fr:["Votre compte a été banni","Vous n’êtes pas autorisé à utiliser ce si
 try{
   const app=initializeApp({apiKey:"AIzaSyDcRn9c0mtFmGt_fKZh5KKEM6_kbZq6_e0",authDomain:"vyroxx-it.firebaseapp.com",projectId:"vyroxx-it",appId:"1:546399615544:web:5da34c579291fdc0c6c4cd"});
   const auth=getAuth(app),db=getFirestore(app);
+  const EVERY=5;
+  onAuthStateChanged(auth,u=>{window.vxUser=u||null;if(window.vxOnAuth)window.vxOnAuth()});
+  window.vxSave=async d=>{
+    const u=auth.currentUser,code="VX-"+Math.random().toString(36).slice(2,8).toUpperCase();
+    const base={name:d.name,phone:d.phone,service:d.service,message:d.message,status:"progress",paid:false,code:code,source:"site",createdAt:serverTimestamp()};
+    if(u){
+      const mine=(await getDocs(query(collection(db,"requests"),where("uid","==",u.uid)))).docs.map(x=>x.data());
+      const done=mine.filter(r=>r.status==="done").length,used=mine.filter(r=>r.free===true).length,f={};
+      if(!mine.length)f.first=true;else if(Math.floor(done/EVERY)>used)f.free=true;
+      await addDoc(collection(db,"requests"),Object.assign(base,f,{uid:u.uid,email:u.email,guest:false}));
+    }else{
+      await addDoc(collection(db,"requests"),Object.assign(base,{uid:null,email:d.email,guest:true}));
+    }
+    return code;
+  };
   onAuthStateChanged(auth,async u=>{
     if(!u||u.email===ADMIN)return;
     try{
