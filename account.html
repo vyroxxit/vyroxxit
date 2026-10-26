@@ -60,6 +60,14 @@ textarea{min-height:110px;resize:vertical}
 .sub{font-size:17px;margin:4px 0 8px}
 .role{border-color:var(--muted);color:var(--muted)}
 .theme{height:40px;min-width:44px;padding:0 10px;font-size:20px;line-height:1;display:inline-flex;align-items:center;justify-content:center}
+.ctl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.ctl select{width:auto;margin:0;padding:5px 10px}
+.ctl .btn{margin:0}
+.btn.danger{border-color:var(--hot);color:var(--hot)}
+.badge.done{border-color:var(--accent)}
+details.cust{margin-top:8px}
+details.cust summary{cursor:pointer;color:var(--accent);font-weight:500}
+.offer{margin:10px 0 0;padding:10px 14px;border-radius:10px;border:1.5px dashed var(--accent)}
 </style>
 </head>
 <body>
@@ -80,6 +88,7 @@ textarea{min-height:110px;resize:vertical}
   <main id="guest" class="card">
     <h1 data-i="g_h">حسابي</h1>
     <p class="muted" data-i="g_p1">سجّل الدخول لتحفظ معلوماتك، وتتابع حالة طلباتك، وتجمع نقاطًا تمنحك خدمة مجانية بعد كل 5 طلبات مكتملة.</p>
+    <p class="offer" data-i="g_p3"></p>
     <p class="muted" data-i="g_p2">نستخدم حساب Google فقط، فلا نحفظ كلمة مرور لك أبدًا.</p>
   </main>
 
@@ -91,6 +100,7 @@ textarea{min-height:110px;resize:vertical}
           <h2 data-i="loy_h">🎁 نقاط الولاء</h2>
           <div class="bar"><i id="barFill" style="width:0"></i></div>
           <div id="loyal" class="muted"></div>
+          <div id="offer" class="offer" hidden></div>
         </div>
         <div class="card">
           <h2 data-i="me_h">معلوماتي</h2>
@@ -111,8 +121,9 @@ textarea{min-height:110px;resize:vertical}
     <div class="card" id="adminBox" hidden>
       <h2><span data-i="adm_h">لوحة الإدارة</span> <span class="badge new" id="newCount"></span> <span class="badge role" id="roleBadge"></span></h2>
       <div class="tabs" id="tabs"></div>
-      <div id="tab_req"><div id="adminList"></div></div>
+      <div id="tab_req"><div class="tabs" id="rTabs"></div><div id="adminList"></div></div>
       <div id="tab_users" hidden>
+        <div class="tabs" id="uTabs"></div>
         <input id="uSearch" type="search" autocomplete="off">
         <div id="usersList"></div>
       </div>
@@ -160,8 +171,23 @@ en:{t:"My account | Vyroxx IT Services",home:"Home",login:"Sign in with Google",
 fr:{t:"Mon compte | Vyroxx IT Services",home:"Accueil",login:"Se connecter avec Google",logout:"Se déconnecter",warn:"Les paramètres Firebase ne sont pas encore ajoutés. Ouvrez le fichier et remplacez les valeurs commençant par PASTE dans cfg, vers la fin du fichier.",g_h:"Mon compte",g_p1:"Connectez-vous pour enregistrer vos informations, suivre vos demandes et gagner des points qui donnent un service gratuit après 5 demandes terminées.",g_p2:"Nous utilisons uniquement votre compte Google, nous ne stockons donc jamais de mot de passe.",hi:"Bienvenue,",loy_h:"🎁 Points de fidélité",me_h:"Mes informations",l_name:"Nom",l_phone:"Téléphone / WhatsApp",new_h:"Nouvelle demande",l_srv:"Type de service",l_msg:"Description du problème",send:"Envoyer la demande",mine_h:"Mes demandes précédentes",adm_h:"Panneau d’administration",loading:"Chargement…",none:"Aucune demande pour le moment.",trk:"Numéro de suivi :",done_n:"Demandes terminées :",left_a:"Encore ",left_b:" demandes terminées pour obtenir un service gratuit.",earn_a:"🎉 Vous avez gagné ",earn_b:" service(s) gratuit(s). Dites-le-nous à votre prochaine demande.",e_empty:"Décrivez d’abord votre problème.",sending:"Envoi…",sent:"✔ Demande reçue. Numéro de suivi : ",fail:"Envoi impossible, réessayez. ",e_login:"Échec de la connexion : ",e_upd:"Échec de la mise à jour : ",newc:"en cours",none_adm:"Aucune demande.",tab_req:"Demandes",tab_users:"Clients",tab_staff:"Équipe",role_owner:"Propriétaire",role_staff:"Employé",u_search:"Rechercher par nom ou e-mail…",u_none:"Aucun client.",last:"Dernière connexion :",banned_t:"Votre compte a été banni",banned_p:"Vous n’êtes pas autorisé à utiliser ce site. Si vous pensez que c’est une erreur, contactez-nous.",ban:"Bannir",unban:"Débannir",is_banned:"Banni",ban_q:"Bannir cet utilisateur du site ?",unban_q:"Lever le bannissement de cet utilisateur ?",st_add_h:"Ajouter un employé",st_email:"Gmail de l’employé",st_hint:"Choisissez ses permissions :",st_add:"Ajouter l’employé",st_list:"Employés actuels",st_none:"Aucun employé pour le moment.",st_remove:"Retirer",st_rm_q:"Retirer définitivement cet employé ?",st_bad:"Saisissez une adresse Gmail valide.",st_self:"C’est l’e-mail du propriétaire, qui a déjà toutes les permissions.",st_noperm:"Choisissez au moins une permission.",st_done:"✔ Employé ajouté. Il verra le panneau d’administration en se connectant.",p_all:"Toutes les permissions",p_viewRequests:"Voir et suivre les demandes",p_editRequests:"Modifier le statut des demandes",p_viewUsers:"Voir les clients",p_banUsers:"Bannir et débannir les clients",st:{new:"Nouvelle",progress:"En cours",done:"Résolue"}}
 };
 
+Object.assign(T.ar,{b_first:"طلب أول (سعر رمزي)",b_free:"خدمة مجانية",paid:"تم الدفع",unpaid:"لم يتم الدفع",del:"حذف الطلب",del_q:"هل تريد حذف هذا الطلب نهائيًا؟ لا يمكن التراجع.",
+ sub_reg:"المسجلون بالمنصة",sub_guest:"غير المسجلين",none_g:"لا يوجد عملاء غير مسجلين.",u_reqs:"طلباته",done_c:"مكتملة",p_editPayment:"تحديد حالة الدفع",pay_t:"حالة الدفع",st_t:"حالة الطلب",
+ g_p3:"🎁 التسجيل يمنحك: طلبك الأول بسعر رمزي، وخدمة مجانية بعد كل 5 طلبات مكتملة. الطلب دون تسجيل متاح لكن بدون هذه العروض.",
+ off_first:"🎉 عرض الترحيب: طلبك الأول بسعر رمزي فقط.",off_free:"🎁 لديك خدمة مجانية جاهزة: سيُسجَّل طلبك القادم مجانًا."});
+Object.assign(T.en,{b_first:"First order (symbolic price)",b_free:"Free service",paid:"Paid",unpaid:"Not paid",del:"Delete request",del_q:"Delete this request permanently? This cannot be undone.",
+ sub_reg:"Registered",sub_guest:"Not registered",none_g:"No unregistered customers.",u_reqs:"Requests",done_c:"completed",p_editPayment:"Set payment status",pay_t:"Payment status",st_t:"Request status",
+ g_p3:"🎁 Registering gives you: your first order at a symbolic price and a free service after every 5 completed orders. Ordering without an account is possible, but without these offers.",
+ off_first:"🎉 Welcome offer: your first order is at a symbolic price.",off_free:"🎁 You have a free service ready: your next request will be free."});
+Object.assign(T.fr,{b_first:"1re commande (prix symbolique)",b_free:"Service gratuit",paid:"Payé",unpaid:"Non payé",del:"Supprimer la demande",del_q:"Supprimer définitivement cette demande ? Action irréversible.",
+ sub_reg:"Inscrits",sub_guest:"Non inscrits",none_g:"Aucun client non inscrit.",u_reqs:"Demandes",done_c:"terminées",p_editPayment:"Définir l’état du paiement",pay_t:"État du paiement",st_t:"État de la demande",
+ g_p3:"🎁 L’inscription vous donne : votre première commande à prix symbolique et un service gratuit toutes les 5 commandes terminées. Commander sans compte est possible, mais sans ces offres.",
+ off_first:"🎉 Offre de bienvenue : votre première commande à prix symbolique.",off_free:"🎁 Un service gratuit vous attend : votre prochaine demande sera gratuite."});
+
 const root=document.documentElement,tb=$("theme");
-let lang="ar",user=null,mine=null,adm=null,usr=null,stf=null,perms={},isOwner=false,tab="req";
+let lang="ar",user=null,mine=null,adm=null,usr=null,stf=null,perms={},isOwner=false,tab="req",rsub="reg",usub="reg";
+const openK=new Set();
+const isGuest=r=>!r.uid||r.guest===true;
 const tt=()=>T[lang];
 const svName=a=>{const i=AR.indexOf(a);return i<0?a:SVN[lang][i]};
 const when=r=>r.createdAt&&r.createdAt.toDate?r.createdAt.toDate().toLocaleDateString(LOC[lang]):"";
@@ -177,12 +203,16 @@ function renderMine(){
   const done=mine.filter(r=>r.status==="done").length,left=EVERY-(done%EVERY),earned=Math.floor(done/EVERY);
   $("barFill").style.width=((done%EVERY)/EVERY*100)+"%";
   $("loyal").innerHTML=t.done_n+" <b>"+done+"</b><br>"+t.left_a+"<b>"+left+"</b>"+t.left_b+(earned?"<br>"+t.earn_a+"<b>"+earned+"</b>"+t.earn_b:"");
+  const used=mine.filter(r=>r.free===true).length,of=$("offer");
+  of.textContent=!mine.length?t.off_first:(earned>used?t.off_free:"");of.hidden=!of.textContent;
   $("mine").innerHTML=mine.length?mine.map(r=>
     '<div class="req"><b>'+esc(svName(r.service))+'</b> <span class="badge '+esc(r.status)+'">'+esc(t.st[r.status]||r.status)+'</span>'
+    +(r.first?' <span class="badge">'+esc(t.b_first)+'</span>':'')+(r.free?' <span class="badge">'+esc(t.b_free)+'</span>':'')
+    +' <span class="badge '+(r.paid?'done':'new')+'">'+esc(r.paid?t.paid:t.unpaid)+'</span>'
     +'<br><small>'+t.trk+' <span dir="ltr">'+esc(r.code)+'</span> · '+esc(when(r))+'</small><p>'+esc(r.message)+'</p></div>').join("")
     :'<p class="muted">'+t.none+'</p>';
 }
-const PK=["all","viewRequests","editRequests","viewUsers","banUsers"];
+const PK=["all","viewRequests","editRequests","editPayment","viewUsers","banUsers"];
 const can=p=>isOwner||perms.all===true||perms[p]===true;
 const seen=r=>r&&r.seconds?r.toDate().toLocaleDateString(LOC[lang]):"";
 function permsHtml(p,attr){
@@ -204,6 +234,24 @@ function renderTabs(){
   $("tabs").innerHTML=list.map(x=>'<button type="button" class="tabbtn" data-tab="'+x[0]+'" aria-pressed="'+(x[0]===tab)+'">'+esc(x[1])+'</button>').join("");
   ["req","users","staff"].forEach(k=>{$("tab_"+k).hidden=k!==tab});
 }
+function reqCard(r,who,bm){
+  const t=tt(),g=isGuest(r);
+  let h='<div class="req"><b>'+esc(svName(r.service))+'</b> · <span dir="ltr">'+esc(r.code)+'</span> · <small>'+esc(when(r))+'</small>';
+  if(r.first)h+=' <span class="badge">'+esc(t.b_first)+'</span>';
+  if(r.free)h+=' <span class="badge">'+esc(t.b_free)+'</span>';
+  h+=' <span class="badge '+(r.paid?'done':'new')+'">'+esc(r.paid?t.paid:t.unpaid)+'</span>';
+  if(!g&&bm&&bm[r.uid])h+=' <span class="badge new">'+esc(t.is_banned)+'</span>';
+  if(who)h+='<br><small>'+esc(r.name)+' · <span dir="ltr">'+esc(r.phone)+'</span> · <span dir="ltr">'+esc(r.email)+'</span></small>';
+  h+='<p>'+esc(r.message)+'</p><div class="ctl">';
+  h+=can("editRequests")
+    ?'<select data-st="'+esc(r.id)+'" title="'+esc(t.st_t)+'">'+["progress","done"].map(k=>'<option value="'+k+'"'+(k===(r.status==="done"?"done":"progress")?" selected":"")+'>'+t.st[k]+'</option>').join("")+'</select>'
+    :'<span class="badge '+esc(r.status)+'">'+esc(t.st[r.status]||r.status)+'</span>';
+  if(can("editPayment"))h+='<select data-pay="'+esc(r.id)+'" title="'+esc(t.pay_t)+'"><option value="0"'+(r.paid?'':' selected')+'>'+esc(t.unpaid)+'</option><option value="1"'+(r.paid?' selected':'')+'>'+esc(t.paid)+'</option></select>';
+  if(who&&!g&&can("banUsers")&&r.uid!==user.uid&&r.email!==ADMIN)h+='<button type="button" class="btn alt sm" data-ban="'+esc(r.uid)+'" data-to="'+(bm&&bm[r.uid]?"0":"1")+'">'+esc(bm&&bm[r.uid]?t.unban:t.ban)+'</button>';
+  if(isOwner)h+='<button type="button" class="btn alt sm danger" data-del="'+esc(r.id)+'">'+esc(t.del)+'</button>';
+  return h+'</div></div>';
+}
+const subBtns=(id,key,cur,items)=>items.map(x=>'<button type="button" class="tabbtn" data-'+key+'="'+x[0]+'" aria-pressed="'+(x[0]===cur)+'">'+esc(x[1])+'</button>').join("");
 function renderAdmin(){
   if(!user||$("adminBox").hidden)return;
   const t=tt();
@@ -213,29 +261,33 @@ function renderAdmin(){
   const bm={};(usr||[]).forEach(u=>{bm[u.id]=u.banned===true});
   const banBtn=(uid,email)=>(can("banUsers")&&uid&&uid!==user.uid&&email!==ADMIN)
     ?'<br><button type="button" class="btn alt sm" data-ban="'+esc(uid)+'" data-to="'+(bm[uid]?"0":"1")+'">'+esc(bm[uid]?t.unban:t.ban)+'</button>':"";
+  const reqs=adm||[],regR=reqs.filter(r=>!isGuest(r)),gstR=reqs.filter(isGuest);
   if(can("viewRequests")){
+    $("rTabs").innerHTML=subBtns("rTabs","rsub",rsub,[["reg",t.sub_reg+" ("+regR.length+")"],["guest",t.sub_guest+" ("+gstR.length+")"]]);
     if(!adm)$("adminList").innerHTML='<p class="muted">'+t.loading+'</p>';
     else{
-      $("newCount").textContent=adm.filter(r=>r.status!=="done").length+" "+t.newc;
-      $("adminList").innerHTML=adm.map(r=>
-        '<div class="req"><b>'+esc(svName(r.service))+'</b> · <span dir="ltr">'+esc(r.code)+'</span> · <small>'+esc(when(r))+'</small>'
-        +(bm[r.uid]?' <span class="badge new">'+esc(t.is_banned)+'</span>':'')+'<br>'
-        +'<small>'+esc(r.name)+' · <span dir="ltr">'+esc(r.phone)+'</span> · <span dir="ltr">'+esc(r.email)+'</span></small>'
-        +'<p>'+esc(r.message)+'</p>'
-        +(can("editRequests")
-          ?'<select data-id="'+esc(r.id)+'">'+["progress","done"].map(k=>'<option value="'+k+'"'+(k===(r.status==="done"?"done":"progress")?" selected":"")+'>'+t.st[k]+'</option>').join("")+'</select>'
-          :'<span class="badge '+esc(r.status)+'">'+esc(t.st[r.status]||r.status)+'</span>')
-        +banBtn(r.uid,r.email)+'</div>').join("")||'<p class="muted">'+t.none_adm+'</p>';
+      $("newCount").textContent=reqs.filter(r=>r.status!=="done").length+" "+t.newc;
+      $("adminList").innerHTML=(rsub==="guest"?gstR:regR).map(r=>reqCard(r,true,bm)).join("")||'<p class="muted">'+t.none_adm+'</p>';
     }
   }
   if(can("viewUsers")||can("banUsers")){
-    if(!usr)$("usersList").innerHTML='<p class="muted">'+t.loading+'</p>';
+    const showG=can("viewRequests");if(!showG)usub="reg";
+    const q=$("uSearch").value.trim().toLowerCase(),hit=(n,e)=>!q||((n||"")+" "+(e||"")).toLowerCase().includes(q);
+    const gm={},gl=[];
+    gstR.forEach(r=>{const k=(r.email||"").toLowerCase()||r.id;if(!gm[k]){gm[k]={email:r.email,name:r.name,phone:r.phone,rs:[]};gl.push(gm[k])}gm[k].rs.push(r)});
+    $("uTabs").innerHTML=subBtns("uTabs","usub",usub,[["reg",t.sub_reg+" ("+(usr?usr.length:0)+")"]].concat(showG?[["guest",t.sub_guest+" ("+gl.length+")"]]:[]));
+    const reqBox=(key,rs)=>can("viewRequests")?'<details class="cust" data-k="'+esc(key)+'"'+(openK.has(key)?" open":"")+'><summary>'+esc(t.u_reqs)+' ('+rs.length+') · '+rs.filter(r=>r.status==="done").length+' '+esc(t.done_c)+'</summary>'+rs.map(r=>reqCard(r,false,bm)).join("")+'</details>':"";
+    if(usub==="guest"){
+      $("usersList").innerHTML=gl.filter(g=>hit(g.name,g.email)).map(g=>
+        '<div class="req"><b>'+esc(g.name||"—")+'</b> <span class="badge">'+esc(t.sub_guest)+'</span>'
+        +'<br><small><span dir="ltr">'+esc(g.email)+'</span>'+(g.phone?' · <span dir="ltr">'+esc(g.phone)+'</span>':'')+'</small>'
+        +reqBox("g:"+(g.email||"").toLowerCase(),g.rs)+'</div>').join("")||'<p class="muted">'+t.none_g+'</p>';
+    }else if(!usr)$("usersList").innerHTML='<p class="muted">'+t.loading+'</p>';
     else{
-      const q=$("uSearch").value.trim().toLowerCase();
-      $("usersList").innerHTML=usr.filter(u=>!q||((u.name||"")+" "+(u.email||"")).toLowerCase().includes(q)).map(u=>
+      $("usersList").innerHTML=usr.filter(u=>hit(u.name,u.email)).map(u=>
         '<div class="req"><b>'+esc(u.name||"—")+'</b>'+(u.banned?' <span class="badge new">'+esc(t.is_banned)+'</span>':'')
         +'<br><small><span dir="ltr">'+esc(u.email)+'</span>'+(u.phone?' · <span dir="ltr">'+esc(u.phone)+'</span>':'')+(seen(u.lastLogin)?' · '+t.last+' '+esc(seen(u.lastLogin)):'')+'</small>'
-        +banBtn(u.id,u.email)+'</div>').join("")||'<p class="muted">'+t.u_none+'</p>';
+        +banBtn(u.id,u.email)+reqBox("u:"+u.id,regR.filter(r=>r.uid===u.id))+'</div>').join("")||'<p class="muted">'+t.u_none+'</p>';
     }
   }
   if(isOwner){
@@ -310,8 +362,11 @@ if(cfg.apiKey.startsWith("PASTE")){
     $("send").disabled=true;out.textContent=t.sending;
     try{
       const code="VX-"+Math.random().toString(36).slice(2,8).toUpperCase();
+      const own=(await getDocs(query(collection(db,"requests"),where("uid","==",user.uid)))).docs.map(d=>d.data());
+      const dn=own.filter(r=>r.status==="done").length,us=own.filter(r=>r.free===true).length,flags={};
+      if(!own.length)flags.first=true;else if(Math.floor(dn/EVERY)>us)flags.free=true;
       await addDoc(collection(db,"requests"),{uid:user.uid,email:user.email,name:$("name").value.trim(),phone:$("phone").value.trim(),
-        service:$("service").value,message:m,status:"progress",code:code,createdAt:serverTimestamp()});
+        service:$("service").value,message:m,status:"progress",code:code,guest:false,paid:false,createdAt:serverTimestamp(),...flags});
       await setDoc(doc(db,"users",user.uid),{name:$("name").value.trim(),phone:$("phone").value.trim(),email:user.email},{merge:true});
       $("message").value="";out.textContent=t.sent+code;
       await loadMine();
@@ -333,11 +388,15 @@ if(cfg.apiKey.startsWith("PASTE")){
   $("uSearch").oninput=renderAdmin;
   $("stNewPerms").onchange=renderNewPerms;
 
-  $("adminList").onchange=async e=>{
-    const s=e.target;if(!s.dataset.id||!can("editRequests"))return;
-    try{await updateDoc(doc(db,"requests",s.dataset.id),{status:s.value});loadAdmin()}
-    catch(err){alert(tt().e_upd+err.code)}
+  const patch=(id,o)=>{const r=(adm||[]).find(x=>x.id===id);if(r)Object.assign(r,o);renderAdmin()};
+  $("adminBox").onchange=async e=>{
+    const s=e.target,id=s.dataset.st||s.dataset.pay;if(!id)return;
+    try{
+      if(s.dataset.st&&can("editRequests")){await updateDoc(doc(db,"requests",id),{status:s.value});patch(id,{status:s.value})}
+      else if(s.dataset.pay&&can("editPayment")){const p=s.value==="1";await updateDoc(doc(db,"requests",id),{paid:p,paidBy:user.email,paidAt:serverTimestamp()});patch(id,{paid:p})}
+    }catch(err){alert(tt().e_upd+(err.code||""));renderAdmin()}
   };
+  $("adminBox").addEventListener("toggle",e=>{const d=e.target;if(d.dataset&&d.dataset.k){d.open?openK.add(d.dataset.k):openK.delete(d.dataset.k)}},true);
 
   $("staffList").onchange=async e=>{
     const i=e.target;if(!isOwner||!i.dataset.email)return;
@@ -366,6 +425,14 @@ if(cfg.apiKey.startsWith("PASTE")){
     const b=e.target.closest("button");if(!b)return;
     const t=tt();
     if(b.dataset.tab){tab=b.dataset.tab;renderAdmin();return}
+    if(b.dataset.rsub){rsub=b.dataset.rsub;renderAdmin();return}
+    if(b.dataset.usub){usub=b.dataset.usub;renderAdmin();return}
+    if(b.dataset.del){
+      if(!isOwner||!confirm(t.del_q))return;
+      try{await deleteDoc(doc(db,"requests",b.dataset.del));adm=(adm||[]).filter(r=>r.id!==b.dataset.del);renderAdmin()}
+      catch(err){alert(t.e_upd+(err.code||""))}
+      return;
+    }
     if(b.dataset.ban){
       const ban=b.dataset.to==="1";
       if(!can("banUsers")||!confirm(ban?t.ban_q:t.unban_q))return;
