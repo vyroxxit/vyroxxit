@@ -53,7 +53,7 @@ else{g.innerHTML='<div class="bx">'+bar()+'<h2>'+s.t+'</h2><p>'+s.p+'</p><div cl
 var y=D.getElementById("vxY");
 y.onclick=function(){var a=D.getElementById("vxA").checked;saveC({v:V,a:a?1:0,t:Date.now()});unlock();if(a)ga()};
 D.getElementById("vxN").onclick=function(){gate("no")};y.focus()}wire(g)}
-function tips(){var e=D.getElementById("tips");if(!e)return;var s=S[L()];
+function tips(){return;var e=D.getElementById("tips");if(!e)return;var s=S[L()];
 e.innerHTML="<h2>"+s.th+'</h2><p class="sub">'+s.ts+'</p><div class="cards">'+s.tl.map(function(x){return'<div class="card"><h3><span>'+x[0]+"</span>"+x[1]+'</h3><p style="margin:0;color:var(--muted);font-size:15.5px">'+x[2]+"</p></div>"}).join("")+"</div>"}
 function foot(){var f=D.querySelector("footer");if(!f)return;var s=S[L()],e=D.getElementById("vxFl");
 if(!e){e=D.createElement("span");e.id="vxFl";f.appendChild(e)}
