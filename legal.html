@@ -24,11 +24,13 @@ section{background:var(--surface);border:1px solid var(--line);border-radius:14p
 h1{font-size:28px;margin:6px 0}h2{font-size:23px;margin:0 0 10px;color:var(--accent)}h3{font-size:17.5px;margin:18px 0 4px}
 p{margin:0 0 8px}ul{margin:4px 0 10px;padding-inline-start:22px}li{margin-bottom:4px}
 .m{color:var(--muted);font-size:14.5px}
+[hidden]{display:none!important}.tl{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.sg{display:flex;border:1.5px solid var(--line);border-radius:8px;overflow:hidden}.sg button,#th{font:inherit;font-size:14px;border:0;background:transparent;color:var(--muted);padding:5px 11px;cursor:pointer}.sg button[aria-pressed=true]{background:var(--accent);color:var(--bg)}#th{border:1.5px solid var(--line);border-radius:8px;font-size:16px}
 </style>
 </head>
 <body>
 <div class="w">
-<div class="top"><a class="logo" href="index.html">VYROXX <b>IT</b></a><a href="index.html">← العودة للموقع</a></div>
+<div class="top"><a class="logo" href="index.html">VYROXX <b>IT</b></a><span class="tl"><a id="bk" href="index.html">← العودة للموقع</a><span class="sg" id="sg"></span><button id="th" type="button" aria-label="Theme"></button></span></div>
+<div data-l="ar">
 <h1>الخصوصية والشروط والمسؤولية القانونية</h1>
 <p class="m">آخر تحديث: 26 أكتوبر 2026 · النسخة 2026-10-26. عند تعديل هذه النصوص ستُطلب موافقتك من جديد.</p>
 <nav class="toc"><a href="#privacy">سياسة الخصوصية</a><a href="#terms">شروط الخدمة</a><a href="#liability">المسؤولية</a><a href="#legal">الملاحقة القضائية</a></nav>
@@ -109,5 +111,98 @@ p{margin:0 0 8px}ul{margin:4px 0 10px;padding-inline-start:22px}li{margin-bottom
 <p class="m">هذا النص تنظيمي عام وليس استشارة قانونية. يُنصح بمراجعته لدى محامٍ مغربي قبل الاعتماد عليه.</p>
 </section>
 </div>
+<div data-l="en" hidden>
+<h1>Privacy, Terms and Legal Liability</h1>
+<p class="m">Last updated: 26 October 2026 · Version 2026-10-26. If these texts change, we will ask for your consent again.</p>
+<nav class="toc"><a href="#privacy-en">Privacy Policy</a><a href="#terms-en">Terms of Service</a><a href="#liability-en">Liability</a><a href="#legal-en">Legal Action</a></nav>
+<section id="privacy-en"><h2>1. Privacy Policy</h2>
+<p>Data controller: VYROXX IT Services, Fes, Morocco · vyroxxvx@gmail.com · +212646126501. We process data under Moroccan Law 09-08 and, for EU visitors, GDPR principles.</p>
+<h3>Data we collect</h3>
+<ul><li><b>Account and contact:</b> name, phone/WhatsApp, email.</li><li><b>Requests:</b> service type, problem and device details, tracking number, request and payment status, history and loyalty points.</li><li><b>Technical:</b> IP address and browser/device information, for security and abuse prevention.</li><li><b>Analytics (optional):</b> Google Analytics and Microsoft Clarity run only if you consent in the consent window. The site works fully without them.</li><li><b>Browser storage:</b> only your language, theme and consent, never for tracking.</li></ul>
+<h3>Why we use it</h3>
+<ul><li>To carry out your request and contact you.</li><li>To manage your account and the loyalty system (5 completed requests = 1 free service).</li><li>To protect the site against hacking and fraud and to prove violations.</li><li>To improve the site through analytics (only with your consent).</li></ul>
+<h3>Sharing</h3>
+<p>We never sell your data. Our processors are <b>Google Firebase</b> (sign-in, database), <b>Google Analytics</b> and <b>Microsoft Clarity</b> (if you consent), and WhatsApp or Gmail if you choose to send through them. Data may be processed outside Morocco and disclosed to authorities when the law requires.</p>
+<h3>Security, retention and your rights</h3>
+<p>We use Google sign-in and never store passwords; access is limited to authorised staff and only as needed. We keep data while your account exists or as long as the law requires, then delete or anonymise it. No system is 100% secure. You may access, correct, delete, object to processing and withdraw consent at any time (“Consent settings” at the bottom of the site) by writing to vyroxxvx@gmail.com, and you may complain to the CNDP or your national authority. The site is not intended for under-18s without parental supervision.</p>
+</section>
+<section id="terms-en"><h2>2. Terms of Service</h2>
+<ul><li>We provide technical support (computers, phones, gaming, networks, cybersecurity, Linux), on site in Fes or remotely.</li><li>We help recover <b>only your own accounts</b> and may ask for proof of ownership; we refuse access to accounts you do not own. Software is activated with genuine licenses only.</li><li><b>Remote sessions:</b> you authorise temporary control of your device to solve the agreed problem only; you may watch and end the session at any time.</li><li>Prices are approximate; the final price is agreed after diagnosis and excludes spare parts and genuine licenses unless stated.</li><li>You must give accurate information, back up your data before any intervention and not use our services for anything unlawful.</li><li>We offer free follow-up support after completion. We may refuse requests that breach these terms and ban accounts that do.</li></ul>
+</section>
+<section id="liability-en"><h2>3. Legal Liability</h2>
+<ul><li>We apply reasonable professional care and do not guarantee a specific result where it depends on hardware faults, spare parts or already-damaged data.</li><li>We are not liable for data lost without a backup, except for fraud or gross negligence on our part.</li><li>You alone bear civil and criminal responsibility for any unlawful use of the tools and information we give you.</li><li>We are not responsible for third-party services (Google, WhatsApp, etc.).</li><li>Nothing here removes rights granted by law, including Moroccan consumer protection Law 31-08, or excludes liability for fraud or gross negligence.</li></ul>
+</section>
+<section id="legal-en"><h2>4. Legal Action and Platform Protection</h2>
+<ul><li><b>Cyber attacks:</b> hacking, unauthorised vulnerability scanning, DDoS or tampering with data or authentication are offences under Moroccan law (including Law 07-03 on automated data processing systems). We may keep logs and IP addresses as evidence, hand them to the authorities and sue for compensation and criminal prosecution before the competent Moroccan courts.</li><li><b>Fraud:</b> false data or tampering with payment receipts, loyalty points or offers leads to an immediate ban and a preserved digital record for the authorities if needed.</li><li><b>Intellectual property:</b> the site’s design, code, logo and visual identity are legally protected; copying or republishing them without written permission leads to legal action.</li><li><b>Responsible disclosure:</b> report vulnerabilities to vyroxxvx@gmail.com before publishing or exploiting them; we will not pursue good-faith reporters who avoid harm and access to user data.</li><li><b>Law and jurisdiction:</b> Moroccan law applies and the courts of Fes have jurisdiction, without prejudice to consumers’ right to go to the court legally competent.</li></ul>
+<p class="m">General text, not legal advice. Have a Moroccan lawyer review it before relying on it.</p>
+</section>
+</div>
+<div data-l="fr" hidden>
+<h1>Confidentialité, conditions et responsabilité juridique</h1>
+<p class="m">Dernière mise à jour : 26 octobre 2026 · Version 2026-10-26. En cas de modification, nous vous demanderons à nouveau votre consentement.</p>
+<nav class="toc"><a href="#privacy-fr">Confidentialité</a><a href="#terms-fr">Conditions d’utilisation</a><a href="#liability-fr">Responsabilité</a><a href="#legal-fr">Poursuites judiciaires</a></nav>
+<section id="privacy-fr"><h2>1. Politique de confidentialité</h2>
+<p>Responsable du traitement : VYROXX IT Services, Fès, Maroc · vyroxxvx@gmail.com · +212646126501. Nous traitons les données selon la loi marocaine 09-08 et, pour les visiteurs de l’UE, selon les principes du RGPD.</p>
+<h3>Données collectées</h3>
+<ul><li><b>Compte et contact :</b> nom, téléphone/WhatsApp, e-mail.</li><li><b>Demandes :</b> type de service, description du problème et de l’appareil, numéro de suivi, statut de la demande et du paiement, historique et points de fidélité.</li><li><b>Technique :</b> adresse IP et informations sur le navigateur/appareil, pour la sécurité et la prévention des abus.</li><li><b>Analyse (facultatif) :</b> Google Analytics et Microsoft Clarity ne fonctionnent qu’avec votre consentement dans la fenêtre dédiée. Le site fonctionne pleinement sans eux.</li><li><b>Stockage du navigateur :</b> uniquement votre langue, votre thème et votre consentement, jamais pour du suivi.</li></ul>
+<h3>Finalités</h3>
+<ul><li>Exécuter votre demande et vous contacter.</li><li>Gérer votre compte et le système de fidélité (5 demandes terminées = 1 service gratuit).</li><li>Protéger le site contre le piratage et la fraude et prouver les infractions.</li><li>Améliorer le site par l’analyse (uniquement avec votre consentement).</li></ul>
+<h3>Partage</h3>
+<p>Nous ne vendons jamais vos données. Nos sous-traitants sont <b>Google Firebase</b> (connexion, base de données), <b>Google Analytics</b> et <b>Microsoft Clarity</b> (si vous y consentez), ainsi que WhatsApp ou Gmail si vous choisissez de les utiliser. Les données peuvent être traitées hors du Maroc et communiquées aux autorités lorsque la loi l’exige.</p>
+<h3>Sécurité, conservation et droits</h3>
+<p>Nous utilisons la connexion Google et ne stockons jamais de mots de passe ; l’accès est limité au personnel autorisé et au strict nécessaire. Nous conservons les données tant que votre compte existe ou que la loi l’exige, puis nous les supprimons ou les anonymisons. Aucun système n’est sûr à 100 %. Vous pouvez accéder à vos données, les corriger, les supprimer, vous opposer au traitement et retirer votre consentement à tout moment (« Paramètres de consentement » en bas du site) en écrivant à vyroxxvx@gmail.com, et saisir la CNDP ou votre autorité nationale. Le site n’est pas destiné aux moins de 18 ans sans supervision parentale.</p>
+</section>
+<section id="terms-fr"><h2>2. Conditions d’utilisation</h2>
+<ul><li>Nous fournissons une assistance technique (ordinateurs, téléphones, jeux, réseaux, cybersécurité, Linux), sur place à Fès ou à distance.</li><li>Nous aidons à récupérer <b>uniquement vos propres comptes</b> et pouvons demander une preuve de propriété ; nous refusons l’accès à un compte qui n’est pas le vôtre. Les logiciels sont activés uniquement avec des licences authentiques.</li><li><b>Sessions à distance :</b> vous autorisez une prise de contrôle temporaire de votre appareil, uniquement pour résoudre le problème convenu ; vous pouvez suivre et arrêter la session à tout moment.</li><li>Les prix sont indicatifs ; le prix final est convenu après diagnostic et n’inclut ni pièces ni licences authentiques sauf mention contraire.</li><li>Vous devez fournir des informations exactes, sauvegarder vos données avant toute intervention et ne pas utiliser nos services à des fins illégales.</li><li>Nous offrons un suivi gratuit après la prestation. Nous pouvons refuser les demandes contraires à ces conditions et bannir les comptes concernés.</li></ul>
+</section>
+<section id="liability-fr"><h2>3. Responsabilité juridique</h2>
+<ul><li>Nous apportons un soin professionnel raisonnable et ne garantissons pas un résultat précis lorsqu’il dépend d’une panne matérielle, de pièces ou de données déjà endommagées.</li><li>Nous ne répondons pas des données perdues faute de sauvegarde, sauf fraude ou faute lourde de notre part.</li><li>Vous seul assumez la responsabilité civile et pénale de tout usage illégal des outils et informations fournis.</li><li>Nous ne sommes pas responsables des services tiers (Google, WhatsApp, etc.).</li><li>Rien ici ne supprime les droits garantis par la loi, notamment la loi marocaine 31-08 sur la protection du consommateur, ni n’exclut la responsabilité pour fraude ou faute lourde.</li></ul>
+</section>
+<section id="legal-fr"><h2>4. Poursuites judiciaires et protection de la plateforme</h2>
+<ul><li><b>Cyberattaques :</b> piratage, analyse de vulnérabilités non autorisée, DDoS ou altération des données ou de l’authentification sont des infractions au regard du droit marocain (notamment la loi 07-03 sur les systèmes de traitement automatisé de données). Nous pouvons conserver journaux et adresses IP comme preuves, les transmettre aux autorités et demander réparation et poursuites pénales devant les tribunaux marocains compétents.</li><li><b>Fraude :</b> de fausses données ou l’altération de reçus de paiement, de points de fidélité ou d’offres entraînent un bannissement immédiat et la conservation de la trace numérique pour les autorités si nécessaire.</li><li><b>Propriété intellectuelle :</b> le design, le code, le logo et l’identité visuelle du site sont protégés ; toute copie ou republication sans autorisation écrite entraîne des poursuites.</li><li><b>Divulgation responsable :</b> signalez toute vulnérabilité à vyroxxvx@gmail.com avant de la publier ou de l’exploiter ; nous ne poursuivrons pas les personnes de bonne foi qui évitent tout dommage et tout accès aux données des utilisateurs.</li><li><b>Droit et juridiction :</b> le droit marocain s’applique et les tribunaux de Fès sont compétents, sans préjudice du droit du consommateur de saisir la juridiction légalement compétente.</li></ul>
+<p class="m">Texte général, pas un avis juridique. Faites-le relire par un avocat marocain avant de vous y fier.</p>
+</section>
+</div>
+<div data-l="es" hidden>
+<h1>Privacidad, condiciones y responsabilidad legal</h1>
+<p class="m">Última actualización: 26 de octubre de 2026 · Versión 2026-10-26. Si estos textos cambian, volveremos a pedir tu consentimiento.</p>
+<nav class="toc"><a href="#privacy-es">Privacidad</a><a href="#terms-es">Condiciones del servicio</a><a href="#liability-es">Responsabilidad</a><a href="#legal-es">Acciones judiciales</a></nav>
+<section id="privacy-es"><h2>1. Política de privacidad</h2>
+<p>Responsable del tratamiento: VYROXX IT Services, Fez, Marruecos · vyroxxvx@gmail.com · +212646126501. Tratamos los datos conforme a la ley marroquí 09-08 y, para visitantes de la UE, a los principios del RGPD.</p>
+<h3>Datos que recopilamos</h3>
+<ul><li><b>Cuenta y contacto:</b> nombre, teléfono/WhatsApp, correo.</li><li><b>Solicitudes:</b> tipo de servicio, descripción del problema y del dispositivo, número de seguimiento, estado de la solicitud y del pago, historial y puntos de fidelidad.</li><li><b>Técnicos:</b> dirección IP e información del navegador/dispositivo, por seguridad y prevención de abusos.</li><li><b>Analítica (opcional):</b> Google Analytics y Microsoft Clarity solo funcionan si das tu consentimiento en la ventana de consentimiento. El sitio funciona por completo sin ellos.</li><li><b>Almacenamiento del navegador:</b> solo tu idioma, tema y consentimiento, nunca para seguimiento.</li></ul>
+<h3>Para qué los usamos</h3>
+<ul><li>Realizar tu solicitud y contactarte.</li><li>Gestionar tu cuenta y el sistema de fidelidad (5 solicitudes completadas = 1 servicio gratis).</li><li>Proteger el sitio frente a intrusiones y fraude y probar infracciones.</li><li>Mejorar el sitio mediante analítica (solo con tu consentimiento).</li></ul>
+<h3>Con quién los compartimos</h3>
+<p>Nunca vendemos tus datos. Nuestros encargados son <b>Google Firebase</b> (acceso, base de datos), <b>Google Analytics</b> y <b>Microsoft Clarity</b> (si consientes), y WhatsApp o Gmail si eliges enviar por ellos. Los datos pueden tratarse fuera de Marruecos y comunicarse a las autoridades cuando la ley lo exija.</p>
+<h3>Seguridad, conservación y derechos</h3>
+<p>Usamos el acceso con Google y nunca guardamos contraseñas; el acceso se limita al personal autorizado y a lo necesario. Conservamos los datos mientras exista tu cuenta o la ley lo exija, y luego los eliminamos o anonimizamos. Ningún sistema es 100 % seguro. Puedes acceder, rectificar, eliminar, oponerte al tratamiento y retirar tu consentimiento en cualquier momento (“Ajustes de consentimiento” al pie del sitio) escribiendo a vyroxxvx@gmail.com, y reclamar ante la CNDP o tu autoridad nacional. El sitio no está dirigido a menores de 18 años sin supervisión de sus tutores.</p>
+</section>
+<section id="terms-es"><h2>2. Condiciones del servicio</h2>
+<ul><li>Ofrecemos soporte técnico (ordenadores, móviles, videojuegos, redes, ciberseguridad, Linux), presencial en Fez o en remoto.</li><li>Ayudamos a recuperar <b>solo tus propias cuentas</b> y podemos pedir prueba de titularidad; rechazamos el acceso a cuentas que no sean tuyas. El software se activa solo con licencias originales.</li><li><b>Sesiones remotas:</b> autorizas el control temporal de tu dispositivo solo para resolver el problema acordado; puedes observar y terminar la sesión en cualquier momento.</li><li>Los precios son aproximados; el precio final se acuerda tras el diagnóstico y no incluye repuestos ni licencias originales salvo que se indique.</li><li>Debes dar información veraz, hacer una copia de seguridad antes de cualquier intervención y no usar nuestros servicios con fines ilícitos.</li><li>Ofrecemos seguimiento gratuito tras el servicio. Podemos rechazar solicitudes que incumplan estas condiciones y bloquear las cuentas infractoras.</li></ul>
+</section>
+<section id="liability-es"><h2>3. Responsabilidad legal</h2>
+<ul><li>Aplicamos un cuidado profesional razonable y no garantizamos un resultado concreto cuando depende de fallos de hardware, repuestos o datos ya dañados.</li><li>No respondemos por datos perdidos sin copia de seguridad, salvo fraude o negligencia grave por nuestra parte.</li><li>Solo tú asumes la responsabilidad civil y penal por cualquier uso ilícito de las herramientas e información que te proporcionamos.</li><li>No somos responsables de servicios de terceros (Google, WhatsApp, etc.).</li><li>Nada de esto elimina los derechos que otorga la ley, incluida la ley marroquí 31-08 de protección del consumidor, ni excluye la responsabilidad por fraude o negligencia grave.</li></ul>
+</section>
+<section id="legal-es"><h2>4. Acciones judiciales y protección de la plataforma</h2>
+<ul><li><b>Ciberataques:</b> la intrusión, el escaneo de vulnerabilidades sin autorización, el DDoS o la manipulación de datos o de la autenticación son delitos según la ley marroquí (incluida la ley 07-03 sobre sistemas de tratamiento automatizado de datos). Podemos conservar registros y direcciones IP como prueba, entregarlos a las autoridades y reclamar indemnización y acción penal ante los tribunales marroquíes competentes.</li><li><b>Fraude:</b> los datos falsos o la manipulación de recibos de pago, puntos de fidelidad u ofertas implican bloqueo inmediato y conservación del rastro digital para las autoridades si es necesario.</li><li><b>Propiedad intelectual:</b> el diseño, el código, el logotipo y la identidad visual del sitio están protegidos; copiarlos o republicarlos sin permiso escrito conlleva acciones legales.</li><li><b>Divulgación responsable:</b> comunica cualquier vulnerabilidad a vyroxxvx@gmail.com antes de publicarla o explotarla; no perseguiremos a quien actúe de buena fe, evite daños y no acceda a datos de usuarios.</li><li><b>Ley y jurisdicción:</b> se aplica la ley marroquí y son competentes los tribunales de Fez, sin perjuicio del derecho del consumidor a acudir al tribunal legalmente competente.</li></ul>
+<p class="m">Texto general, no asesoramiento jurídico. Pide a un abogado marroquí que lo revise antes de confiar en él.</p>
+</section>
+</div>
+</div>
+<script>
+var T={ar:["الخصوصية والشروط | VYROXX IT Services","← العودة للموقع"],en:["Privacy & Terms | VYROXX IT Services","← Back to site"],fr:["Confidentialité et conditions | VYROXX IT Services","← Retour au site"],es:["Privacidad y condiciones | VYROXX IT Services","← Volver al sitio"]},N={ar:"ع",en:"EN",fr:"FR",es:"ES"},R=document.documentElement,th=document.getElementById("th"),sg=document.getElementById("sg"),TH=["light","dark","legend","hacker"],IC={light:"🌙",dark:"🔮",legend:"👾",hacker:"☀️"};
+function ld(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function sv(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function setLang(l){R.lang=l;R.dir=l==="ar"?"rtl":"ltr";document.title=T[l][0];document.getElementById("bk").textContent=T[l][1];
+[].forEach.call(document.querySelectorAll("[data-l]"),function(d){d.hidden=d.getAttribute("data-l")!==l});
+[].forEach.call(sg.children,function(b){b.setAttribute("aria-pressed",b.getAttribute("data-g")===l)});sv("vx-lang",l)}
+Object.keys(N).forEach(function(k){var b=document.createElement("button");b.type="button";b.setAttribute("data-g",k);b.textContent=N[k];b.onclick=function(){setLang(k)};sg.appendChild(b)});
+function setTheme(m){if(!IC[m])m="light";R.setAttribute("data-theme",m);th.textContent=IC[m];sv("vx-theme",m)}
+var dk=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+th.onclick=function(){var c=R.getAttribute("data-theme")||dk;setTheme(TH[(TH.indexOf(c)+1)%4])};
+setTheme(ld("vx-theme")||dk);
+var l0=ld("vx-lang")||(navigator.language||"ar").slice(0,2);setLang(T[l0]?l0:"ar");
+</script>
 </body>
 </html>
