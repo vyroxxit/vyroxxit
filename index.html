@@ -164,6 +164,50 @@ input[readonly]{opacity:.75}
 .tkb{display:inline-block;font-size:14px;padding:1px 12px;border-radius:99px;border:1.5px solid var(--accent);color:var(--accent)}
 .tkb.ok{background:var(--accent);color:var(--on-accent)}
 .tkb.no{border-color:var(--hot);color:var(--hot)}
+
+/* ===== Pro security tips ===== */
+#tips{position:relative}
+.tp-eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;letter-spacing:.16em;font-weight:700;color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);background:color-mix(in srgb,var(--accent) 10%,transparent);padding:5px 15px;border-radius:99px;margin-bottom:16px;direction:ltr;font-family:ui-monospace,Menlo,Consolas,monospace}
+.tp-eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 60%,transparent)}
+.tp-filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
+.tp-f{font:inherit;font-size:14.5px;font-weight:500;cursor:pointer;color:var(--muted);background:var(--surface);border:1.5px solid var(--line);border-radius:99px;padding:6px 18px;transition:background .2s,color .2s,border-color .2s}
+.tp-f:hover{color:var(--ink);border-color:var(--accent)}
+.tp-f[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.tp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:20px;margin-bottom:34px}
+.tp{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px 24px 20px;transition:transform .25s,border-color .25s,box-shadow .25s}
+.tp::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(420px 190px at 100% 0,color-mix(in srgb,var(--accent) 15%,transparent),transparent 70%)}
+.tp::after{content:attr(data-n);position:absolute;inset-block-start:14px;inset-inline-end:20px;z-index:-1;font-size:58px;font-weight:700;line-height:1;color:var(--accent);opacity:.16;direction:ltr;pointer-events:none;font-family:ui-monospace,Menlo,Consolas,monospace}
+.tp:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 16px 36px -16px color-mix(in srgb,var(--accent) 60%,transparent)}
+.tp-top{display:flex;align-items:center;gap:14px}
+.tp-ic{flex:none;width:50px;height:50px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:25px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 30%,var(--surface)),color-mix(in srgb,var(--accent) 6%,var(--surface)));border:1px solid color-mix(in srgb,var(--accent) 45%,transparent)}
+.tp-meta{display:flex;flex-direction:column;gap:3px;min-width:0}
+.tp-cat{font-size:12.5px;font-weight:700;letter-spacing:.04em;color:var(--accent)}
+.tp-lv{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;color:var(--ink)}
+.tp-lv i{width:15px;height:5px;border-radius:3px;background:var(--line)}
+.tp-lv i.on{background:var(--accent)}
+.tp-lv em{font-style:normal;font-weight:500;margin-inline-start:6px}
+.tp h3{margin:0;font-size:19px;line-height:1.5}
+.tp-d{margin:0;color:var(--muted);font-size:15px;line-height:1.85}
+.tp ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.tp li{display:flex;gap:11px;align-items:flex-start;font-size:15px;line-height:1.8;color:var(--ink)}
+.tp li::before{content:"";flex:none;width:7px;height:7px;margin-top:.72em;border-radius:2px;background:var(--accent);transform:rotate(45deg)}
+.tp-th{margin-top:auto;padding-top:14px;border-top:1px dashed var(--line);display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px}
+.tp-th small{color:var(--muted);font-size:13px}
+.tp-th b{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:500;color:var(--hot);direction:ltr}
+.tp-cta h2{font-size:22px}
+@media (prefers-reduced-motion:no-preference){
+  .tp-eyebrow::before{animation:tpPulse 2.2s infinite}
+  @keyframes tpPulse{70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+  .tp.tp-rv{opacity:0;transform:translateY(18px)}
+  .tp.tp-rv.in{opacity:1;transform:none;transition:opacity .55s ease,transform .55s ease,border-color .25s,box-shadow .25s}
+  .tp.tp-rv.in:hover{transform:translateY(-4px)}
+}
+:root[data-theme="legend"] .tp:hover{box-shadow:0 0 26px rgba(245,184,61,.3);border-color:var(--accent)}
+:root[data-theme="legend"] .tp-ic{box-shadow:0 0 16px rgba(245,184,61,.25)}
+:root[data-theme="hacker"] .tp,:root[data-theme="hacker"] .tp-f{border-radius:4px}
+:root[data-theme="hacker"] .tp h3{color:var(--accent);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:17px;text-shadow:0 0 8px rgba(0,255,65,.45)}
+:root[data-theme="hacker"] .tp-ic{border-radius:4px}
+:root[data-theme="hacker"] .tp:hover{box-shadow:0 0 22px rgba(0,255,65,.4)}
 </style>
 </head>
 <body>
@@ -248,7 +292,20 @@ input[readonly]{opacity:.75}
       </div>
     </section>
 
-    <section id="tips"></section>
+    <section id="tips">
+      <span class="tp-eyebrow" data-i="tp_eb">PRO SECURITY PLAYBOOK</span>
+      <h2 data-i="tp_h">نصائح أمنية احترافية</h2>
+      <p class="sub" data-i="tp_sub"></p>
+      <div class="tp-filters" id="tpFilters" role="group" aria-label="Filter"></div>
+      <div class="tp-grid" id="tpGrid"></div>
+      <div class="loyal tp-cta">
+        <div>
+          <h2 data-i="tp_ct_h"></h2>
+          <p data-i="tp_ct_p"></p>
+        </div>
+        <a class="btn" href="#request" data-i="tp_ct_b"></a>
+      </div>
+    </section>
 
     <section id="faq">
       <h2 data-i="fq_h">أسئلة شائعة</h2>
@@ -565,6 +622,107 @@ document.querySelectorAll(".gm").forEach(function(a){a.onclick=function(e){if(!/
 })();
 var nl=(navigator.language||"ar").slice(0,2),sl=load("vx-lang");
 setLang(sl&&T[sl]?sl:(T[nl]?nl:"ar"));
+</script>
+<script>
+(function(){
+var CATS=["acc","dev","net","dat"];
+var META=[
+ ["acc",3,"🔑","AitM Phishing · SIM Swap"],
+ ["acc",2,"🗝️","Credential Stuffing · Breaches"],
+ ["acc",3,"📧","Account Takeover · OAuth Abuse"],
+ ["dev",2,"💽","Device Theft · Physical Access"],
+ ["dev",2,"🛡️","Privilege Escalation · Malware"],
+ ["dev",3,"🧪","Trojanized Installers · Supply Chain"],
+ ["net",3,"📡","Router Exploits · UPnP / WPS Abuse"],
+ ["net",3,"🧱","Lateral Movement · DNS Hijacking"],
+ ["dat",3,"💾","Ransomware · Backup Deletion"],
+ ["dat",2,"🔭","Session Hijacking · Silent Intrusion"]
+];
+var TP={
+ar:[
+["مفاتيح المرور ومفاتيح الأمان بدل الرموز النصية","رموز SMS وحتى تطبيقات TOTP يمكن الالتفاف عليها بصفحات تصيّد وسيطة (Adversary-in-the-Middle). مفاتيح المرور (Passkeys) ومفاتيح FIDO2 الفيزيائية مرتبطة بالنطاق الأصلي للموقع، فلا تعمل على موقع مزيّف أصلًا.",["فعّل Passkeys أو مفتاح أمان (مثل YubiKey) على بريدك وحساباتك البنكية أولًا.","سجّل مفتاحين: واحد للاستخدام اليومي وآخر محفوظ في مكان آمن، وأزل SMS كوسيلة استرجاع متى أمكن."]],
+["مدير كلمات مرور وعنوان بريد مستعار لكل موقع","كلمة مرور عشوائية فريدة لكل حساب تعني أن تسريب موقع واحد لا يفتح بقية حساباتك. والعناوين المستعارة (Aliases) تمنع تتبّع هويتك بين المواقع وتكشف من باع بياناتك.",["ولّد كلمات مرور عشوائية بطول 20 حرفًا فأكثر، واحمِ المخزن بعبارة مرور رئيسية طويلة (5 كلمات فأكثر).","استخدم خدمة عناوين مستعارة (مثل SimpleLogin أو Apple Hide My Email) وسجّل في كل موقع بعنوان مختلف."]],
+["تحصين البريد: جذر الثقة لكل حساباتك","من يتحكم في بريدك يستطيع إعادة تعيين كل شيء آخر. راجعه كما تراجع خزنة: قواعد التحويل المخفية والتطبيقات ذات الصلاحيات الزائدة هي أشهر أبواب السيطرة الصامتة.",["افحص الفلاتر وعناوين التحويل واحذف كل ما لا تعرفه.","ألغِ وصول تطبيقات OAuth غير المستخدمة، واطلب من مشغّل الاتصالات أقوى حماية متاحة للشريحة (PIN أو قفل نقل الرقم) ضد SIM Swap."]],
+["تشفير القرص بالكامل مع PIN قبل الإقلاع","BitLocker أو FileVault أو LUKS تجعل بياناتك بلا قيمة إن سُرق الجهاز. والفتح باستخدام TPM وحده قد يتعرض لهجمات فيزيائية، لذلك أضف PIN قبل الإقلاع.",["فعّل BitLocker (Windows Pro) أو FileVault (macOS) أو LUKS (لينكس) واحفظ مفتاح الاسترداد خارج الجهاز.","اشترط TPM + PIN عند التشغيل، وضع كلمة مرور على BIOS/UEFI وعطّل الإقلاع من USB."]],
+["افصل حساب المسؤول عن الاستخدام اليومي","أغلب البرمجيات الخبيثة تحتاج صلاحيات مرتفعة لتثبّت نفسها. العمل بحساب عادي يحوّل الاختراق من كارثة تشمل النظام كله إلى حادث محصور.",["أنشئ حساب مسؤول مستقلًا بكلمة مرور قوية، واجعل حسابك اليومي مستخدمًا قياسيًا.","أبقِ UAC على أعلى مستوى، وفعّل Tamper Protection والوصول المتحكَّم به للمجلدات (Controlled Folder Access) في أمان Windows."]],
+["تحقّق من كل ملف قبل تشغيله","المثبّتات المعدّلة والبرامج المكسورة وإضافات المتصفح المخترقة هي البوابة الأولى للاختراق. المحترف لا يشغّل شيئًا قبل التأكد من مصدره وبصمته.",["حمّل من الموقع الرسمي فقط وقارن بصمة SHA-256 (أمر Get-FileHash في PowerShell أو sha256sum في لينكس) بالمنشورة رسميًا.","افحص الملف المشبوه على VirusTotal (دون رفع بيانات خاصة) وشغّله أولًا داخل Windows Sandbox أو آلة افتراضية معزولة."]],
+["تحصين الراوتر: أغلق الأبواب الخلفية","الراوتر هو خط الدفاع الأول وأكثر جهاز يُهمَل. إعدادات المصنع تترك خدمات تستغلها سكربتات آلية على نطاق واسع.",["غيّر اسم مستخدم وكلمة مرور لوحة الإدارة، وعطّل WPS وUPnP والإدارة عن بعد، واعتمد WPA3 أو WPA2-AES.","أبقِ الـ Firmware محدّثًا (فعّل التحديث التلقائي إن وُجد) وراجع قائمة الأجهزة المتصلة أسبوعيًا."]],
+["عزل الشبكة وDNS مشفّر","وجود الكاميرات والتلفاز الذكي وهواتف الضيوف على شبكة حاسوبك نفسها يمنح المخترق حرية التنقل داخلها. العزل يحصر الضرر في جهاز واحد.",["ضع أجهزة إنترنت الأشياء والضيوف على شبكة Guest أو VLAN منفصلة مع تفعيل عزل العملاء (Client Isolation).","انتقل إلى DNS مشفّر (DoH/DoT) لدى مزوّد موثوق مثل Quad9 أو Cloudflare 1.1.1.2 لحجب النطاقات الخبيثة مسبقًا."]],
+["نسخ احتياطي بقاعدة 3-2-1-1-0","برمجيات الفدية الحديثة تحذف النسخ المتصلة أولًا. القاعدة الاحترافية: 3 نسخ على وسيطين، واحدة خارج المكان، وواحدة غير متصلة أو غير قابلة للتعديل، و0 أخطاء عند اختبار الاستعادة.",["احتفظ بقرص خارجي يُفصل بعد كل نسخة، ونسخة سحابية مشفّرة بمفتاح تملكه وحدك (مثلًا عبر Restic أو Cryptomator).","استعد ملفًا حقيقيًا كل شهر؛ نسخة لم تُختبر ليست نسخة."]],
+["راقب الاختراق الصامت","أخطر الاختراقات هي التي لا تلاحظها. المراقبة المستمرة تكشف التسريبات وعمليات الدخول الغريبة قبل أن تتحول إلى سرقة.",["سجّل بريدك في تنبيهات Have I Been Pwned وفعّل إشعارات تسجيل الدخول الجديد في حساباتك المهمة.","راجع الجلسات والأجهزة النشطة كل 3 أشهر وأنهِ ما لا تعرفه، وغيّر كلمة المرور فور الإبلاغ عن أي تسريب."]]
+],
+en:[
+["Passkeys and hardware keys instead of one-time codes","SMS codes and even TOTP apps can be bypassed by adversary-in-the-middle phishing pages. Passkeys and FIDO2 security keys are bound to the site’s real domain, so they simply don’t work on a fake one.",["Enable passkeys or a security key (such as a YubiKey) on your email and banking accounts first.","Register two keys: one for daily use and one stored safely, then remove SMS as a recovery option wherever possible."]],
+["Password manager plus a unique email alias per site","A unique random password per account means one breached site can’t unlock the rest. Email aliases stop sites from linking your identity and show you who sold your data.",["Generate random passwords of 20+ characters and protect the vault with one long master passphrase (5+ words).","Use an alias service (such as SimpleLogin or Apple Hide My Email) and sign up to each site with a different address."]],
+["Harden your email: the root of trust for everything","Whoever controls your inbox can reset everything else. Audit it like a vault: hidden forwarding rules and over-permissioned apps are the classic doors to a silent takeover.",["Check filters and forwarding addresses and delete anything you don’t recognize.","Revoke unused OAuth app access, and ask your mobile carrier for the strongest SIM protection available (PIN or port-out lock) against SIM swapping."]],
+["Full-disk encryption with a pre-boot PIN","BitLocker, FileVault or LUKS makes your data worthless if the device is stolen. TPM-only unlocking can be exposed to physical attacks, so add a PIN before boot.",["Enable BitLocker (Windows Pro), FileVault (macOS) or LUKS (Linux) and store the recovery key off the device.","Require TPM + PIN at startup, set a BIOS/UEFI password and disable booting from USB."]],
+["Separate your admin account from daily use","Most malware needs elevated rights to dig in. Working as a standard user turns a compromise from a full-system disaster into a contained incident.",["Create a dedicated admin account with a strong password and make your daily account a standard user.","Keep UAC at its highest level and enable Tamper Protection and Controlled Folder Access in Windows Security."]],
+["Verify every file before you run it","Trojanized installers, cracked software and hijacked browser extensions are the number one way in. Professionals never run anything before checking its source and fingerprint.",["Download only from the official site and compare the SHA-256 hash (Get-FileHash in PowerShell, sha256sum on Linux) with the published one.","Scan suspicious files on VirusTotal (never upload private data) and run them first in Windows Sandbox or an isolated virtual machine."]],
+["Router hardening: close the back doors","The router is your first line of defense and the most neglected device. Factory settings leave services that automated scripts exploit at scale.",["Change the admin username and password, disable WPS, UPnP and remote management, and use WPA3 or WPA2-AES.","Keep the firmware updated (enable auto-update if available) and review the list of connected devices weekly."]],
+["Network segmentation and encrypted DNS","Cameras, smart TVs and guests’ phones on the same network as your computer give an intruder free movement. Segmentation confines the damage to a single device.",["Put IoT devices and guests on a separate Guest network or VLAN with client isolation enabled.","Switch to encrypted DNS (DoH/DoT) with a trusted provider such as Quad9 or Cloudflare 1.1.1.2 to block malicious domains up front."]],
+["Backups with the 3-2-1-1-0 rule","Modern ransomware deletes connected backups first. The professional rule: 3 copies on 2 media types, 1 off-site, 1 offline or immutable, and 0 errors when you test a restore.",["Keep an external drive that is disconnected after each backup, plus an encrypted cloud copy with a key only you hold (for example with Restic or Cryptomator).","Restore a real file every month; a backup you have never tested is not a backup."]],
+["Monitor for silent intrusions","The most dangerous breaches are the ones you never notice. Continuous monitoring exposes leaks and strange sign-ins before they turn into theft.",["Register your email with Have I Been Pwned alerts and turn on new-sign-in notifications for important accounts.","Review active sessions and devices every 3 months, end the ones you don’t know, and change the password the moment a leak is reported."]]
+],
+fr:[
+["Passkeys et clés physiques plutôt que codes à usage unique","Les codes SMS, et même les applications TOTP, peuvent être contournés par des pages de phishing de type « adversary-in-the-middle ». Les passkeys et clés FIDO2 sont liées au vrai domaine du site : elles ne fonctionnent tout simplement pas sur un faux.",["Activez les passkeys ou une clé de sécurité (type YubiKey) d’abord sur votre messagerie et vos comptes bancaires.","Enregistrez deux clés : une pour l’usage quotidien, une rangée en lieu sûr, puis retirez le SMS comme moyen de récupération dès que possible."]],
+["Gestionnaire de mots de passe et alias e-mail unique par site","Un mot de passe aléatoire unique par compte évite qu’une fuite sur un site ouvre les autres. Les alias e-mail empêchent le recoupement de votre identité et révèlent qui a revendu vos données.",["Générez des mots de passe aléatoires de 20 caractères ou plus et protégez le coffre par une longue phrase secrète (5 mots minimum).","Utilisez un service d’alias (comme SimpleLogin ou Apple Hide My Email) et inscrivez-vous sur chaque site avec une adresse différente."]],
+["Blindez votre messagerie : la racine de confiance du reste","Qui contrôle votre boîte mail peut tout réinitialiser. Auditez-la comme un coffre-fort : règles de transfert cachées et applications sur-autorisées sont les portes classiques des prises de contrôle silencieuses.",["Vérifiez les filtres et adresses de transfert et supprimez tout ce que vous ne reconnaissez pas.","Révoquez les accès OAuth inutilisés et demandez à votre opérateur la meilleure protection de SIM disponible (code PIN ou verrouillage de portabilité) contre le SIM swapping."]],
+["Chiffrement complet du disque avec PIN avant démarrage","BitLocker, FileVault ou LUKS rendent vos données inutiles en cas de vol. Un déverrouillage par TPM seul peut être exposé à des attaques physiques : ajoutez un PIN avant le démarrage.",["Activez BitLocker (Windows Pro), FileVault (macOS) ou LUKS (Linux) et conservez la clé de récupération hors de l’appareil.","Exigez TPM + PIN au démarrage, protégez le BIOS/UEFI par mot de passe et désactivez le démarrage depuis USB."]],
+["Séparez le compte administrateur de l’usage quotidien","La plupart des malwares ont besoin de droits élevés pour s’installer. Travailler en utilisateur standard transforme une compromission en incident circonscrit plutôt qu’en catastrophe système.",["Créez un compte administrateur dédié avec un mot de passe robuste et passez votre compte quotidien en utilisateur standard.","Gardez le contrôle de compte (UAC) au niveau maximal et activez la protection contre les falsifications et l’accès contrôlé aux dossiers dans Sécurité Windows."]],
+["Vérifiez chaque fichier avant de l’exécuter","Installateurs piégés, logiciels crackés et extensions détournées sont la première porte d’entrée. Un professionnel n’exécute rien sans avoir contrôlé la source et l’empreinte.",["Téléchargez uniquement depuis le site officiel et comparez l’empreinte SHA-256 (Get-FileHash sous PowerShell, sha256sum sous Linux) avec celle publiée.","Analysez les fichiers suspects sur VirusTotal (sans jamais envoyer de données privées) et lancez-les d’abord dans Windows Sandbox ou une machine virtuelle isolée."]],
+["Durcissez le routeur : fermez les portes dérobées","Le routeur est votre première ligne de défense et l’appareil le plus négligé. Les réglages d’usine laissent des services exploités à grande échelle par des scripts automatiques.",["Changez l’identifiant et le mot de passe d’administration, désactivez WPS, UPnP et l’administration à distance, et utilisez WPA3 ou WPA2-AES.","Gardez le firmware à jour (mise à jour automatique si disponible) et consultez chaque semaine la liste des appareils connectés."]],
+["Segmentation du réseau et DNS chiffré","Caméras, télé connectée et téléphones d’invités sur le même réseau que votre ordinateur donnent toute liberté à un intrus. La segmentation limite les dégâts à un seul appareil.",["Placez objets connectés et invités sur un réseau Invité ou un VLAN séparé, avec l’isolation des clients activée.","Passez à un DNS chiffré (DoH/DoT) chez un fournisseur de confiance comme Quad9 ou Cloudflare 1.1.1.2 pour bloquer en amont les domaines malveillants."]],
+["Sauvegardes selon la règle 3-2-1-1-0","Les rançongiciels modernes suppriment d’abord les sauvegardes connectées. La règle pro : 3 copies sur 2 supports, 1 hors site, 1 hors ligne ou immuable, et 0 erreur lors du test de restauration.",["Gardez un disque externe déconnecté après chaque sauvegarde, plus une copie cloud chiffrée dont vous seul détenez la clé (par exemple avec Restic ou Cryptomator).","Restaurez un vrai fichier chaque mois : une sauvegarde jamais testée n’est pas une sauvegarde."]],
+["Surveillez les intrusions silencieuses","Les pires compromissions sont celles qu’on ne remarque pas. Une surveillance continue révèle fuites et connexions suspectes avant qu’elles ne deviennent un vol.",["Inscrivez votre e-mail aux alertes Have I Been Pwned et activez les notifications de nouvelle connexion sur vos comptes importants.","Passez en revue sessions et appareils actifs tous les 3 mois, fermez ceux que vous ne connaissez pas et changez le mot de passe dès qu’une fuite est signalée."]]
+],
+es:[
+["Passkeys y llaves físicas en lugar de códigos de un solo uso","Los códigos SMS e incluso las apps TOTP pueden eludirse con páginas de phishing «adversary-in-the-middle». Las passkeys y las llaves FIDO2 están ligadas al dominio real del sitio, así que simplemente no funcionan en uno falso.",["Activa passkeys o una llave de seguridad (como YubiKey) primero en tu correo y tus cuentas bancarias.","Registra dos llaves: una de uso diario y otra guardada en un lugar seguro, y elimina el SMS como método de recuperación siempre que sea posible."]],
+["Gestor de contraseñas y un alias de correo único por sitio","Una contraseña aleatoria única por cuenta evita que la filtración de un sitio abra las demás. Los alias de correo impiden que te rastreen entre sitios y revelan quién vendió tus datos.",["Genera contraseñas aleatorias de 20 caracteres o más y protege la bóveda con una frase maestra larga (5 palabras o más).","Usa un servicio de alias (como SimpleLogin o Apple Hide My Email) y regístrate en cada sitio con una dirección distinta."]],
+["Blinda tu correo: la raíz de confianza de todo lo demás","Quien controla tu bandeja de entrada puede restablecer todo lo demás. Audítala como una caja fuerte: las reglas de reenvío ocultas y las apps con permisos excesivos son las puertas clásicas de la toma de control silenciosa.",["Revisa filtros y direcciones de reenvío y elimina todo lo que no reconozcas.","Revoca el acceso de las apps OAuth que no uses y pide a tu operador la mejor protección de SIM disponible (PIN o bloqueo de portabilidad) contra el SIM swapping."]],
+["Cifrado de disco completo con PIN previo al arranque","BitLocker, FileVault o LUKS dejan tus datos inservibles si roban el equipo. El desbloqueo solo con TPM puede quedar expuesto a ataques físicos, así que añade un PIN antes del arranque.",["Activa BitLocker (Windows Pro), FileVault (macOS) o LUKS (Linux) y guarda la clave de recuperación fuera del dispositivo.","Exige TPM + PIN al iniciar, pon contraseña a la BIOS/UEFI y desactiva el arranque desde USB."]],
+["Separa la cuenta de administrador del uso diario","La mayoría del malware necesita privilegios elevados para instalarse. Trabajar como usuario estándar convierte una intrusión en un incidente acotado en lugar de un desastre total del sistema.",["Crea una cuenta de administrador dedicada con contraseña fuerte y deja tu cuenta diaria como usuario estándar.","Mantén el UAC en el nivel máximo y activa la protección contra alteraciones y el acceso controlado a carpetas en Seguridad de Windows."]],
+["Verifica cada archivo antes de ejecutarlo","Los instaladores manipulados, el software crackeado y las extensiones secuestradas son la puerta de entrada número uno. Un profesional no ejecuta nada sin comprobar su origen y su huella.",["Descarga solo del sitio oficial y compara el hash SHA-256 (Get-FileHash en PowerShell, sha256sum en Linux) con el publicado.","Analiza los archivos sospechosos en VirusTotal (nunca subas datos privados) y ejecútalos primero en Windows Sandbox o en una máquina virtual aislada."]],
+["Refuerza el router: cierra las puertas traseras","El router es tu primera línea de defensa y el dispositivo más descuidado. La configuración de fábrica deja servicios que scripts automáticos explotan a gran escala.",["Cambia el usuario y la contraseña de administración, desactiva WPS, UPnP y la administración remota, y usa WPA3 o WPA2-AES.","Mantén el firmware actualizado (activa la actualización automática si existe) y revisa cada semana la lista de dispositivos conectados."]],
+["Segmentación de red y DNS cifrado","Cámaras, televisores inteligentes y móviles de invitados en la misma red que tu ordenador dan libertad de movimiento a un intruso. La segmentación limita el daño a un solo dispositivo.",["Coloca los dispositivos IoT y a los invitados en una red de Invitados o VLAN aparte, con el aislamiento de clientes activado.","Cambia a DNS cifrado (DoH/DoT) con un proveedor de confianza como Quad9 o Cloudflare 1.1.1.2 para bloquear de antemano los dominios maliciosos."]],
+["Copias de seguridad con la regla 3-2-1-1-0","El ransomware moderno borra primero las copias conectadas. La regla profesional: 3 copias en 2 tipos de medio, 1 fuera de casa, 1 sin conexión o inmutable y 0 errores al probar la restauración.",["Ten un disco externo que se desconecte tras cada copia y una copia cifrada en la nube con una clave que solo tú posees (por ejemplo con Restic o Cryptomator).","Restaura un archivo real cada mes: una copia que nunca has probado no es una copia."]],
+["Vigila las intrusiones silenciosas","Las brechas más peligrosas son las que no notas. La vigilancia continua revela filtraciones e inicios de sesión extraños antes de que se conviertan en robo.",["Registra tu correo en las alertas de Have I Been Pwned y activa los avisos de nuevo inicio de sesión en tus cuentas importantes.","Revisa las sesiones y dispositivos activos cada 3 meses, cierra los que no conozcas y cambia la contraseña en cuanto se informe de una filtración."]]
+]};
+Object.assign(T.ar,{tp_eb:"PRO SECURITY PLAYBOOK",tp_h:"نصائح أمنية احترافية",tp_sub:"ليست نصيحة «استخدم كلمة مرور قوية». هذه ممارسات يطبّقها المختصون فعلًا لتحصين حساباتهم وأجهزتهم وشبكاتهم.",tp_c_all:"الكل",tp_c_acc:"الحسابات",tp_c_dev:"الأجهزة",tp_c_net:"الشبكة",tp_c_dat:"البيانات",tp_l2:"متقدم",tp_l3:"خبير",tp_th:"يتصدّى لـ",tp_ct_h:"تريد تطبيق هذه الإجراءات على أجهزتك وحساباتك؟",tp_ct_p:"نطبّقها معك خطوة بخطوة، حضوريًا في فاس أو عن بعد.",tp_ct_b:"اطلب استشارة أمنية"});
+Object.assign(T.en,{tp_eb:"PRO SECURITY PLAYBOOK",tp_h:"Professional security tips",tp_sub:"Not the usual “use a strong password” advice. These are the practices security professionals actually apply to harden their accounts, devices and networks.",tp_c_all:"All",tp_c_acc:"Accounts",tp_c_dev:"Devices",tp_c_net:"Network",tp_c_dat:"Data",tp_l2:"Advanced",tp_l3:"Expert",tp_th:"Counters",tp_ct_h:"Want these measures applied to your devices and accounts?",tp_ct_p:"We apply them with you step by step, on site in Fès or remotely.",tp_ct_b:"Request a security consultation"});
+Object.assign(T.fr,{tp_eb:"PRO SECURITY PLAYBOOK",tp_h:"Conseils de sécurité de niveau pro",tp_sub:"Pas le énième « utilisez un mot de passe fort ». Voici les pratiques que les professionnels appliquent réellement pour protéger leurs comptes, appareils et réseaux.",tp_c_all:"Tout",tp_c_acc:"Comptes",tp_c_dev:"Appareils",tp_c_net:"Réseau",tp_c_dat:"Données",tp_l2:"Avancé",tp_l3:"Expert",tp_th:"Contre",tp_ct_h:"Vous voulez appliquer ces mesures à vos appareils et comptes ?",tp_ct_p:"Nous les appliquons avec vous pas à pas, sur place à Fès ou à distance.",tp_ct_b:"Demander un conseil en sécurité"});
+Object.assign(T.es,{tp_eb:"PRO SECURITY PLAYBOOK",tp_h:"Consejos de seguridad de nivel profesional",tp_sub:"No el típico «usa una contraseña fuerte». Estas son las prácticas que los profesionales aplican de verdad para proteger sus cuentas, dispositivos y redes.",tp_c_all:"Todo",tp_c_acc:"Cuentas",tp_c_dev:"Dispositivos",tp_c_net:"Red",tp_c_dat:"Datos",tp_l2:"Avanzado",tp_l3:"Experto",tp_th:"Contrarresta",tp_ct_h:"¿Quieres aplicar estas medidas a tus dispositivos y cuentas?",tp_ct_p:"Las aplicamos contigo paso a paso, en persona en Fez o a distancia.",tp_ct_b:"Pedir asesoría de seguridad"});
+
+var grid=document.getElementById("tpGrid"),fil=document.getElementById("tpFilters"),cur="all",io=null;
+var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(!reduce&&"IntersectionObserver" in window){io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12})}
+function apply(){
+  grid.querySelectorAll(".tp").forEach(function(c){c.hidden=!(cur==="all"||c.getAttribute("data-c")===cur)});
+  fil.querySelectorAll(".tp-f").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-k")===cur))});
+}
+function render(){
+  var t=T[lang],d=TP[lang];
+  fil.setAttribute("aria-label",t.tp_c_all);
+  fil.innerHTML="";
+  ["all"].concat(CATS).forEach(function(k){
+    var b=document.createElement("button");b.type="button";b.className="tp-f";b.setAttribute("data-k",k);b.textContent=t["tp_c_"+k];
+    b.onclick=function(){cur=k;apply()};fil.appendChild(b);
+  });
+  grid.innerHTML="";
+  d.forEach(function(x,i){
+    var m=META[i],c=document.createElement("article");
+    c.className="tp"+(io?" tp-rv":"");c.setAttribute("data-c",m[0]);c.setAttribute("data-n",(i<9?"0":"")+(i+1));
+    var bars="";for(var j=1;j<=3;j++)bars+='<i'+(j<=m[1]?' class="on"':'')+'></i>';
+    c.innerHTML='<div class="tp-top"><span class="tp-ic" aria-hidden="true">'+m[2]+'</span><div class="tp-meta"><span class="tp-cat">'+t["tp_c_"+m[0]]+'</span><span class="tp-lv">'+bars+'<em>'+t["tp_l"+m[1]]+'</em></span></div></div>'+
+      '<h3>'+x[0]+'</h3><p class="tp-d">'+x[1]+'</p><ul>'+x[2].map(function(s){return '<li>'+s+'</li>'}).join("")+'</ul>'+
+      '<div class="tp-th"><small>'+t.tp_th+'</small><b dir="ltr">'+m[3]+'</b></div>';
+    grid.appendChild(c);
+    if(io)io.observe(c);
+  });
+  apply();
+}
+var _setLangTips=setLang;setLang=function(l){_setLangTips(l);render()};
+setLang(lang);
+})();
 </script>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <symbol id="i-wa" viewBox="0 0 24 24"><path d="M3 21l1.7-5A9 9 0 1 1 8 19.3z"/><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8c-.9-.4-1.7-1.2-2.1-2.1l.8-1-1-2z"/></symbol>
