@@ -142,6 +142,16 @@ nav{margin-inline:auto}
 .okmsg{color:var(--accent);min-height:22px;margin:0 0 10px;font-weight:500}
 #offerNote{margin:0 0 16px;font-size:14.5px}
 input[readonly]{opacity:.75}
+.track{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px 30px}
+.track h2{font-size:24px;margin:0 0 6px}
+.track .sub{margin:0 0 16px}
+.trow{display:flex;gap:10px;flex-wrap:wrap}
+.trow input{flex:1;min-width:200px;margin:0;direction:ltr;text-transform:uppercase}
+.tkres{margin-top:14px}
+.tkres b{font-weight:500}
+.tkb{display:inline-block;font-size:14px;padding:1px 12px;border-radius:99px;border:1.5px solid var(--accent);color:var(--accent)}
+.tkb.ok{background:var(--accent);color:var(--on-accent)}
+.tkb.no{border-color:var(--hot);color:var(--hot)}
 </style>
 </head>
 <body>
@@ -246,6 +256,18 @@ input[readonly]{opacity:.75}
       </div>
     </section>
 
+    <section class="tight" id="track">
+      <div class="track">
+        <h2 data-i="tk_h">🔎 تتبّع طلبك</h2>
+        <p class="sub" data-i="tk_sub">اكتب رقم التتبّع الذي ظهر لك بعد إرسال الطلب لمعرفة حالته.</p>
+        <div class="trow">
+          <input id="tkCode" dir="ltr" placeholder="VX-XXXXXX" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="VX code">
+          <button class="btn" type="button" id="tkBtn" data-i="tk_btn">تتبّع</button>
+        </div>
+        <p class="err" id="tkErr" role="alert"></p>
+        <div class="tkres" id="tkRes" role="status"></div>
+      </div>
+    </section>
     <section id="request">
       <div class="formbox">
         <div>
@@ -388,6 +410,41 @@ function refreshOffer(){
 }
 window.vxOnAuth=refreshOffer;
 var _setLang=setLang;setLang=function(l){_setLang(l);refreshOffer()};
+Object.assign(T.ar,{tk_h:"🔎 تتبّع طلبك",tk_sub:"اكتب رقم التتبّع الذي ظهر لك بعد إرسال الطلب لمعرفة حالته.",tk_btn:"تتبّع",tk_bad:"اكتب رقم تتبّع صحيحًا يبدأ بـ VX-",tk_ing:"جارٍ البحث…",tk_nf:"لم نجد طلبًا بهذا الرقم، تأكد من كتابته.",tk_fail:"تعذّر البحث، حاول مرة أخرى. ",tk_srv:"الخدمة",tk_st:"حالة الطلب",tk_pay:"الدفع",tk_dt:"تاريخ الطلب",tk_progress:"قيد المعالجة",tk_done:"تم الحل",tk_paid:"تم الدفع",tk_unpaid:"لم يتم الدفع"});
+Object.assign(T.en,{tk_h:"🔎 Track your request",tk_sub:"Enter the tracking number you received after sending your request to see its status.",tk_btn:"Track",tk_bad:"Enter a valid tracking number starting with VX-",tk_ing:"Searching…",tk_nf:"No request found with this number, please check it.",tk_fail:"Could not search, please try again. ",tk_srv:"Service",tk_st:"Request status",tk_pay:"Payment",tk_dt:"Request date",tk_progress:"In progress",tk_done:"Solved",tk_paid:"Paid",tk_unpaid:"Not paid"});
+Object.assign(T.fr,{tk_h:"🔎 Suivre votre demande",tk_sub:"Saisissez le numéro de suivi reçu après l’envoi de votre demande pour voir son état.",tk_btn:"Suivre",tk_bad:"Saisissez un numéro de suivi valide commençant par VX-",tk_ing:"Recherche…",tk_nf:"Aucune demande trouvée avec ce numéro, vérifiez-le.",tk_fail:"Recherche impossible, réessayez. ",tk_srv:"Service",tk_st:"État de la demande",tk_pay:"Paiement",tk_dt:"Date de la demande",tk_progress:"En cours",tk_done:"Résolue",tk_paid:"Payé",tk_unpaid:"Non payé"});
+var tkLast=null,TKLOC={ar:"ar-MA",en:"en-GB",fr:"fr-FR"};
+function renderTrack(){
+  var box=document.getElementById("tkRes");box.innerHTML="";
+  if(!tkLast)return;
+  var t=T[lang],r=tkLast,i=-1;
+  SV.ar.forEach(function(s,k){if(s[0]===r.service)i=k});
+  function row(label,val,cls){
+    var d=document.createElement("div"),b=document.createElement("b"),v;
+    b.textContent=label+": ";d.appendChild(b);
+    if(cls){v=document.createElement("span");v.className="tkb "+cls}else{v=document.createTextNode("")}
+    v.textContent=val;d.appendChild(v);box.appendChild(d);
+  }
+  row(t.tk_srv,i<0?(r.service||"-"):SV[lang][i][0]);
+  var done=r.status==="done";
+  row(t.tk_st,done?t.tk_done:t.tk_progress,done?"ok":"");
+  row(t.tk_pay,r.paid?t.tk_paid:t.tk_unpaid,r.paid?"ok":"no");
+  if(r.time)row(t.tk_dt,new Date(r.time).toLocaleDateString(TKLOC[lang]));
+}
+var _setLang2=setLang;setLang=function(l){_setLang2(l);renderTrack()};
+document.getElementById("tkBtn").onclick=async function(){
+  var t=T[lang],e=document.getElementById("tkErr"),b=this,c=document.getElementById("tkCode").value.trim().toUpperCase();
+  tkLast=null;renderTrack();e.textContent="";
+  if(!/^VX-[A-Z0-9]{3,10}$/.test(c)){e.textContent=t.tk_bad;return}
+  if(!window.vxTrack){e.textContent=t.tk_fail;return}
+  b.disabled=true;e.textContent=t.tk_ing;
+  try{
+    var r=await window.vxTrack(c);
+    e.textContent=r?"":t.tk_nf;tkLast=r;renderTrack();
+  }catch(x){e.textContent=t.tk_fail+"("+(x.code||"error")+")"}
+  b.disabled=false;
+};
+document.getElementById("tkCode").onkeydown=function(ev){if(ev.key==="Enter"){ev.preventDefault();document.getElementById("tkBtn").click()}};
 document.getElementById("save").onclick=async function(){
   var t=T[lang],e=document.getElementById("err"),ok=document.getElementById("okMsg"),b=this;
   ok.textContent="";
@@ -472,6 +529,12 @@ try{
   const auth=getAuth(app),db=getFirestore(app);
   const EVERY=5;
   onAuthStateChanged(auth,u=>{window.vxUser=u||null;if(window.vxOnAuth)window.vxOnAuth()});
+  window.vxTrack=async c=>{
+    const q=await getDocs(query(collection(db,"requests"),where("code","==",c)));
+    if(q.empty)return null;
+    const d=q.docs[0].data();
+    return {service:d.service,status:d.status,paid:d.paid===true,time:(d.createdAt&&d.createdAt.toDate)?d.createdAt.toDate().getTime():null};
+  };
   window.vxSave=async d=>{
     const u=auth.currentUser,code="VX-"+Math.random().toString(36).slice(2,8).toUpperCase();
     const base={name:d.name,phone:d.phone,service:d.service,message:d.message,status:"progress",paid:false,code:code,source:"site",createdAt:serverTimestamp()};
