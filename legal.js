@@ -59,9 +59,10 @@ function foot(){var f=D.querySelector("footer");if(!f)return;var s=S[L()],e=D.ge
 if(!e){e=D.createElement("span");e.id="vxFl";f.appendChild(e)}
 e.innerHTML='<a href="legal.html">'+s.fl[0]+'</a> · <a href="#" id="vxSet">'+s.fl[1]+"</a>";
 D.getElementById("vxSet").onclick=function(ev){ev.preventDefault();gate("ask")}}
+var BOT=/bot|crawl|spider|slurp|inspectiontool|lighthouse|facebookexternalhit|whatsapp|telegram|preview/i.test(navigator.userAgent||"");
 var c=getC();
-if(!c)R.classList.add("vx-lock");else if(c.a)ga();
-function init(){tips();foot();if(!getC())gate("ask")}
+if(!c){if(!BOT)R.classList.add("vx-lock")}else if(c.a)ga();
+function init(){tips();foot();if(!getC()&&!BOT)gate("ask")}
 if(D.readyState==="loading")D.addEventListener("DOMContentLoaded",init);else init();
 new MutationObserver(function(){tips();foot();var g=D.getElementById("vxGate");if(g)gate(g.getAttribute("data-m"))}).observe(R,{attributes:true,attributeFilter:["lang"]});
 })();
