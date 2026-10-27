@@ -143,6 +143,7 @@ details.cust summary{cursor:pointer;color:var(--accent);font-weight:500}
         <input id="uSearch" type="search" autocomplete="off">
         <div id="usersList"></div>
       </div>
+      <div id="tab_reviews" hidden><div id="revList"></div></div>
       <div id="tab_staff" hidden>
         <h3 class="sub" data-i="st_add_h">إضافة موظف</h3>
         <label for="stEmail" data-i="st_email">بريد Gmail للموظف</label>
@@ -176,11 +177,11 @@ const EVERY=5;                       // كل كم طلب مكتمل يُمنح �
 
 const $=id=>document.getElementById(id);
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const AR=["خدمات الحاسوب","خدمات الهواتف","خدمات الألعاب","الشبكات","الأمن السيبراني","الإنترنت العميق والمظلم","خدمات لينكس","المساعدة عن بعد","استعادة البيانات","الخدمات السحابية","التفعيل"];
+const AR=["خدمات الحاسوب","خدمات الهواتف","خدمات الألعاب","الشبكات","الأمن السيبراني","الإنترنت العميق والمظلم","خدمات لينكس","المساعدة عن بعد","استعادة البيانات","الخدمات السحابية","التفعيل","خدمات الشركات والمؤسسات"];
 const SVN={ar:AR,
-en:["Computer Services","Mobile Services","Gaming Services","Networking","Cybersecurity","Deep & Dark Web","Linux Services","Remote Support","Data Recovery","Cloud Services","Software Activation"],
-fr:["Services informatiques","Services mobiles","Jeux vidéo","Réseaux","Cybersécurité","Deep Web et Dark Web","Services Linux","Assistance à distance","Récupération de données","Services cloud","Activation de logiciels"],
-es:["Servicios informáticos","Servicios móviles","Videojuegos","Redes","Ciberseguridad","Deep Web y Dark Web","Servicios Linux","Asistencia remota","Recuperación de datos","Servicios en la nube","Activación de software"]};
+en:["Computer Services","Mobile Services","Gaming Services","Networking","Cybersecurity","Deep & Dark Web","Linux Services","Remote Support","Data Recovery","Cloud Services","Software Activation","Business & Enterprise Services"],
+fr:["Services informatiques","Services mobiles","Jeux vidéo","Réseaux","Cybersécurité","Deep Web et Dark Web","Services Linux","Assistance à distance","Récupération de données","Services cloud","Activation de logiciels","Services pour entreprises et organisations"],
+es:["Servicios informáticos","Servicios móviles","Videojuegos","Redes","Ciberseguridad","Deep Web y Dark Web","Servicios Linux","Asistencia remota","Recuperación de datos","Servicios en la nube","Activación de software","Servicios para empresas y organizaciones"]};
 const LOC={ar:"ar-MA",en:"en-GB",fr:"fr-FR",es:"es-ES"};
 const T={
 ar:{t:"حسابي | Vyroxx IT Services",home:"الرئيسية",login:"تسجيل الدخول بحساب Google",logout:"تسجيل الخروج",warn:"لم تُضف إعدادات Firebase بعد. افتح الملف وعوّض القيم التي تبدأ بـ PASTE داخل cfg قرب نهاية الملف.",g_h:"حسابي",g_p1:"سجّل الدخول لتحفظ معلوماتك، وتتابع حالة طلباتك، وتجمع نقاطًا تمنحك خدمة مجانية بعد كل 5 طلبات مكتملة.",g_p2:"نستخدم حساب Google فقط، فلا نحفظ كلمة مرور لك أبدًا.",hi:"مرحبًا،",loy_h:"🎁 نقاط الولاء",me_h:"معلوماتي",l_name:"الاسم",l_phone:"رقم الهاتف / WhatsApp",new_h:"طلب جديد",l_srv:"نوع الخدمة",l_msg:"وصف المشكلة",send:"إرسال الطلب",mine_h:"طلباتي السابقة",adm_h:"لوحة الإدارة",loading:"جارٍ التحميل…",none:"لا توجد طلبات بعد.",trk:"رقم التتبّع:",done_n:"طلبات مكتملة:",left_a:"بقي ",left_b:" طلبات مكتملة لتحصل على خدمة مجانية.",earn_a:"🎉 حصلت سابقًا على ",earn_b:" خدمة مجانية، أخبرنا بذلك عند طلبك التالي.",e_empty:"اكتب وصف المشكلة أولًا.",sending:"جارٍ الإرسال…",sent:"✔ وصل طلبك. رقم التتبّع: ",fail:"تعذّر الإرسال، حاول مرة أخرى. ",e_login:"تعذّر تسجيل الدخول: ",e_upd:"تعذّر التحديث: ",newc:"قيد المعالجة",none_adm:"لا توجد طلبات.",tab_req:"الطلبات",tab_users:"العملاء",tab_staff:"الموظفون",role_owner:"المدير الرئيسي",role_staff:"موظف",u_search:"ابحث بالاسم أو البريد…",u_none:"لا يوجد عملاء.",last:"آخر دخول:",banned_t:"تم حظر حسابك",banned_p:"تم منعك من استخدام هذا الموقع. إن كنت تعتقد أن هذا خطأ فتواصل معنا.",ban:"حظر",unban:"رفع الحظر",is_banned:"محظور",ban_q:"هل تريد حظر هذا المستخدم ومنعه من الموقع؟",unban_q:"هل تريد رفع الحظر عن هذا المستخدم؟",st_add_h:"إضافة موظف",st_email:"بريد Gmail للموظف",st_hint:"اختر صلاحيات الموظف:",st_add:"إضافة الموظف",st_list:"الموظفون الحاليون",st_none:"لا يوجد موظفون بعد.",st_remove:"إزالة الموظف",st_rm_q:"هل تريد إزالة هذا الموظف نهائيًا؟",st_bad:"أدخل بريد Gmail صحيحًا.",st_self:"هذا بريد المدير الرئيسي وله كل الصلاحيات أصلًا.",st_noperm:"اختر صلاحية واحدة على الأقل.",st_done:"✔ تمت إضافة الموظف. ستظهر له لوحة الإدارة عند دخوله بحسابه.",p_all:"كل الصلاحيات",p_viewRequests:"عرض الطلبات وتتبعها",p_editRequests:"تغيير حالة الطلبات",p_viewUsers:"عرض العملاء",p_banUsers:"حظر العملاء ورفع الحظر",st:{new:"جديد",progress:"قيد المعالجة",done:"تم الحل"}},
@@ -189,6 +190,10 @@ fr:{t:"Mon compte | Vyroxx IT Services",home:"Accueil",login:"Se connecter avec 
 es:{t:"Mi cuenta | Vyroxx IT Services",home:"Inicio",login:"Iniciar sesión con Google",logout:"Cerrar sesión",warn:"Aún no se han añadido los ajustes de Firebase. Abre el archivo y sustituye los valores que empiezan por PASTE dentro de cfg, cerca del final del archivo.",g_h:"Mi cuenta",g_p1:"Inicia sesión para guardar tus datos, seguir el estado de tus solicitudes y acumular puntos que te dan un servicio gratis tras cada 5 solicitudes completadas.",g_p2:"Solo usamos tu cuenta de Google, así que nunca guardamos una contraseña tuya.",hi:"Bienvenido,",loy_h:"🎁 Puntos de fidelidad",me_h:"Mis datos",l_name:"Nombre",l_phone:"Teléfono / WhatsApp",new_h:"Nueva solicitud",l_srv:"Tipo de servicio",l_msg:"Descripción del problema",send:"Enviar solicitud",mine_h:"Mis solicitudes anteriores",adm_h:"Panel de administración",loading:"Cargando…",none:"Aún no hay solicitudes.",trk:"Número de seguimiento:",done_n:"Solicitudes completadas:",left_a:"Faltan ",left_b:" solicitudes completadas para obtener un servicio gratis.",earn_a:"🎉 Has ganado ",earn_b:" servicio(s) gratis, díselo a nuestro equipo en tu próxima solicitud.",e_empty:"Describe primero tu problema.",sending:"Enviando…",sent:"✔ Tu solicitud ha llegado. Número de seguimiento: ",fail:"No se pudo enviar, inténtalo de nuevo. ",e_login:"Error al iniciar sesión: ",e_upd:"Error al actualizar: ",newc:"en curso",none_adm:"No hay solicitudes.",tab_req:"Solicitudes",tab_users:"Clientes",tab_staff:"Personal",role_owner:"Propietario",role_staff:"Empleado",u_search:"Buscar por nombre o correo…",u_none:"No hay clientes.",last:"Último acceso:",banned_t:"Tu cuenta ha sido bloqueada",banned_p:"No tienes permiso para usar este sitio. Si crees que es un error, contáctanos.",ban:"Bloquear",unban:"Desbloquear",is_banned:"Bloqueado",ban_q:"¿Bloquear a este usuario y prohibirle el acceso al sitio?",unban_q:"¿Quitar el bloqueo a este usuario?",st_add_h:"Añadir empleado",st_email:"Gmail del empleado",st_hint:"Elige los permisos del empleado:",st_add:"Añadir empleado",st_list:"Empleados actuales",st_none:"Aún no hay empleados.",st_remove:"Quitar empleado",st_rm_q:"¿Quitar definitivamente a este empleado?",st_bad:"Introduce un Gmail válido.",st_self:"Este es el correo del propietario y ya tiene todos los permisos.",st_noperm:"Elige al menos un permiso.",st_done:"✔ Empleado añadido. Verá el panel de administración cuando inicie sesión con su cuenta.",p_all:"Todos los permisos",p_viewRequests:"Ver y seguir solicitudes",p_editRequests:"Cambiar el estado de las solicitudes",p_viewUsers:"Ver clientes",p_banUsers:"Bloquear y desbloquear clientes",st:{new:"Nueva",progress:"En curso",done:"Resuelta"}}
 };
 
+Object.assign(T.ar,{"tab_reviews": "الآراء", "rv_pub": "منشور", "rv_pend": "بانتظار المراجعة", "rv_none": "لا توجد آراء.", "rv_remote": "عن بُعد", "rv_fes": "فاس", "rv_hidden": "الاسم غير منشور", "rv_unpub": "إلغاء النشر", "rv_approve": "قبول ونشر", "rv_del": "حذف", "rv_del_q": "حذف هذا الرأي نهائياً؟", "p_moderateReviews": "مراجعة آراء العملاء ونشرها"});
+Object.assign(T.en,{"tab_reviews": "Reviews", "rv_pub": "Published", "rv_pend": "Pending review", "rv_none": "No reviews.", "rv_remote": "Remote", "rv_fes": "Fès", "rv_hidden": "name not published", "rv_unpub": "Unpublish", "rv_approve": "Approve & publish", "rv_del": "Delete", "rv_del_q": "Delete this review permanently?", "p_moderateReviews": "Moderate customer reviews"});
+Object.assign(T.fr,{"tab_reviews": "Avis", "rv_pub": "Publié", "rv_pend": "En attente", "rv_none": "Aucun avis.", "rv_remote": "À distance", "rv_fes": "Fès", "rv_hidden": "prénom non publié", "rv_unpub": "Dépublier", "rv_approve": "Approuver et publier", "rv_del": "Supprimer", "rv_del_q": "Supprimer définitivement cet avis ?", "p_moderateReviews": "Modérer les avis des clients"});
+Object.assign(T.es,{"tab_reviews": "Opiniones", "rv_pub": "Publicada", "rv_pend": "Pendiente", "rv_none": "Sin opiniones.", "rv_remote": "Remoto", "rv_fes": "Fez", "rv_hidden": "nombre no publicado", "rv_unpub": "Despublicar", "rv_approve": "Aprobar y publicar", "rv_del": "Eliminar", "rv_del_q": "¿Eliminar esta opinión definitivamente?", "p_moderateReviews": "Moderar opiniones de clientes"});
 Object.assign(T.ar,{b_first:"طلب أول (سعر رمزي)",b_free:"خدمة مجانية",paid:"تم الدفع",unpaid:"لم يتم الدفع",del:"حذف الطلب",del_q:"هل تريد حذف هذا الطلب نهائيًا؟ لا يمكن التراجع.",
  sub_reg:"المسجلون بالمنصة",sub_guest:"غير المسجلين",none_g:"لا يوجد عملاء غير مسجلين.",u_reqs:"طلباته",done_c:"مكتملة",p_editPayment:"تحديد حالة الدفع",pay_t:"حالة الدفع",st_t:"حالة الطلب",
  g_p3:"🎁 التسجيل يمنحك: طلبك الأول بسعر رمزي، وخدمة مجانية بعد كل 5 طلبات مكتملة. الطلب دون تسجيل متاح لكن بدون هذه العروض.",
@@ -207,7 +212,7 @@ Object.assign(T.es,{b_first:"Primer pedido (precio simbólico)",b_free:"Servicio
  off_first:"🎉 Oferta de bienvenida: tu primer pedido a precio simbólico.",off_free:"🎁 Tienes un servicio gratis listo: tu próxima solicitud se registrará gratis."});
 
 const root=document.documentElement,tb=$("theme");
-let lang="ar",user=null,mine=null,adm=null,usr=null,stf=null,perms={},isOwner=false,tab="req",rsub="reg",usub="reg";
+let lang="ar",user=null,mine=null,adm=null,usr=null,stf=null,rev=null,perms={},isOwner=false,tab="req",rsub="reg",usub="reg";
 const openK=new Set();
 const isGuest=r=>!r.uid||r.guest===true;
 const tt=()=>T[lang];
@@ -260,7 +265,7 @@ function renderMine(){
     +'<br><small>'+t.trk+' <span dir="ltr">'+esc(r.code)+'</span> · '+esc(when(r))+'</small><p>'+esc(r.message)+'</p></div>').join("")
     :'<p class="muted">'+t.none+'</p>';
 }
-const PK=["all","viewRequests","editRequests","editPayment","viewUsers","banUsers"];
+const PK=["all","viewRequests","editRequests","editPayment","viewUsers","banUsers","moderateReviews"];
 const can=p=>isOwner||perms.all===true||perms[p]===true;
 const seen=r=>r&&r.seconds?r.toDate().toLocaleDateString(LOC[lang]):"";
 function permsHtml(p,attr){
@@ -277,10 +282,21 @@ function renderTabs(){
   const t=tt(),list=[];
   if(can("viewRequests"))list.push(["req",t.tab_req]);
   if(can("viewUsers")||can("banUsers"))list.push(["users",t.tab_users]);
+  if(can("moderateReviews")){const pn=(rev||[]).filter(x=>x.approved!==true).length;list.push(["reviews",t.tab_reviews+(pn?" ("+pn+")":"")])}
   if(isOwner)list.push(["staff",t.tab_staff]);
   if(!list.some(x=>x[0]===tab))tab=list.length?list[0][0]:"";
   $("tabs").innerHTML=list.map(x=>'<button type="button" class="tabbtn" data-tab="'+x[0]+'" aria-pressed="'+(x[0]===tab)+'">'+esc(x[1])+'</button>').join("");
-  ["req","users","staff"].forEach(k=>{$("tab_"+k).hidden=k!==tab});
+  ["req","users","reviews","staff"].forEach(k=>{$("tab_"+k).hidden=k!==tab});
+}
+function renderRev(){
+  const box=$("revList");if(!box)return;const t=tt();
+  if(!can("moderateReviews")){box.innerHTML="";return}
+  const list=rev||[],st=n=>{n=Math.max(0,Math.min(5,n|0));return "★".repeat(n)+"☆".repeat(5-n)};
+  const card=r=>'<div class="req"><b>'+esc(st(r.rating))+'</b> <span class="badge '+(r.approved===true?'done':'new')+'">'+esc(r.approved===true?t.rv_pub:t.rv_pend)+'</span><br><small><span dir="ltr">'+esc(r.id)+'</span> · '+esc(svName(r.service))+' · '+esc(r.place==="remote"?t.rv_remote:t.rv_fes)+' · '+esc(r.name?(r.showName?r.name:r.name+" ("+t.rv_hidden+")"):"—")+' · '+esc(when(r))+'</small><p>'+esc(r.text)+'</p>'
+    +(r.approved===true?'<button type="button" class="btn alt sm" data-rv="unpub" data-id="'+esc(r.id)+'">'+esc(t.rv_unpub)+'</button> ':'<button type="button" class="btn sm" data-rv="pub" data-id="'+esc(r.id)+'">'+esc(t.rv_approve)+'</button> ')
+    +'<button type="button" class="btn alt sm" data-rv="del" data-id="'+esc(r.id)+'">'+esc(t.rv_del)+'</button></div>';
+  const pend=list.filter(r=>r.approved!==true),pub=list.filter(r=>r.approved===true),none='<p class="muted">'+esc(t.rv_none)+'</p>';
+  box.innerHTML='<h3 class="sub">'+esc(t.rv_pend)+' ('+pend.length+')</h3>'+(pend.map(card).join("")||none)+'<h3 class="sub">'+esc(t.rv_pub)+' ('+pub.length+')</h3>'+(pub.map(card).join("")||none);
 }
 function reqCard(r,who,bm){
   const t=tt(),g=isGuest(r);
@@ -303,7 +319,7 @@ const subBtns=(id,key,cur,items)=>items.map(x=>'<button type="button" class="tab
 function renderAdmin(){
   if(!user||$("adminBox").hidden)return;
   const t=tt();
-  renderTabs();
+  renderTabs();renderRev();
   $("roleBadge").textContent=isOwner?t.role_owner:t.role_staff;
   $("uSearch").placeholder=t.u_search;
   const bm={};(usr||[]).forEach(u=>{bm[u.id]=u.banned===true});
@@ -375,7 +391,7 @@ if(cfg.apiKey.startsWith("PASTE")){
   };
 
   onAuthStateChanged(auth,async u=>{
-    user=u;mine=null;adm=null;usr=null;stf=null;perms={};isOwner=false;
+    user=u;mine=null;adm=null;usr=null;stf=null;rev=null;perms={};isOwner=false;
     $("auth").textContent=u?tt().logout:tt().login;
     $("banned").hidden=true;$("adminBox").hidden=true;
     $("guest").hidden=!!u;$("app").hidden=!u;
@@ -423,10 +439,20 @@ if(cfg.apiKey.startsWith("PASTE")){
     $("send").disabled=false;
   };
 
+  $("revList").onclick=async e=>{
+    const b=e.target.closest("[data-rv]");if(!b||!can("moderateReviews"))return;
+    const id=b.dataset.id,act=b.dataset.rv,t=tt();
+    try{
+      if(act==="del"){if(!confirm(t.rv_del_q))return;await deleteDoc(doc(db,"reviews",id))}
+      else await updateDoc(doc(db,"reviews",id),{approved:act==="pub"});
+      await loadAdmin();
+    }catch(err){alert(t.e_upd+(err.code||""))}
+  };
   async function loadAdmin(){
     const jobs=[];
     if(can("viewRequests"))jobs.push(getDocs(collection(db,"requests")).then(q=>{adm=q.docs.map(d=>({id:d.id,...d.data()})).sort(byDate)}).catch(()=>{adm=[]}));
     if(can("viewUsers")||can("banUsers"))jobs.push(getDocs(collection(db,"users")).then(q=>{usr=q.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>((b.lastLogin&&b.lastLogin.seconds)||0)-((a.lastLogin&&a.lastLogin.seconds)||0))}).catch(()=>{usr=[]}));
+    if(can("moderateReviews"))jobs.push(getDocs(collection(db,"reviews")).then(q=>{rev=q.docs.map(d=>({id:d.id,...d.data()})).sort(byDate)}).catch(()=>{rev=[]}));
     if(isOwner)jobs.push(loadStaff(true));
     await Promise.all(jobs);renderAdmin();
   }

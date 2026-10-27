@@ -73,6 +73,7 @@ nav a:hover{color:var(--ink)}
 .facts small{display:block;color:var(--muted);font-size:13px}
 .facts a,.facts span{font-weight:500;text-decoration:none}
 section{padding:68px 0}
+html,body{overflow-x:clip}
 h2{font-size:30px;margin:0 0 8px}
 .sub{color:var(--muted);margin:0 0 32px;max-width:36em}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:18px}
@@ -220,7 +221,6 @@ input[readonly]{opacity:.75}
 .grp-d{color:var(--muted);margin:0 0 20px;max-width:44em;font-size:15.5px;padding-inline-start:62px}
 .cards .card{position:relative;overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s}
 .cards .card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 14px 30px -18px color-mix(in srgb,var(--accent) 65%,transparent)}
-.grp.sec .card{border-top:3px solid var(--accent);background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 7%,var(--surface)),var(--surface) 55%)}
 .biz .card li b{color:var(--ink);font-weight:700}
 .biz .card h3{font-size:21px}
 .biz .card .bt{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--accent);margin-bottom:8px;direction:ltr;font-family:ui-monospace,Menlo,Consolas,monospace}
@@ -239,13 +239,63 @@ input[readonly]{opacity:.75}
 :root[data-theme="hacker"] .sla,:root[data-theme="hacker"] .consent,:root[data-theme="hacker"] .grp-ic,:root[data-theme="hacker"] .sla-ic{border-radius:4px;border-color:rgba(0,255,65,.45)}
 :root[data-theme="hacker"] .grp-h{color:var(--accent);font-family:ui-monospace,Menlo,Consolas,monospace;text-shadow:0 0 8px rgba(0,255,65,.45)}
 @media (max-width:560px){.grp-d{padding-inline-start:0}.sla{padding:14px 16px}.consent{padding:16px}}
+
+/* ===== Premium service cards ===== */
+.cards{grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:22px}
+.cards>*{min-width:0}
+.cards .card{--mx:50%;--my:0%;padding:26px 26px 22px;border-radius:22px;border:1px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,linear-gradient(145deg,color-mix(in srgb,var(--accent) 60%,var(--line)),var(--line) 45%,color-mix(in srgb,var(--accent) 35%,var(--line))) border-box;box-shadow:0 18px 40px -28px color-mix(in srgb,var(--accent) 55%,transparent)}
+.cards .card:hover{border-color:transparent;transform:translateY(-6px);box-shadow:0 26px 50px -26px color-mix(in srgb,var(--accent) 75%,transparent)}
+.cards .card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(380px circle at var(--mx) var(--my),color-mix(in srgb,var(--accent) 16%,transparent),transparent 65%)}
+.cards .card:hover::after{opacity:1}
+.cn{position:absolute;bottom:12px;inset-inline-end:22px;z-index:0;font:800 52px/1 ui-monospace,Menlo,Consolas,monospace;color:color-mix(in srgb,var(--accent) 14%,transparent);unicode-bidi:isolate;pointer-events:none}
+.ct{display:flex;align-items:center;gap:14px;margin-bottom:16px;position:relative}
+.ci{flex:none;width:56px;height:56px;border-radius:18px;display:grid;place-items:center;font-size:28px;background:linear-gradient(145deg,color-mix(in srgb,var(--accent) 34%,var(--surface)),color-mix(in srgb,var(--accent) 8%,var(--surface)));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 40%,transparent),0 10px 22px -10px color-mix(in srgb,var(--accent) 70%,transparent);transition:transform .35s}
+.cards .card:hover .ci{transform:rotate(-6deg) scale(1.08)}
+.svc h3{margin:0;font-size:20px;line-height:1.35}
+.svc ul{list-style:none;padding:0;margin:0 0 20px;display:grid;gap:9px;position:relative}
+.svc li{position:relative;padding-inline-start:28px;line-height:1.7;font-size:15px}
+.svc li::before{content:"✓";position:absolute;inset-inline-start:0;top:3px;width:19px;height:19px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent)}
+@media (max-width:560px){.cn{font-size:42px}}
+.cgo{position:relative;display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:700;font-size:14.5px;color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,transparent);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);padding:9px 18px;border-radius:999px;cursor:pointer;transition:background .25s,color .25s,gap .25s}
+.cgo:hover{background:var(--accent);color:var(--surface);gap:14px}
+.cgo i{font-style:normal;display:inline-block}
+html[dir=rtl] .cgo i{transform:scaleX(-1)}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.svc{animation:rise .6s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--i)*60ms)}
+:root[data-theme="hacker"] .ci,:root[data-theme="hacker"] .cgo{border-radius:4px}
+@media (prefers-reduced-motion:reduce){.svc{animation:none}.cards .card,.ci{transition:none}}
+
+/* ===== Customer reviews ===== */
+.rv-sum{display:flex;align-items:center;gap:12px;margin:0 0 24px;flex-wrap:wrap}
+.rv-avg{font-size:44px;line-height:1;font-weight:800}
+.rv-st{color:#F5B83D;letter-spacing:2px;font-size:20px;direction:ltr}
+.rv-sum small{color:var(--muted)}
+.rv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:20px}
+.rv-card{position:relative;overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:14px;transition:transform .25s,border-color .25s}
+.rv-card:hover{transform:translateY(-4px);border-color:var(--accent)}
+.rv-card::before{content:"\201C";position:absolute;top:4px;inset-inline-end:18px;font:700 70px/1 Georgia,serif;color:color-mix(in srgb,var(--accent) 18%,transparent)}
+.rv-tx{margin:0;line-height:1.9;overflow-wrap:anywhere}
+.rv-ft{display:flex;align-items:center;gap:12px;margin-top:auto}
+.rv-av{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:var(--on-accent);background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 55%,#000))}
+.rv-mt{display:flex;flex-direction:column;line-height:1.4;min-width:0}.rv-mt small{color:var(--muted)}
+.rv-empty{color:var(--muted);padding:26px;border:1px dashed var(--line);border-radius:16px;text-align:center}
+.rv-cta{margin-top:26px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}.rv-cta .note{margin:0;flex:1;min-width:220px}
+.rv-form{margin-top:22px;padding:24px;background:var(--surface);border:1.5px solid var(--accent);border-radius:20px;max-width:640px}
+.rchk{display:flex;gap:10px;align-items:flex-start;margin:0 0 16px;font-size:15px;color:var(--muted)}
+.rchk input{width:auto;height:auto;padding:0;margin:6px 0 0;flex:none}
+.rv-stars{display:flex;gap:6px;margin:4px 0 16px;direction:ltr}
+html[dir=rtl] .rv-stars{justify-content:flex-end}
+.rv-stars button{font-size:34px;line-height:1;background:none;border:0;cursor:pointer;color:var(--line);padding:2px;transition:transform .15s,color .15s}
+.rv-stars button.on{color:#F5B83D}.rv-stars button:hover{transform:scale(1.15)}
+.rv-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.rv-msg{margin:0 0 12px;font-weight:500}.rv-msg.e{color:var(--hot,#D9482B)}.rv-msg.k{color:var(--accent)}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <a class="logo" href="#top">VYROXX <b>IT</b></a>
-    <nav><a href="#services" data-i="nav1">الخدمات</a><a href="#business" data-i="nav7">الشركات</a><a href="#prices-s" data-i="nav6">الأسعار</a><a href="#about" data-i="nav5">من نحن</a><a href="#contact" data-i="nav3">تواصل</a></nav>
+    <nav><a href="#services" data-i="nav1">الخدمات</a><a href="#business" data-i="nav7">الشركات</a><a href="#reviews" data-i="nav8">آراء العملاء</a><a href="#prices-s" data-i="nav6">الأسعار</a><a href="#about" data-i="nav5">من نحن</a><a href="#contact" data-i="nav3">تواصل</a></nav>
     <div class="tools"><a class="acc" href="account.html" data-i="nav4">حسابي</a><div class="seg" role="group" aria-label="Language"><button type="button" data-lang="ar">ع</button><button type="button" data-lang="en">EN</button><button type="button" data-lang="fr">FR</button><button type="button" data-lang="es">ES</button></div><button class="theme" id="theme" type="button" aria-label="Theme"></button></div>
     <a class="btn hcta" href="#request" data-i="nav2">أرسل مشكلتك</a>
   </header>
@@ -317,7 +367,7 @@ input[readonly]{opacity:.75}
 
     <section id="business" class="biz">
       <span class="tp-eyebrow" data-i="b_eb">BUSINESS SECURITY</span>
-      <h2 data-i="b_h">حلول الشركات والمؤسسات</h2>
+      <h2 data-i="b_h">خدمات الشركات والمؤسسات</h2>
       <p class="sub" data-i="b_sub"></p>
       <div class="sla"><span class="sla-ic" aria-hidden="true">⏱️</span><div><b data-i="sla_t"></b><small data-i="sla_d"></small></div></div>
       <div class="cards" id="bizcards"></div>
@@ -330,6 +380,29 @@ input[readonly]{opacity:.75}
         <div class="step"><span class="num">4</span><h3 data-i="bs4t"></h3><p data-i="bs4d"></p></div>
       </div>
       <div class="biz-cta"><a class="btn" href="#request" data-i="b_cta"></a><p class="note" data-i="b_note"></p></div>
+    </section>
+
+    <section id="reviews" class="rv">
+      <span class="tp-eyebrow" data-i="rv_eb">CLIENT REVIEWS</span>
+      <h2 data-i="rv_h"></h2>
+      <p class="sub" data-i="rv_sub"></p>
+      <div class="rv-sum" id="rvSum" hidden></div>
+      <div class="rv-grid" id="rvGrid"></div>
+      <p class="rv-empty" id="rvEmpty" data-i="rv_empty"></p>
+      <div class="rv-cta"><button type="button" class="btn" id="rvOpen" data-i="rv_add"></button><p class="note" data-i="rv_how"></p></div>
+      <div class="rv-form" id="rvForm" hidden>
+        <label for="rvCode" data-i="rv_code"></label><input id="rvCode" dir="ltr" autocomplete="off" maxlength="14" placeholder="VX-XXXXXX">
+        <label data-i="rv_rate"></label>
+        <div class="rv-stars" id="rvStars" role="group"><button type="button" data-v="1" aria-label="1">★</button><button type="button" data-v="2" aria-label="2">★</button><button type="button" data-v="3" aria-label="3">★</button><button type="button" data-v="4" aria-label="4">★</button><button type="button" data-v="5" aria-label="5">★</button></div>
+        <label for="rvName" data-i="rv_name"></label><input id="rvName" maxlength="40" autocomplete="given-name">
+        <label class="rchk"><input type="checkbox" id="rvShow"><span data-i="rv_show"></span></label>
+        <label for="rvPlace" data-i="rv_place"></label><select id="rvPlace"><option value="fes" data-i="rv_p1"></option><option value="remote" data-i="rv_p2"></option></select>
+        <label for="rvText" data-i="rv_text"></label><textarea id="rvText" maxlength="600" rows="4"></textarea>
+        <label class="rchk"><input type="checkbox" id="rvAgree"><span data-i="rv_agree"></span></label>
+        <input class="rv-hp" id="rvHp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="rv-msg e" id="rvErr" role="alert"></p><p class="rv-msg k" id="rvOk" role="status"></p>
+        <button type="button" class="btn" id="rvSend" data-i="rv_send"></button>
+      </div>
     </section>
 
     <section id="prices-s">
@@ -518,9 +591,10 @@ function setLang(l){
   document.getElementById("msg").placeholder=t.ph;
   var idx=Math.max(sel.selectedIndex,0);
   cards.innerHTML="";document.getElementById("cards2").innerHTML="";sel.innerHTML="";
+  var n1=0,n2=0;
   SV[l].forEach(function(s,k){
-    var c=document.createElement("div");c.className="card";
-    c.innerHTML="<h3><span>"+IC[k]+"</span>"+s[0]+"</h3><ul>"+s[1].map(function(i){return "<li>"+i+"</li>"}).join("")+"</ul>";
+    var c=document.createElement("div"),sc=(k===4||k===5),nn=sc?(SV[l].length-2)+(++n2):++n1;c.className="card svc";c.style.setProperty("--i",k);
+    c.innerHTML='<span class="cn">'+(nn<10?"0":"")+nn+'</span><div class="ct"><span class="ci">'+IC[k]+"</span><h3>"+s[0]+"</h3></div><ul>"+s[1].map(function(i){return "<li>"+i+"</li>"}).join("")+'</ul><button type="button" class="cgo" data-k="'+k+'">'+t.c_go+"<i>→</i></button>";
     (k===4||k===5?document.getElementById("cards2"):cards).appendChild(c);
     var o=document.createElement("option");o.textContent=s[0];sel.appendChild(o);
   });
@@ -547,29 +621,29 @@ Object.assign(T.fr,{l2:"Numéro de téléphone / WhatsApp",l_em:"E-mail (pour su
  lo_p:"Connectez-vous avec Google depuis « Mon compte » pour obtenir votre première commande à prix symbolique, suivre vos demandes et cumuler des points. Commander sans compte reste possible, mais sans ces offres."});
 
 Object.assign(T.ar,{nav7:"الشركات",g1:"الدعم التقني",g1d:"صيانة وإصلاح وتهيئة لحاسوبك وهاتفك وألعابك وشبكتك، حضورياً في فاس أو عن بعد.",g2:"الأمن السيبراني",g2d:"حماية حساباتك وبياناتك وهويتك الرقمية، من تأمين الحسابات إلى التحقق من التسريبات.",f5:"زمن الرد",f5v:"خلال 6 ساعات كحد أقصى",
- b_eb:"BUSINESS SECURITY",b_h:"حلول الشركات والمؤسسات",b_sub:"حلول أمنية مخصصة للشركات والمحلات التجارية في فاس وخارجها: نكتشف الثغرات قبل المهاجمين، ونؤمّن شبكتك، ونُدرّب فريقك.",
+ b_eb:"BUSINESS SECURITY",b_h:"خدمات الشركات والمؤسسات",b_sub:"حلول أمنية مخصصة للشركات والمحلات التجارية في فاس وخارجها: نكتشف الثغرات قبل المهاجمين، ونؤمّن شبكتك، ونُدرّب فريقك.",
  sla_t:"نرد على كل طلب خلال 6 ساعات كحد أقصى",sla_d:"هذا الالتزام يشمل طلبات الأفراد والشركات على حد سواء.",
  b_ct:"التزامنا بالموافقة والخصوصية",b_consent:"لا نُجري أي اختبار اختراق أو فحص إلا بموافقة تامة وصريحة من الجهة المستفيدة وضمن نطاق يُتفق عليه مسبقاً، والهدف هو التأكد من أن خدماتها ومواقعها وشبكاتها محمية بشكل جيد. لا نفحص أي نظام لا نملك إذناً بفحصه، وتبقى نتائج الفحص سرية بيننا وبين الجهة المستفيدة.",
  bs_h:"كيف نعمل مع الشركات",bs1t:"تواصل وتحديد النطاق",bs1d:"تخبرنا بما تريد حمايته ونتفق معك على نطاق العمل.",bs2t:"موافقة رسمية",bs2d:"نحصل على موافقتك الكتابية قبل أي فحص أو اختبار.",bs3t:"الفحص والتحليل",bs3d:"ننفذ الفحص بأدوات متطورة ونحلل النتائج بدقة.",bs4t:"التقرير والتوصيات",bs4d:"نسلّمك تقريراً بالنتائج مع خطوات الإصلاح المقترحة.",
- b_cta:"اطلب عرضاً لشركتك",b_note:"تُحدَّد الأسعار بعد الاتفاق على النطاق وحجم العمل.",b_opt:"حلول الشركات (عرض سعر)"});
+ b_cta:"اطلب عرضاً لشركتك",b_note:"تُحدَّد الأسعار بعد الاتفاق على النطاق وحجم العمل.",b_opt:"خدمات الشركات والمؤسسات"});
 Object.assign(T.en,{nav7:"Business",g1:"Tech Support",g1d:"Repair, setup and tuning for your PC, phone, games and network, on-site in Fès or remotely.",g2:"Cybersecurity",g2d:"Protect your accounts, data and digital identity, from securing accounts to checking for leaks.",f5:"Response time",f5v:"Within 6 hours at most",
- b_eb:"BUSINESS SECURITY",b_h:"Business & Enterprise Solutions",b_sub:"Security tailored to companies and shops in Fès and beyond: we find weaknesses before attackers do, secure your network and train your team.",
+ b_eb:"BUSINESS SECURITY",b_h:"Business & Enterprise Services",b_sub:"Security tailored to companies and shops in Fès and beyond: we find weaknesses before attackers do, secure your network and train your team.",
  sla_t:"We reply to every request within 6 hours at most",sla_d:"This commitment covers both individual and business requests.",
  b_ct:"Our commitment to consent and privacy",b_consent:"We never run a penetration test or scan without the full, explicit consent of the beneficiary and within a scope agreed in advance. The goal is to make sure its services, websites and networks are well protected. We do not test any system we have no permission to test, and the results stay confidential between us and the beneficiary.",
  bs_h:"How we work with companies",bs1t:"Contact & scoping",bs1d:"You tell us what you want protected and we agree on the scope of work.",bs2t:"Formal consent",bs2d:"We get your written approval before any scan or test.",bs3t:"Testing & analysis",bs3d:"We run the checks with advanced tools and analyze the results carefully.",bs4t:"Report & recommendations",bs4d:"We deliver a report of the findings with suggested remediation steps.",
- b_cta:"Request a quote for your company",b_note:"Prices are set after agreeing on the scope and amount of work.",b_opt:"Business solutions (quote)"});
+ b_cta:"Request a quote for your company",b_note:"Prices are set after agreeing on the scope and amount of work.",b_opt:"Business & Enterprise Services"});
 Object.assign(T.fr,{nav7:"Entreprises",g1:"Assistance technique",g1d:"Dépannage, configuration et optimisation de votre PC, téléphone, jeux et réseau, sur place à Fès ou à distance.",g2:"Cybersécurité",g2d:"Protégez vos comptes, vos données et votre identité numérique, de la sécurisation des comptes à la vérification des fuites.",f5:"Délai de réponse",f5v:"6 heures maximum",
- b_eb:"BUSINESS SECURITY",b_h:"Solutions pour entreprises et organisations",b_sub:"Une sécurité adaptée aux entreprises et commerces de Fès et d’ailleurs : nous détectons les failles avant les attaquants, sécurisons votre réseau et formons votre équipe.",
+ b_eb:"BUSINESS SECURITY",b_h:"Services pour entreprises et organisations",b_sub:"Une sécurité adaptée aux entreprises et commerces de Fès et d’ailleurs : nous détectons les failles avant les attaquants, sécurisons votre réseau et formons votre équipe.",
  sla_t:"Nous répondons à chaque demande sous 6 heures maximum",sla_d:"Cet engagement couvre les demandes des particuliers comme des entreprises.",
  b_ct:"Notre engagement : consentement et confidentialité",b_consent:"Nous ne réalisons aucun test d’intrusion ni analyse sans le consentement total et explicite de la partie bénéficiaire, et dans un périmètre convenu à l’avance. L’objectif est de s’assurer que ses services, sites et réseaux sont bien protégés. Nous ne testons aucun système sans autorisation, et les résultats restent confidentiels entre nous et le bénéficiaire.",
  bs_h:"Comment nous travaillons avec les entreprises",bs1t:"Contact et périmètre",bs1d:"Vous nous dites ce que vous voulez protéger et nous convenons du périmètre.",bs2t:"Accord formel",bs2d:"Nous obtenons votre accord écrit avant tout scan ou test.",bs3t:"Tests et analyse",bs3d:"Nous réalisons les contrôles avec des outils avancés et analysons précisément les résultats.",bs4t:"Rapport et recommandations",bs4d:"Nous vous remettons un rapport des résultats avec les mesures correctives proposées.",
- b_cta:"Demander un devis pour votre entreprise",b_note:"Les tarifs sont fixés après accord sur le périmètre et la charge de travail.",b_opt:"Solutions entreprises (devis)"});
+ b_cta:"Demander un devis pour votre entreprise",b_note:"Les tarifs sont fixés après accord sur le périmètre et la charge de travail.",b_opt:"Services pour entreprises et organisations"});
 Object.assign(T.es,{nav7:"Empresas",g1:"Soporte técnico",g1d:"Reparación, configuración y optimización de tu PC, móvil, juegos y red, en persona en Fez o a distancia.",g2:"Ciberseguridad",g2d:"Protege tus cuentas, tus datos y tu identidad digital, desde asegurar cuentas hasta comprobar filtraciones.",f5:"Tiempo de respuesta",f5v:"Máximo 6 horas",
- b_eb:"BUSINESS SECURITY",b_h:"Soluciones para empresas y organizaciones",b_sub:"Seguridad a medida para empresas y comercios de Fez y de fuera: detectamos las vulnerabilidades antes que los atacantes, protegemos tu red y formamos a tu equipo.",
+ b_eb:"BUSINESS SECURITY",b_h:"Servicios para empresas y organizaciones",b_sub:"Seguridad a medida para empresas y comercios de Fez y de fuera: detectamos las vulnerabilidades antes que los atacantes, protegemos tu red y formamos a tu equipo.",
  sla_t:"Respondemos a cada solicitud en un máximo de 6 horas",sla_d:"Este compromiso cubre tanto las solicitudes de particulares como las de empresas.",
  b_ct:"Nuestro compromiso: consentimiento y privacidad",b_consent:"Nunca realizamos una prueba de intrusión ni un análisis sin el consentimiento total y expreso de la parte beneficiaria y dentro de un alcance acordado de antemano. El objetivo es comprobar que sus servicios, sitios web y redes están bien protegidos. No probamos ningún sistema sin permiso, y los resultados permanecen confidenciales entre nosotros y el beneficiario.",
  bs_h:"Cómo trabajamos con empresas",bs1t:"Contacto y alcance",bs1d:"Nos cuentas qué quieres proteger y acordamos el alcance del trabajo.",bs2t:"Consentimiento formal",bs2d:"Obtenemos tu aprobación por escrito antes de cualquier análisis o prueba.",bs3t:"Pruebas y análisis",bs3d:"Realizamos las comprobaciones con herramientas avanzadas y analizamos los resultados con detalle.",bs4t:"Informe y recomendaciones",bs4d:"Te entregamos un informe con los resultados y los pasos de corrección propuestos.",
- b_cta:"Solicitar presupuesto para tu empresa",b_note:"Los precios se fijan tras acordar el alcance y el volumen de trabajo.",b_opt:"Soluciones para empresas (presupuesto)"});
+ b_cta:"Solicitar presupuesto para tu empresa",b_note:"Los precios se fijan tras acordar el alcance y el volumen de trabajo.",b_opt:"Servicios para empresas y organizaciones"});
 var BZ={
 ar:[["🎯","PROACTIVE","الخدمات الأمنية الاستباقية",[["اختبار الاختراق (Penetration Testing):","محاكاة هجمات حقيقية على مواقع العميل أو شبكته لاكتشاف الثغرات قبل استغلالها من القراصنة. يتم ذلك بموافقة تامة من الجهة المستفيدة فقط، لفحص مدى حماية خدماتها."],["تدقيق الأمان (Security Auditing):","مراجعة شاملة لإعدادات الأجهزة والسيرفرات والشبكات للتأكد من خلوها من الأخطاء الأمنية."],["تقييم الثغرات (Vulnerability Assessment):","فحص الأنظمة بشكل دوري باستخدام أدوات متطورة."]]],
  ["🏢","PROTECTION","حماية الشركات والمؤسسات",[["تأمين الشبكات الداخلية (Network Security):","إعداد الجدران النارية (Firewalls) وحماية شبكات الواي فاي والموزعات."],["الاستجابة للحوادث الرقمية (Incident Response):","تدخل سريع عند تعرض شركة لهجمة فيروس فدية (Ransomware) أو اختراق لسيرفراتها."],["التوعية الأمنية للموظفين (Security Awareness Training):","تدريب موظفي الشركات على تجنب رسائل الاحتيال (Phishing) والهندسة الاجتماعية."]]]],
@@ -588,13 +662,68 @@ function renderBiz(l){
     box.appendChild(d);
   });
 }
+Object.assign(T.ar,{c_go:"اطلب الخدمة"});Object.assign(T.en,{c_go:"Request this"});Object.assign(T.fr,{c_go:"Demander ce service"});Object.assign(T.es,{c_go:"Solicitar servicio"});
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".cgo");if(!b)return;sel.selectedIndex=+b.getAttribute("data-k");var r=document.getElementById("request");if(r)r.scrollIntoView({behavior:"smooth"})});
+document.addEventListener("pointermove",function(e){var c=e.target.closest&&e.target.closest(".cards .card");if(!c)return;var r=c.getBoundingClientRect();c.style.setProperty("--mx",(e.clientX-r.left)+"px");c.style.setProperty("--my",(e.clientY-r.top)+"px")});
+Object.assign(T.ar,{"nav8": "آراء العملاء", "rv_h": "آراء العملاء", "rv_sub": "تقييمات حقيقية من عملاء استفادوا من خدماتنا في فاس أو عن بُعد.", "rv_empty": "لا توجد آراء منشورة بعد. إن استفدتَ من خدماتنا فكن أول من يشاركنا رأيه.", "rv_add": "اكتب رأيك", "rv_how": "التقييم متاح فقط برقم تتبّع طلب اكتملت معالجته. تُنشر الآراء بعد مراجعتها ودون تعديل نصها.", "rv_code": "رقم تتبّع طلبك", "rv_rate": "تقييمك", "rv_name": "اسمك الأول", "rv_show": "أوافق على نشر اسمي الأول مع رأيي (وإلا يظهر الرأي باسم «عميل»).", "rv_place": "أين تلقيت الخدمة؟", "rv_p1": "في فاس (حضورياً)", "rv_p2": "عن بُعد", "rv_text": "رأيك", "rv_agree": "أوافق على نشر رأيي علناً في هذا الموقع وفق سياسة الخصوصية.", "rv_send": "إرسال الرأي", "rv_ok": "✔ شكراً لك! وصل رأيك وسيظهر بعد المراجعة.", "rv_e_code": "اكتب رقم تتبّع صحيحاً بالشكل VX-XXXXXX.", "rv_e_star": "اختر عدد النجوم.", "rv_e_short": "اكتب رأيك في 10 أحرف على الأقل.", "rv_e_agree": "يجب الموافقة على نشر الرأي.", "rv_e_nd": "لا يوجد طلب مكتمل بهذا الرقم. يمكنك التقييم بعد اكتمال معالجة طلبك.", "rv_e_dup": "تعذّر الإرسال. ربما سبق أن قيّمتَ هذا الطلب.", "rv_e_fail": "تعذّر الإرسال، حاول مرة أخرى.", "rv_anon": "عميل", "rv_cnt": "رأي"});
+Object.assign(T.en,{"nav8": "Reviews", "rv_h": "Customer reviews", "rv_sub": "Real feedback from customers who used our services in Fès or remotely.", "rv_empty": "No reviews published yet. If you used our services, be the first to share your opinion.", "rv_add": "Write a review", "rv_how": "Reviews are only possible with the tracking number of a completed request. They are published after moderation, without editing their text.", "rv_code": "Your request tracking number", "rv_rate": "Your rating", "rv_name": "Your first name", "rv_show": "I agree to publish my first name with my review (otherwise it appears as “Customer”).", "rv_place": "Where did you get the service?", "rv_p1": "In Fès (on site)", "rv_p2": "Remotely", "rv_text": "Your review", "rv_agree": "I agree to my review being published publicly on this site under the privacy policy.", "rv_send": "Submit review", "rv_ok": "✔ Thank you! Your review was received and will appear after moderation.", "rv_e_code": "Enter a valid tracking number like VX-XXXXXX.", "rv_e_star": "Choose a star rating.", "rv_e_short": "Write at least 10 characters.", "rv_e_agree": "You must agree to the publication of your review.", "rv_e_nd": "No completed request found with this number. You can review once your request is completed.", "rv_e_dup": "Could not send. You may have already reviewed this request.", "rv_e_fail": "Could not send, please try again.", "rv_anon": "Customer", "rv_cnt": "reviews"});
+Object.assign(T.fr,{"nav8": "Avis", "rv_h": "Avis des clients", "rv_sub": "Des retours réels de clients qui ont utilisé nos services à Fès ou à distance.", "rv_empty": "Aucun avis publié pour le moment. Si vous avez utilisé nos services, soyez le premier à donner votre avis.", "rv_add": "Donner mon avis", "rv_how": "Un avis n’est possible qu’avec le numéro de suivi d’une demande terminée. Les avis sont publiés après modération, sans modifier leur texte.", "rv_code": "Numéro de suivi de votre demande", "rv_rate": "Votre note", "rv_name": "Votre prénom", "rv_show": "J’accepte la publication de mon prénom avec mon avis (sinon il apparaît sous « Client »).", "rv_place": "Où avez-vous reçu le service ?", "rv_p1": "À Fès (sur place)", "rv_p2": "À distance", "rv_text": "Votre avis", "rv_agree": "J’accepte que mon avis soit publié publiquement sur ce site conformément à la politique de confidentialité.", "rv_send": "Envoyer l’avis", "rv_ok": "✔ Merci ! Votre avis a été reçu et apparaîtra après modération.", "rv_e_code": "Saisissez un numéro de suivi valide, de la forme VX-XXXXXX.", "rv_e_star": "Choisissez une note.", "rv_e_short": "Écrivez au moins 10 caractères.", "rv_e_agree": "Vous devez accepter la publication de votre avis.", "rv_e_nd": "Aucune demande terminée avec ce numéro. Vous pourrez donner votre avis une fois votre demande terminée.", "rv_e_dup": "Envoi impossible. Vous avez peut-être déjà donné votre avis sur cette demande.", "rv_e_fail": "Envoi impossible, réessayez.", "rv_anon": "Client", "rv_cnt": "avis"});
+Object.assign(T.es,{"nav8": "Opiniones", "rv_h": "Opiniones de clientes", "rv_sub": "Comentarios reales de clientes que usaron nuestros servicios en Fez o en remoto.", "rv_empty": "Aún no hay opiniones publicadas. Si usaste nuestros servicios, sé el primero en compartir tu opinión.", "rv_add": "Escribir opinión", "rv_how": "Solo se puede opinar con el número de seguimiento de una solicitud completada. Las opiniones se publican tras moderación, sin editar su texto.", "rv_code": "Número de seguimiento de tu solicitud", "rv_rate": "Tu valoración", "rv_name": "Tu nombre de pila", "rv_show": "Acepto que se publique mi nombre de pila con mi opinión (si no, aparece como «Cliente»).", "rv_place": "¿Dónde recibiste el servicio?", "rv_p1": "En Fez (presencial)", "rv_p2": "En remoto", "rv_text": "Tu opinión", "rv_agree": "Acepto que mi opinión se publique públicamente en este sitio conforme a la política de privacidad.", "rv_send": "Enviar opinión", "rv_ok": "✔ ¡Gracias! Tu opinión se recibió y aparecerá tras la moderación.", "rv_e_code": "Introduce un número de seguimiento válido, como VX-XXXXXX.", "rv_e_star": "Elige una valoración.", "rv_e_short": "Escribe al menos 10 caracteres.", "rv_e_agree": "Debes aceptar la publicación de tu opinión.", "rv_e_nd": "No hay ninguna solicitud completada con este número. Podrás opinar cuando se complete tu solicitud.", "rv_e_dup": "No se pudo enviar. Quizá ya opinaste sobre esta solicitud.", "rv_e_fail": "No se pudo enviar, inténtalo de nuevo.", "rv_anon": "Cliente", "rv_cnt": "opiniones"});
+var RV=[],rvStar=0,rvTry=0;
+function rvEl(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function rvStars(n){var s="";for(var i=1;i<=5;i++)s+=i<=n?"★":"☆";return s}
+function renderReviews(){
+  var t=T[lang],g=document.getElementById("rvGrid"),sum=document.getElementById("rvSum");if(!g)return;
+  g.innerHTML="";document.getElementById("rvEmpty").hidden=RV.length>0;
+  if(!RV.length){sum.hidden=true;return}
+  var avg=RV.reduce(function(a,r){return a+r.rating},0)/RV.length;
+  sum.hidden=false;sum.textContent="";
+  sum.appendChild(rvEl("b","rv-avg",avg.toFixed(1)));sum.appendChild(rvEl("span","rv-st",rvStars(Math.round(avg))));sum.appendChild(rvEl("small","",RV.length+" "+t.rv_cnt));
+  RV.forEach(function(r){
+    var c=rvEl("article","rv-card"),nm=(r.showName&&r.name)?String(r.name):t.rv_anon,si=-1;
+    c.appendChild(rvEl("div","rv-st",rvStars(r.rating)));c.appendChild(rvEl("p","rv-tx",r.text));
+    SV.ar.forEach(function(s,k){if(s[0]===r.service)si=k});
+    var sv=si>=0?SV[lang][si][0]:(r.service===T.ar.b_opt?t.b_opt:"");
+    var f=rvEl("div","rv-ft"),m=rvEl("div","rv-mt");
+    f.appendChild(rvEl("span","rv-av",nm.charAt(0).toUpperCase()));
+    m.appendChild(rvEl("b","",nm));m.appendChild(rvEl("small","",(sv?sv+" · ":"")+(r.place==="remote"?t.rv_p2:t.rv_p1)));
+    f.appendChild(m);c.appendChild(f);g.appendChild(c);
+  });
+}
+function loadReviews(){
+  if(!window.vxRevList){if(rvTry++<20)setTimeout(loadReviews,500);return}
+  window.vxRevList().then(function(a){
+    RV=a.filter(function(r){return r&&r.rating>=1&&r.rating<=5&&typeof r.text==="string"}).map(function(r){r.rating=Math.round(r.rating);return r}).sort(function(x,y){return ((y.createdAt&&y.createdAt.seconds)||0)-((x.createdAt&&x.createdAt.seconds)||0)});
+    renderReviews();
+  }).catch(function(){});
+}
+document.getElementById("rvOpen").onclick=function(){var f=document.getElementById("rvForm");f.hidden=!f.hidden};
+document.getElementById("rvCode").oninput=function(){this.value=this.value.toUpperCase()};
+document.getElementById("rvStars").onclick=function(e){var b=e.target.closest("button");if(!b)return;rvStar=+b.getAttribute("data-v");[].forEach.call(this.children,function(x){x.classList.toggle("on",+x.getAttribute("data-v")<=rvStar)})};
+document.getElementById("rvSend").onclick=async function(){
+  var t=T[lang],er=document.getElementById("rvErr"),ok=document.getElementById("rvOk"),b=this;er.textContent="";ok.textContent="";
+  if(document.getElementById("rvHp").value)return;
+  var code=document.getElementById("rvCode").value.trim().toUpperCase(),tx=document.getElementById("rvText").value.trim(),nm=document.getElementById("rvName").value.trim();
+  if(!/^VX-[A-Z0-9]{3,10}$/.test(code)){er.textContent=t.rv_e_code;return}
+  if(!rvStar){er.textContent=t.rv_e_star;return}
+  if(tx.length<10){er.textContent=t.rv_e_short;return}
+  if(!document.getElementById("rvAgree").checked){er.textContent=t.rv_e_agree;return}
+  if(!window.vxRevSend){er.textContent=t.rv_e_fail;return}
+  b.disabled=true;
+  try{
+    await window.vxRevSend({code:code,rating:rvStar,text:tx,name:nm,showName:document.getElementById("rvShow").checked&&nm.length>0,place:document.getElementById("rvPlace").value,lang:lang});
+    ok.textContent=t.rv_ok;document.getElementById("rvText").value="";document.getElementById("rvCode").value="";rvStar=0;[].forEach.call(document.getElementById("rvStars").children,function(x){x.classList.remove("on")});
+  }catch(x){er.textContent=x&&x.code==="not-done"?t.rv_e_nd:(x&&x.code==="permission-denied"?t.rv_e_dup:t.rv_e_fail)}
+  b.disabled=false;
+};
+loadReviews();
 function refreshOffer(){
   var t=T[lang],u=window.vxUser,em=document.getElementById("guestEmail"),n=document.getElementById("offerNote");
   if(u){em.value=u.email||"";em.readOnly=true;n.textContent=t.off_u}
   else{if(em.readOnly){em.readOnly=false;em.value=""}n.textContent=t.off_g}
 }
 window.vxOnAuth=refreshOffer;
-var _setLang=setLang;setLang=function(l){_setLang(l);refreshOffer();renderBiz(l)};
+var _setLang=setLang;setLang=function(l){_setLang(l);refreshOffer();renderBiz(l);renderReviews()};
 Object.assign(T.ar,{tk_h:"🔎 تتبّع طلبك",tk_sub:"اكتب رقم التتبّع الذي ظهر لك بعد إرسال الطلب لمعرفة حالته.",tk_btn:"تتبّع",tk_bad:"اكتب رقم تتبّع صحيحًا يبدأ بـ VX-",tk_ing:"جارٍ البحث…",tk_nf:"لم نجد طلبًا بهذا الرقم، تأكد من كتابته.",tk_fail:"تعذّر البحث، حاول مرة أخرى. ",tk_srv:"الخدمة",tk_st:"حالة الطلب",tk_pay:"الدفع",tk_dt:"تاريخ الطلب",tk_progress:"قيد المعالجة",tk_done:"تم الحل",tk_paid:"تم الدفع",tk_unpaid:"لم يتم الدفع"});
 Object.assign(T.en,{tk_h:"🔎 Track your request",tk_sub:"Enter the tracking number you received after sending your request to see its status.",tk_btn:"Track",tk_bad:"Enter a valid tracking number starting with VX-",tk_ing:"Searching…",tk_nf:"No request found with this number, please check it.",tk_fail:"Could not search, please try again. ",tk_srv:"Service",tk_st:"Request status",tk_pay:"Payment",tk_dt:"Request date",tk_progress:"In progress",tk_done:"Solved",tk_paid:"Paid",tk_unpaid:"Not paid"});
 Object.assign(T.fr,{tk_h:"🔎 Suivre votre demande",tk_sub:"Saisissez le numéro de suivi reçu après l’envoi de votre demande pour voir son état.",tk_btn:"Suivre",tk_bad:"Saisissez un numéro de suivi valide commençant par VX-",tk_ing:"Recherche…",tk_nf:"Aucune demande trouvée avec ce numéro, vérifiez-le.",tk_fail:"Recherche impossible, réessayez. ",tk_srv:"Service",tk_st:"État de la demande",tk_pay:"Paiement",tk_dt:"Date de la demande",tk_progress:"En cours",tk_done:"Résolue",tk_paid:"Payé",tk_unpaid:"Non payé"});
@@ -615,7 +744,7 @@ function renderTrack(){
     if(cls){v=document.createElement("span");v.className="tkb "+cls}else{v=document.createTextNode("")}
     v.textContent=val;d.appendChild(v);box.appendChild(d);
   }
-  row(t.tk_srv,i<0?(r.service||"-"):SV[lang][i][0]);
+  row(t.tk_srv,i<0?(r.service===T.ar.b_opt?t.b_opt:(r.service||"-")):SV[lang][i][0]);
   var done=r.status==="done";
   row(t.tk_st,done?t.tk_done:t.tk_progress,done?"ok":"");
   row(t.tk_pay,r.paid?t.tk_paid:t.tk_unpaid,r.paid?"ok":"no");
@@ -854,6 +983,8 @@ try{
     const d=s.data();
     return {service:d.service,status:d.status,paid:d.paid===true,time:(d.createdAt&&d.createdAt.toDate)?d.createdAt.toDate().getTime():null};
   };
+  window.vxRevList=async()=>{const q=await getDocs(query(collection(db,"reviews"),where("approved","==",true)));return q.docs.map(x=>x.data())};
+  window.vxRevSend=async d=>{const tr=await getDoc(doc(db,"tracking",d.code));if(!tr.exists()||tr.data().status!=="done")throw {code:"not-done"};await setDoc(doc(db,"reviews",d.code),{rating:d.rating,text:d.text,name:d.name,showName:d.showName,place:d.place,service:tr.data().service,lang:d.lang,approved:false,createdAt:serverTimestamp()})};
   window.vxSave=async d=>{
     const u=auth.currentUser,code="VX-"+Math.random().toString(36).slice(2,8).toUpperCase();
     const base={name:d.name,phone:d.phone,service:d.service,message:d.message,status:"progress",paid:false,code:code,source:"site",createdAt:serverTimestamp()};
