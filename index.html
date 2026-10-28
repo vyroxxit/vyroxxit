@@ -12,13 +12,13 @@
 <meta property="og:site_name" content="VYROXX IT">
 <meta property="og:title" content="Vyroxx IT Services | خدمات تقنية وأمن سيبراني">
 <meta property="og:description" content="حلول تقنية احترافية، دعم فني، أمن سيبراني، ألعاب ولينكس، حضوريًا أو عن بعد على مدار الساعة.">
-<meta property="og:url" content="https://vyroxxit.github.io/vyroxxit/">
-<meta property="og:image" content="https://vyroxxit.github.io/vyroxxit/og-image.png">
+<meta property="og:url" content="https://vyroxxit.github.io/">
+<meta property="og:image" content="https://vyroxxit.github.io/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<link rel="canonical" href="https://vyroxxit.github.io/vyroxxit/">
+<link rel="canonical" href="https://vyroxxit.github.io/">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VYROXX IT","alternateName":["Vyroxx IT Services","VYROXX IT SERVICES"],"url":"https://vyroxxit.github.io/vyroxxit/"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"VYROXX IT","alternateName":["Vyroxx IT Services","VYROXX IT SERVICES"],"url":"https://vyroxxit.github.io/"}</script>
 <title>Vyroxx IT Services | خدمات تقنية وأمن سيبراني</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
@@ -1068,7 +1068,7 @@ try{
     return {service:d.service,status:d.status,paid:d.paid===true,time:(d.createdAt&&d.createdAt.toDate)?d.createdAt.toDate().getTime():null};
   };
   window.vxRevList=async()=>{const q=await getDocs(query(collection(db,"reviews"),where("approved","==",true)));return q.docs.map(x=>x.data())};
-  window.vxRevSend=async d=>{const tr=await getDoc(doc(db,"tracking",d.code));if(!tr.exists()||tr.data().status!=="done")throw {code:"not-done"};await setDoc(doc(db,"reviews",d.code),{rating:d.rating,text:d.text,name:d.name,showName:d.showName,place:d.place,service:tr.data().service,lang:d.lang,approved:false,createdAt:serverTimestamp()})};
+  window.vxRevSend=async d=>{const tr=await getDoc(doc(db,"tracking",d.code));if(!tr.exists()||tr.data().status!=="done")throw {code:"not-done"};await setDoc(doc(db,"reviews",d.code),{rating:d.rating,text:d.text,name:(d.showName?d.name:""),showName:d.showName,place:d.place,service:tr.data().service,lang:d.lang,approved:false,createdAt:serverTimestamp()})};
   window.vxSave=async d=>{
     const u=auth.currentUser,code="VX-"+Math.random().toString(36).slice(2,8).toUpperCase();
     const base={name:d.name,phone:d.phone,service:d.service,message:d.message,status:"progress",paid:false,code:code,source:"site",createdAt:serverTimestamp()};
