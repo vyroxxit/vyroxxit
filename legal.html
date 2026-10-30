@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -225,7 +225,7 @@ function setTheme(m){if(!IC[m])m="light";R.setAttribute("data-theme",m);th.textC
 var dk=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
 th.onclick=function(){var c=R.getAttribute("data-theme")||dk;setTheme(TH[(TH.indexOf(c)+1)%4])};
 setTheme(ld("vx-theme")||dk);
-var l0=ld("vx-lang")||(navigator.language||"ar").slice(0,2);setLang(T[l0]?l0:"ar");
+var l0=ld("vx-lang")||(navigator.language||"en").slice(0,2);setLang(T[l0]?l0:"en");
 </script>
 </body>
 </html>
