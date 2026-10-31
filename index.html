@@ -6,6 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Expert IT support, cybersecurity, Linux and gaming services for individuals and businesses. On-site in Morocco or remote worldwide. Replies within 6 hours.">
 <meta name="theme-color" content="#0C1519">
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="VYROXX IT">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="favicon.png" sizes="48x48" type="image/png">
 <link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
@@ -939,7 +943,7 @@ document.querySelectorAll(".gm").forEach(function(a){a.onclick=function(e){if(!/
   document.getElementById("support").hidden=!has;
 })();
 var nl=(navigator.language||"en").slice(0,2),sl=load("vx-lang");
-setLang(sl&&T[sl]?sl:(T[nl]?nl:"en"));
+setLang(sl&&T[sl]?sl:"en");
 </script>
 <script>
 (function(){
@@ -1059,6 +1063,119 @@ setLang(lang);
 <symbol id="i-ml" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
 </defs></svg>
 <nav class="social" aria-label="Contact"><a href="https://wa.me/212646126501" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp" style="--c:#1F9D55"><svg class="i" aria-hidden="true"><use href="#i-wa"/></svg></a><a href="https://www.instagram.com/vyroxx_it/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram" style="--c:#C13584"><svg class="i" aria-hidden="true"><use href="#i-ig"/></svg></a><a href="https://www.facebook.com/profile.php?id=61576004765268" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook" style="--c:#1877F2"><svg class="i" aria-hidden="true"><use href="#i-fb"/></svg></a><a class="gm" href="mailto:vyroxxvx@gmail.com" aria-label="Gmail" title="Gmail" style="--c:#D9482B"><svg class="i" aria-hidden="true"><use href="#i-ml"/></svg></a></nav>
+<style>
+#vxb{position:fixed;inset-inline-end:10px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:60}
+#vxb button,#vxb input{font:inherit}
+#vxbT{position:relative;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--accent);background:var(--surface);cursor:pointer;display:grid;place-items:center;box-shadow:0 6px 24px rgba(0,0,0,.28),0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent);transition:transform .2s}
+#vxbT:hover{transform:translateY(-2px)}
+#vxbT .lg{width:23px;height:31px}
+#vxbP{display:none;position:absolute;inset-inline-end:0;bottom:60px;width:min(380px,calc(100vw - 20px));height:min(580px,calc(100dvh - 130px));background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 48px rgba(0,0,0,.35);flex-direction:column;overflow:hidden}
+#vxb.o #vxbP{display:flex;animation:vi .25s ease}
+@keyframes vi{from{opacity:0;transform:translateY(10px)}}
+#vxbH{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--surface);border-bottom:1px solid var(--line);position:relative}
+#vxbH::after{content:"";position:absolute;inset:auto 0 -1px 0;height:2px;background:linear-gradient(90deg,var(--accent),transparent)}
+#vxbH .lg{width:30px;height:40px;flex:none}
+#vxbH div{flex:1;min-width:0}
+#vxbH b{display:block;font-weight:700;letter-spacing:.14em;font-size:15px}
+#vxbH small{display:flex;align-items:center;gap:6px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+#vxbH small::before{content:"";width:7px;height:7px;border-radius:50%;background:#3DDC84}
+#vxbX{background:none;border:0;color:var(--muted);font-size:24px;line-height:1;cursor:pointer;padding:4px 6px}
+#vxbX:hover{color:var(--ink)}
+#vxbM{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px}
+.vm{max-width:88%;padding:10px 14px;font-size:14px;line-height:1.6;white-space:pre-line;background:var(--surface);border:1px solid var(--line);border-inline-start:3px solid var(--accent);border-radius:4px 12px 12px 12px;align-self:flex-start}
+.vm.u{align-self:flex-end;background:var(--accent);color:var(--on-accent);border:0;border-radius:12px 4px 12px 12px}
+.vt{display:flex;gap:4px;padding:14px}
+.vt i{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:vb 1s infinite}
+.vt i:nth-child(2){animation-delay:.15s}.vt i:nth-child(3){animation-delay:.3s}
+@keyframes vb{0%,80%,100%{opacity:.25}40%{opacity:1}}
+.vc{display:flex;flex-wrap:wrap;gap:8px}
+.vc button,.vc a{padding:8px 14px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:13px;font-weight:500;text-decoration:none;cursor:pointer;transition:border-color .15s,color .15s}
+.vc button:hover,.vc a:hover{border-color:var(--accent);color:var(--accent)}
+.vc .p{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.vc .p:hover{color:var(--on-accent);opacity:.88}
+#vxbF{display:flex;gap:8px;padding:12px;background:var(--surface);border-top:1px solid var(--line)}
+#vxbI{flex:1;min-width:0;padding:10px 14px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:16px}
+#vxbI:focus{outline:2px solid var(--accent);outline-offset:-1px}
+#vxbS{width:44px;border-radius:8px;border:0;background:var(--accent);color:var(--on-accent);cursor:pointer;display:grid;place-items:center}
+#vxbS svg{width:20px;height:20px}
+[dir=rtl] #vxbS svg{transform:scaleX(-1)}
+#vxbK{padding:0 12px 10px;background:var(--surface);text-align:center;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+@media(prefers-reduced-motion:reduce){#vxb *{animation:none!important;transition:none!important}}
+</style>
+<script>
+(function(){
+var BOT_API=""; /* optional AI endpoint URL; empty = built-in answers from the site data */
+var U={
+en:{h:"Vyroxx Assistant",ol:"Online",hi:"Hi! I can explain our services, prices and how to get help. What do you need?",in:"Type your question…",sd:"Send",c:["Services","Prices","How it works","Contact"],nf:"I'm not sure about that one. Try rephrasing, or ask our team directly:",wa:"WhatsApp us",rq:"Request this service",fr:"from",ty:"You're welcome! Anything else?",all:"Send your problem",ab:"Ask me about any service for details and its price."},
+ar:{h:"مساعد Vyroxx",ol:"متصل",hi:"مرحبًا! أستطيع شرح خدماتنا وأسعارنا وطريقة طلب المساعدة. بماذا تحتاج؟",in:"اكتب سؤالك…",sd:"إرسال",c:["الخدمات","الأسعار","كيف نعمل","تواصل"],nf:"لست متأكدًا من ذلك. أعد صياغة سؤالك، أو اسأل فريقنا مباشرة:",wa:"راسلنا على واتساب",rq:"اطلب هذه الخدمة",fr:"ابتداءً من",ty:"عفوًا! هل تحتاج شيئًا آخر؟",all:"أرسل مشكلتك",ab:"اسألني عن أي خدمة لتفاصيلها وسعرها."},
+fr:{h:"Assistant Vyroxx",ol:"En ligne",hi:"Bonjour ! Je peux expliquer nos services, nos tarifs et comment obtenir de l'aide. De quoi avez-vous besoin ?",in:"Posez votre question…",sd:"Envoyer",c:["Services","Tarifs","Comment ça marche","Contact"],nf:"Je ne suis pas sûr. Reformulez, ou demandez directement à notre équipe :",wa:"Écrire sur WhatsApp",rq:"Demander ce service",fr:"à partir de",ty:"Avec plaisir ! Autre chose ?",all:"Envoyer un problème",ab:"Demandez-moi les détails et le prix de n'importe quel service."},
+es:{h:"Asistente Vyroxx",ol:"En línea",hi:"¡Hola! Puedo explicar nuestros servicios, precios y cómo obtener ayuda. ¿Qué necesitas?",in:"Escribe tu pregunta…",sd:"Enviar",c:["Servicios","Precios","Cómo funciona","Contacto"],nf:"No estoy seguro. Reformula tu pregunta o consulta directamente a nuestro equipo:",wa:"Escribir por WhatsApp",rq:"Solicitar este servicio",fr:"desde",ty:"¡De nada! ¿Algo más?",all:"Enviar tu problema",ab:"Pregúntame por cualquier servicio para ver detalles y precio."}
+};
+var KT=["thank","شكرا","شكراً","merci","gracias"],
+KH=["hello","hi","hey","salam","سلام","مرحبا","أهلا","اهلا","bonjour","salut","hola"],
+KP=["price","cost","how much","pricing","fee","سعر","أسعار","اسعار","ثمن","تكلف","كم ","prix","tarif","coût","cout","combien","precio","costo","cuánto","cuanto"],
+KTI=["how long","duration","take","how many hours","fast","quick","مدة","يستغرق","سريع","combien de temps","durée","duree","délai","rapide","tarda","tiempo","duración","rápido","rapido"],
+KC=["contact","whatsapp","call","number","email","e-mail","where","location","city","fez","address","hour","open","24/7","تواصل","رقم","واتساب","اتصال","اتصل","ايميل","إيميل","بريد","أين","اين","موقع","مدينة","فاس","عنوان","ساعات","دوام","مفتوح","numéro","numero","courriel","où","adresse","ville","horaire","ouvert","appeler","contacto","número","correo","dónde","donde","dirección","direccion","ciudad","horario","abierto","llamar"],
+KSA=["safe","privacy","private","secure","confiden","آمن","أمان","خصوصية","بيانات","سري","confidential","privée","donn","seguro","privacidad","datos"],
+KW=["warrant","guarantee","ضمان","garantie","garantía","garantia"],
+KL=["loyal","free service","points","reward","ولاء","مجان","نقاط","fidél","gratuit","lealtad","gratis","puntos"],
+KA=["who are","about us","team","من أنتم","من نحن","فريق","qui êtes","équipe","quiénes","equipo"],
+KHW=["how does","how it works","how to ","process","steps","order","start","كيف","خطوات","طريقة","comment","étapes","commande","cómo","como","pasos","pedir"],
+KS=["service","offer","what do you","خدمات","خدمة","servicio"],
+KV=[["windows","pc","computer","laptop","حاسوب","كمبيوتر","ويندوز","ordinateur","ordenador","portátil","portatil"],
+["mobile","phone","android","iphone","هاتف","جوال","موبايل","téléphone","telephone","móvil","movil","teléfono"],
+["game","gaming","fps","steam","لعب","ألعاب","العاب","jeu","jeux","juego"],
+["network","wifi","wi-fi","router","internet","شبكة","راوتر","واي فاي","réseau","reseau","rúter"],
+["security","hack","account","password","virus","أمن","حساب","اختراق","كلمة","sécurité","securite","compte","seguridad","cuenta"],
+["dark web","deep web","leak","breach","تسريب","دارك","fuite","filtración","filtracion"],
+["linux","kali","ubuntu","لينكس","كالي"],
+["remote","anydesk","teamviewer","عن بعد","distance","remoto"],
+["recover","recovery","backup","deleted","استرجاع","استعادة","نسخ","récup","recup","sauvegarde","recuper","respaldo"],
+["cloud","sync","سحاب","مزامنة","nuage","nube"],
+["activat","licen","office","تفعيل","ترخيص","activación","activacion"]];
+var $=function(i){return document.getElementById(i)},E=function(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+var h=function(a,q){return a.some(function(w){return q.indexOf(w)>-1})};
+function T_(){return T[lang]||T.en}function u_(){return U[lang]||U.en}
+function money(k){return"$"+PR[k]+" (≈ "+Math.ceil(PR[k]*RATE/10)*10+" DH)"}
+function cA(){return[{t:u_().wa,h:"https://wa.me/212646126501"},{t:"vyroxxvx@gmail.com",h:"mailto:vyroxxvx@gmail.com"}]}
+function svc(q){var b=-1,s=0;KV.forEach(function(a,i){var n=a.filter(function(w){return q.indexOf(w)>-1}).length;if(n>0&&n>=s){s=n;b=i}});return b}
+function route(q){q=q.toLowerCase();var n=q.length<22,k;
+if(n&&h(KT,q))return["ty"];if(n&&h(KH,q))return["hi"];
+if(h(KP,q)){k=svc(q);return k>-1?["svc",k]:["price"]}
+if(h(KTI,q))return["time"];if(h(KC,q))return["contact"];
+k=svc(q);if(k>-1)return["svc",k];
+if(h(KSA,q))return["safe"];if(h(KW,q))return["warr"];if(h(KL,q))return["loy"];if(h(KA,q))return["about"];if(h(KHW,q))return["how"];if(h(KS,q))return["sv"];
+return["nf"]}
+function ans(r){var id=r[0],k=r[1],t=T_(),u=u_(),S=SV[lang]||SV.en,ls=function(a){return a.map(function(x){return"• "+x}).join("\n")};
+switch(id){
+case"sv":return[ls(S.map(function(s){return s[0]}))+"\n\n"+u.ab,[]];
+case"price":return[t.p_h+"\n"+ls(S.map(function(s,i){return s[0]+": "+u.fr+" "+money(i)}))+"\n\n"+t.p_note,[]];
+case"svc":return[S[k][0]+"\n"+ls(S[k][1])+"\n\n"+u.fr+" "+money(k)+(k==7?"\n\n"+t.qa1:""),[{t:u.rq,r:k}]];
+case"how":return[t.w_h+"\n1. "+t.w1t+": "+t.w1d+"\n2. "+t.w2t+": "+t.w2d+"\n3. "+t.w3t+": "+t.w3d,[{t:u.all,r:-1}]];
+case"contact":return[t.f4+": "+t.hours+"\n"+t.f3+": "+t.city+"\n"+t.f1+": +212 646 126 501",cA()];
+case"time":return[t.qa2,[{t:u.all,r:-1}]];case"safe":return[t.qa3,[]];case"warr":return[t.qa4,[]];
+case"loy":return[t.lo_h+"\n"+t.lo_p,[]];case"about":return[t.a_p,[]];
+case"ty":return[u.ty,[]];case"hi":return[u.hi,[]];
+default:return[u.nf,cA()]}}
+function go(r){if(r>-1)sel.selectedIndex=r;$("request").scrollIntoView({behavior:"smooth"});$("vxb").classList.remove("o")}
+function say(x,c,a){var m=$("vxbM");m.appendChild(E("div","vm"+(c||""),x));
+if(a&&a.length){var d=E("div","vc");a.forEach(function(o){var e;if(o.h){e=E("a","p",o.t);e.href=o.h;if(o.h.indexOf("http")==0){e.target="_blank";e.rel="noopener"}}else{e=E("button","p",o.t);e.type="button";e.onclick=function(){go(o.r)}}d.appendChild(e)});m.appendChild(d)}
+m.scrollTop=m.scrollHeight}
+function reply(r){var m=$("vxbM"),d=E("div","vm vt");d.innerHTML="<i></i><i></i><i></i>";m.appendChild(d);m.scrollTop=m.scrollHeight;setTimeout(function(){d.remove();var a=ans(r);say(a[0],"",a[1])},450)}
+function send(){var i=$("vxbI"),q=i.value.trim();if(!q)return;i.value="";say(q,"u");
+if(BOT_API){fetch(BOT_API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({q:q,lang:lang})}).then(function(r){return r.json()}).then(function(d){say(d.reply)}).catch(function(){reply(route(q))});return}
+reply(route(q))}
+var shown="";
+function init(){var u=u_();shown=lang;$("vxbP").dir=lang==="ar"?"rtl":"ltr";$("vxbP").setAttribute("aria-label",u.h);$("vxbO").textContent=u.ol;$("vxbK").textContent=T_().h1;$("vxbI").placeholder=u.in;$("vxbS").setAttribute("aria-label",u.sd);
+var m=$("vxbM");m.innerHTML="";say(u.hi);var c=E("div","vc");["sv","price","how","contact"].forEach(function(id,i){var b=E("button","",u.c[i]);b.type="button";b.onclick=function(){say(u.c[i],"u");reply([id])};c.appendChild(b)});m.appendChild(c)}
+var w=E("div");w.id="vxb";
+w.innerHTML='<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="vxl" viewBox="135 96 130 204"><path d="M200 135 L255 155 V215 C255 250 230 275 200 292 C170 275 145 250 145 215 V155 Z" fill="var(--surface)" stroke="var(--ink)" stroke-width="5" stroke-linejoin="round"/><path d="M172 182 L200 240 L228 182" fill="none" stroke="var(--accent)" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><circle cx="200" cy="166" r="6" fill="var(--hot)"/><path d="M168 128 L178 104 L200 120 L222 104 L232 128 Z" fill="var(--accent)" stroke="var(--ink)" stroke-width="4" stroke-linejoin="round"/></symbol></svg><div id="vxbP" role="dialog"><div id="vxbH"><svg class="lg"><use href="#vxl"/></svg><div><b>VYROXX IT</b><small id="vxbO"></small></div><button type="button" id="vxbX" aria-label="Close">×</button></div><div id="vxbM" aria-live="polite"></div><form id="vxbF"><input id="vxbI" autocomplete="off" maxlength="300"><button id="vxbS"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form><div id="vxbK"></div></div><button type="button" id="vxbT" aria-label="Chat"><svg class="lg"><use href="#vxl"/></svg></button>';
+document.body.appendChild(w);
+$("vxbT").onclick=function(){w.classList.toggle("o");if(w.classList.contains("o")&&shown!==lang)init()};
+$("vxbX").onclick=function(){w.classList.remove("o")};
+$("vxbF").onsubmit=function(e){e.preventDefault();send()};
+})();
+</script>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {getAuth,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -1113,5 +1230,6 @@ try{
   });
 }catch(e){}
 </script>
+<script>if("serviceWorker"in navigator)addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){})})</script>
 </body>
 </html>
